@@ -1,0 +1,27 @@
+.label {
+  padding: 0px;
+  border-radius: $default-border-radius;
+  border: none;
+  color: #fff;
+  align-items: center;
+  min-height: 30px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-size: 70%;
+  padding: 5px 10px;
+
+  &.label-red {
+    background-color: #e74c3c;
+  }
+
+  &.label-blue {
+    background-color: #3ea2ff;
+  }
+
+  &.label-green {
+    background-color: #64ce83;
+  }
+
+  &.label-orange {
+    background-color: #ff7f48;
+  }
+}

@@ -1,0 +1,68 @@
+@import "../../common/styles/pallete";
+
+.homeBannerImage {
+  background: url(./tree.png) center center no-repeat;
+  background-size: cover;
+  height: 250px;
+}
+
+.homeBannerMask {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  height: 250px;
+}
+
+.introPanel {
+  margin: -90px auto 20px;
+  width: 80%;
+  max-width: 600px;
+  padding: 20px 40px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+}
+
+.devsWanted {
+  text-align: center;
+  padding: 5px;
+  background: #FFE38D;
+  border-radius: 5px;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 600px;
+
+  a {
+    font-weight: 700;
+  }
+}
+
+.featureImage {
+  display: block;
+  margin: 0px auto;
+}
+
+.galleryImage {
+  display: block;
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  border: 7px solid #fff;
+  background-size: cover;
+  background-position: 50%;
+  height: 200px;
+  background-image: url(./browse.jpg);
+}
+
+.guidesImage {
+  display: block;
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  border: 7px solid #fff;
+  background-size: cover;
+  background-position: 50%;
+  height: 200px;
+  background-image: url(./read.jpg);
+}
+
+.guideVideo {
+  text-align: center;
+}

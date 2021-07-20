@@ -1,0 +1,15 @@
+@import "../../../../common/styles/vars";
+@import "../../../../common/styles/pallete";
+
+.personDetailsAvatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: $color-white solid 4px;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
+  display: block;
+  margin: 0px auto;
+  background-position: center center;
+  background-size: cover;
+  margin-bottom: 15px;
+}

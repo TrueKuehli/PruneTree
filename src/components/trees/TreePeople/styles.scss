@@ -1,0 +1,56 @@
+@import "../../../common/styles/vars";
+@import "../../../common/styles/pallete";
+
+.loading {
+  text-align: center;
+}
+
+.navButtons {
+  > * {
+    margin-right: 10px;
+  }
+
+  text-align: center;
+}
+
+.personTile {
+  border: 1px solid $grey-lightest;
+  border-bottom-width: 2px;
+  border-radius: $default-border-radius;
+  transition: border $transition-speed linear;
+  margin: 15px 0px;
+  color: $font-color;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &:hover {
+    border-bottom-color: $color1;
+
+    .tileArrow {
+      color: $color1;
+    }
+  }
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  margin: 15px 10px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+}
+
+.personMenu {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  a, button {
+    margin-left: 5px;
+  }
+}

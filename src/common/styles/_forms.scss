@@ -1,0 +1,214 @@
+fieldset {
+  border: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+label {
+  font-weight: 700;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+
+  &.has-error {
+    .form-control {
+      border: 1px solid $danger1;
+    }
+    .helper-text {
+      color: $danger1;
+    }
+  }
+
+  .helper-text {
+    display: block;
+    margin-top: 5px;
+    font-style: italic;
+    color: $grey-medium;
+  }
+}
+
+.form-control {
+  font: inherit;
+  border: 1px solid $grey-light;
+  color: $grey-dark;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: $input-border-radius;
+  box-shadow: none;
+  box-sizing : border-box;
+  transition:
+    border $transition-speed linear,
+    color $transition-speed linear,
+    background-color $transition-speed linear;
+
+  &:hover,
+  &:focus{
+    border-color: $color1;
+    outline: 0;
+    box-shadow: none;
+  }
+
+  &.disabled,
+  &:disabled,
+  &:read-only:not(.draft-editor) {
+    cursor: not-allowed;
+    border-color: $grey-lightest;
+    color: $grey-medium;
+  }
+}
+
+.public-DraftEditor-content {
+  min-height: 120px;
+}
+
+.input-group {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+
+  .form-group,
+  .form-control {
+    flex-basis: 100%;
+  }
+
+  .btn,
+  .form-group {
+    margin-right: 5px;
+    margin-bottom: 0px;
+
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+
+input[type="checkbox"][disabled],
+input[type="radio"][disabled] {
+    &+ label {
+        color: $grey-light;
+    }
+}
+
+input[type="checkbox"] {
+  @extend %sr-only;
+
+  &+ label {
+    font-weight: 700;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    span {
+      background-color: $color-white;
+      border-color: $grey-lightest;
+      box-shadow: $grey-lightest 0px 0px 0px 0px inset;
+      transition: border 0.4s, box-shadow 0.4s;
+
+      border: 1px solid $grey-light;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-block;
+      height: 30px;
+      position: relative;
+      vertical-align: middle;
+      width: 50px;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      box-sizing: content-box;
+      background-clip: content-box;
+
+      margin: 0px;
+      margin-right: 10px;
+
+      &:after {
+        content: '';
+
+        left: 0px;
+        transition: background-color 0.4s, left 0.2s;
+        background: $color-white;
+        border-radius: 100%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        height: 30px;
+        position: absolute;
+        top: 0;
+        width: 30px;
+      }
+    }
+  }
+
+  &:checked + label {
+    span {
+      background-color: $green1;
+      border-color: $green1;
+      box-shadow: $green1 0px 0px 0px 16px inset;
+
+      &:after {
+        left: 20px;
+      }
+    }
+  }
+}
+
+input[type="radio"] {
+  @extend %sr-only;
+
+  &+ label {
+    font-weight: 700;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    span {
+      background-color: $color-white;
+      border-color: $grey-lightest;
+      transition: border 0.4s, box-shadow 0.4s;
+
+      border: 1px solid $grey-light;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-block;
+      height: 30px;
+      position: relative;
+      vertical-align: middle;
+      width: 30px;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      box-sizing: content-box;
+      background-clip: content-box;
+
+      margin: 0px;
+      margin-right: 10px;
+
+      &:after {
+        content: '';
+
+        left: 0px;
+        transition: background-color 0.4s, left 0.2s;
+        background: $color-white;
+        border-radius: 100%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  &:checked + label {
+    span {
+      background-color: $green1;
+      border-color: $green1;
+      box-shadow: $green1 0px 0px 0px 16px inset;
+    }
+  }
+}

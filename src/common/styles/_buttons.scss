@@ -1,0 +1,98 @@
+.btn {
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+  font-weight: normal;
+  box-shadow: none;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  line-height: 1.4;
+  border-radius: $button-border-radius;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  margin-right: 10px;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-transition: box-shadow 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+  transition: box-shadow 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  transition: all .22s;
+
+  &:hover,
+  &:focus{
+    outline: 0;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+    filter: brightness(130%);
+  }
+
+  &.btn-primary {
+    color: $color-white;
+    background-color: $color1;
+
+    &:hover:enabled:not(.disabled) {
+      background-color: $color2;
+    }
+  }
+
+  &.btn-danger {
+    color: $color-white;
+    background-color: $danger1;
+
+    &:hover:enabled:not(.disabled) {
+      background-color: $danger2;
+    }
+  }
+
+  &.btn-default {
+    color: $font-color;
+    background-color: $color-white;
+    box-shadow:0px 0px 0px 1px $color1 inset;
+    text-shadow: none;
+
+    &:hover:enabled:not(.disabled) {
+      box-shadow:0px 0px 0px 1px $color2 inset;
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    filter: grayscale(40%);
+    cursor: not-allowed !important;
+    color: $grey-light !important;
+  }
+}
+.btn.btn-link {
+  cursor: pointer;
+  border: none;
+  box-shadow: none;
+  display: inline-block;
+  text-decoration: underline;
+  background: none;
+  text-shadow: none;
+  padding: 0px;
+  margin: 0px;
+  color: $blue1;
+  line-height: 150%;
+  font-size: 16px;
+  font-weight: 300;
+
+  &:hover,
+  &:focus{
+    transform: none;
+    box-shadow: none;
+    filter: none;
+  }
+}
+.btn-lg {
+  padding: 10px 19px;
+  font-size: 17px;
+  line-height: 1.471;
+  border-radius: $large-border-radius;
+}
+.btn-small {
+  padding: 6px 10px;
+  font-size: 13px;
+}

@@ -1,0 +1,20 @@
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 2px;
+    border: none;
+}
+
+.table tr td,
+.table tr th, {
+    padding: .75rem;
+    vertical-align: center;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}

@@ -1,0 +1,22 @@
+@import "../../../../common/styles/vars";
+@import "../../../../common/styles/pallete";
+
+.partnerTile {
+  border: 1px solid $grey-lightest;
+  border-bottom-width: 2px;
+  border-radius: $default-border-radius;
+  transition: border $transition-speed linear;
+  margin: 15px 0px;
+  color: $font-color;
+  text-decoration: none;
+  position: relative;
+  padding: 10px;
+
+  &:hover {
+    border-bottom-color: $color1;
+
+    .tileArrow {
+      color: $color1;
+    }
+  }
+}

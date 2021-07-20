@@ -1,0 +1,89 @@
+{
+  "name": "plum-tree-ui",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:plum-tree/ui.git"
+  },
+  "description": "The Plum Tree App UI",
+  "browser": "index.js",
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "test": "nyc mocha --recursive test",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "clean": "rm -rf dist/",
+    "prebuild": "npm run clean",
+    "build": "NODE_ENV=production webpack",
+    "predeploy": "npm run build",
+    "deploy": "aws s3 sync --delete dist/ s3://com.theplumtreeapp.$COLOR-assets"
+  },
+  "standard": {
+    "ignore": [
+      "dist"
+    ],
+    "globals": [
+      "COMMITHASH",
+      "FileReader",
+      "localStorage",
+      "btoa",
+      "location",
+      "confirm"
+    ],
+    "env": [
+      "mocha"
+    ]
+  },
+  "keywords": [],
+  "author": "Tobias Gray",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.14.6",
+    "@babel/preset-env": "7.14.7",
+    "@babel/preset-react": "7.14.5",
+    "@babel/runtime-corejs3": "7.14.7",
+    "adele": "0.1.1",
+    "axios": "0.21.1",
+    "babel-loader": "8.2.2",
+    "chai": "4.3.4",
+    "crypto-browserify": "^3.12.0",
+    "css-loader": "6.2.0",
+    "css-minimizer-webpack-plugin": "^3.0.2",
+    "d3": "7.0.0",
+    "draft-js": "0.11.7",
+    "draft-js-export-html": "1.4.1",
+    "draft-js-import-html": "1.4.1",
+    "favicons": "^6.2.2",
+    "favicons-webpack-plugin": "5.0.2",
+    "git-revision-webpack-plugin": "5.0.0",
+    "html-webpack-plugin": "5.3.2",
+    "jsonwebtoken": "8.5.1",
+    "lodash.get": "4.4.2",
+    "mini-css-extract-plugin": "2.1.0",
+    "mocha": "9.0.2",
+    "moment": "2.29.1",
+    "normalize.css": "8.0.1",
+    "nyc": "15.1.0",
+    "postcss": "^8.3.5",
+    "process": "^0.11.10",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-image-crop": "8.6.12",
+    "react-redux": "7.2.4",
+    "react-router-dom": "5.2.0",
+    "react-select": "4.3.1",
+    "react-toastify": "5.5.0",
+    "redux": "4.1.0",
+    "regenerator-runtime": "^0.13.7",
+    "sass": "^1.35.2",
+    "sass-loader": "12.1.0",
+    "standard": "16.0.3",
+    "stream-browserify": "^3.0.0",
+    "style-loader": "3.2.1",
+    "util": "^0.12.4",
+    "webpack": "5.45.1",
+    "webpack-cli": "4.7.2",
+    "webpack-dev-server": "3.11.2"
+  },
+  "dependencies": {}
+}
