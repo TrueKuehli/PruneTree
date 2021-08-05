@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import axios from 'axios'
-
+import get from 'lodash.get'
 import styles from './styles.scss'
 import auth from '../../../common/js/auth'
 import ToolbarDropdown from './ToolbarDropdown'
 
-export default ({ treeId, setPreviewMode: onPreviewModeChange, saveTree: onSaveTree }) => {
+export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTree }) => {
   const [previewMode, setPreviewMode] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -51,7 +51,7 @@ export default ({ treeId, setPreviewMode: onPreviewModeChange, saveTree: onSaveT
     const deleteConfirmed = confirm('Are you sure you want to delete this tree?')
 
     if (deleteConfirmed) {
-      axios.delete(`/api/trees/${treeId}`, { headers: { Authorization: `Bearer ${authToken}` } })
+      axios.delete(`/api/trees/${get(tree, '_id')}`, { headers: { Authorization: `Bearer ${authToken}` } })
         .then(() => {
           toast.success('Tree deleted')
           // quickest way to go to homepage and reload trees for side nav is to
@@ -79,7 +79,7 @@ export default ({ treeId, setPreviewMode: onPreviewModeChange, saveTree: onSaveT
   }, {
     label: 'Publish Tree',
     onClick: closeMenus,
-    link: `/trees/${treeId}/publish`
+    link: `/trees/${get(tree, '_id')}/publish`
   }, {
     label: 'Delete Tree',
     onClick: deleteTree
@@ -88,11 +88,11 @@ export default ({ treeId, setPreviewMode: onPreviewModeChange, saveTree: onSaveT
   const EDIT_MENU_ITEMS = [{
     label: 'Tree Details',
     onClick: closeMenus,
-    link: `/trees/${treeId}/details`
+    link: `/trees/${get(tree, '_id')}/details`
   }, {
     label: 'People in Tree',
     onClick: closeMenus,
-    link: `/trees/${treeId}/people`
+    link: `/trees/${get(tree, '_id')}/people`
   }]
 
   return (
