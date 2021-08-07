@@ -15,7 +15,7 @@ import styles from './styles.scss'
 import RawHTML from '../../RawHTML'
 import Loading from '../../Loading'
 
-export default ({ tree, people = [], loading, saveTree, readonly, editNode }) => {
+export default ({ tree, people = [], loading, readonly, onChange, onEditNode }) => {
   const [zoomInitialized, setZoomInitialized] = useState(false)
   const [links, setLinks] = useState([])
   const [nodes, setNodes] = useState([])
@@ -31,10 +31,10 @@ export default ({ tree, people = [], loading, saveTree, readonly, editNode }) =>
   const zoom = useRef(null)
 
   useEffect(() => {
-    // Fix for when we switch trees the zoom will need to be re-initialized or
-    // zooming an panning stops working
     setZoomInitialized(false)
+  }, [])
 
+  useEffect(() => {
     if (tree && tree.data) {
       updateTreeState(tree.data)
     }
@@ -123,18 +123,34 @@ export default ({ tree, people = [], loading, saveTree, readonly, editNode }) =>
     setTreeDetails(false)
   }
 
-  function addNode (parent) {
+  function addNode (node) {
     const newNode = {
       partners: []
     }
 
-    parent.data.children = parent.data.children || []
-    parent.data.children.push(newNode)
+    // create a record of the child indexes in the tree to get to the node we
+    // want to add a new node to
+    let parentNode = node
+    const childIndexes = []
+    while (parentNode.parent) {
+      // determine the current nodes index in the parent nodes children
+      childIndexes.unshift(parentNode.parent.children.indexOf(parentNode))
 
-    const treeData = tree.data
-    updateTreeState(treeData)
+      // move on to next parent node
+      parentNode = parentNode.parent
+    }
 
-    saveTree()
+    // Use the child indexes to add the new node to the tree
+    const newTree = JSON.parse(JSON.stringify(tree)) // deep clone of the tree
+    let currentNode = newTree.data
+    for (let i = 0; i < childIndexes.length; i++) {
+      const index = childIndexes[i]
+      currentNode = currentNode.children[index]
+    }
+
+    currentNode.children = currentNode.children ? [...currentNode.children, newNode] : [newNode]
+
+    onChange(newTree)
   }
 
   function highlightParents (node, peopleIds) {
@@ -160,14 +176,14 @@ export default ({ tree, people = [], loading, saveTree, readonly, editNode }) =>
       <div
         className={styles.showTreeDetails}
         onClick={handleShowTreeDetails}
-        style={saveTree ? { top: 65 } : { top: 0 }}
+        style={onChange ? { top: 65 } : { top: 0 }}
       >
         <i className='icon-info' style={{ marginRight: 7 }} /> Tree Info
       </div>
 
       {personDetails && (
         <PersonDetails
-          style={saveTree ? { top: 65 } : { top: 0 }}
+          style={onChange ? { top: 65 } : { top: 0 }}
           closeDetails={closePersonDetails}
           avatar={personDetails.avatar}
           firstName={personDetails.firstName}
@@ -188,7 +204,7 @@ export default ({ tree, people = [], loading, saveTree, readonly, editNode }) =>
 
       {treeDetails && (
         <TreeDetails
-          style={saveTree ? { top: 65 } : { top: 0 }}
+          style={onChange ? { top: 65 } : { top: 0 }}
           closeDetails={closeTreeDetails}
           image={treeCover}
           title={treeTitle}
@@ -227,7 +243,7 @@ export default ({ tree, people = [], loading, saveTree, readonly, editNode }) =>
                   showPersonDetails={showPersonDetails}
                   addNode={addNode}
                   readonly={readonly}
-                  editNode={editNode}
+                  editNode={onEditNode}
                 />
               )
             })}

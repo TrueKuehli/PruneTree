@@ -14,7 +14,7 @@ export default ({ match: { params: { treeId } } }) => {
   const [tree, setTree] = useState(null)
   const [people, setPeople] = useState([])
   const [readonly, setReadonly] = useState(false)
-  const [node, setNode] = useState(null)
+  const [nodeToEdit, setNodeToEdit] = useState(null)
 
   useEffect(() => {
     setLoading(true)
@@ -45,13 +45,14 @@ export default ({ match: { params: { treeId } } }) => {
       })
   }, [treeId])
 
-  function saveTree (alertSuccess = false) {
+  function saveTree (tree, alertSuccess = false) {
     const authToken = auth.getToken()
 
     if (!authToken) {
       return toast.error('Looks like you\'re not logged in', { autoClose: false })
     }
 
+    // only save the tree structure data
     const { data } = tree
 
     axios.patch(`/api/trees/${treeId}`,
@@ -59,6 +60,7 @@ export default ({ match: { params: { treeId } } }) => {
       { headers: { Authorization: `Bearer ${authToken}` } }
     )
       .then(() => {
+        setTree(tree)
         if (alertSuccess) {
           toast.success('Tree data saved')
         }
@@ -66,14 +68,6 @@ export default ({ match: { params: { treeId } } }) => {
       .catch((error) => {
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
       })
-  }
-
-  function editNode (node) {
-    setNode(node)
-  }
-
-  function closeEditNode () {
-    setNode(null)
   }
 
   return (
@@ -84,20 +78,21 @@ export default ({ match: { params: { treeId } } }) => {
         people={people}
         loading={loading}
         readonly={readonly}
-        saveTree={saveTree}
-        editNode={editNode}
+        onChange={saveTree}
+        onEditNode={setNodeToEdit}
       />
       <Toolbar
-        treeId={treeId}
+        tree={tree}
         saveTree={saveTree}
         setPreviewMode={setReadonly}
       />
-      {node &&
+      {nodeToEdit &&
         <NodeEdit
           people={people}
-          node={node}
-          close={closeEditNode}
-          saveTree={saveTree}
+          tree={tree}
+          node={nodeToEdit}
+          close={() => setNodeToEdit(null)}
+          onChange={saveTree}
         />}
     </div>
   )

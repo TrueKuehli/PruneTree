@@ -1,183 +1,64 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import get from 'lodash.get'
-import PeopleSelect from '../PeopleSelect'
-import styles from './styles.scss'
+import PartnerRow from './PartnerRow'
 
-class Partners extends Component {
-  constructor (props) {
-    super(props)
+export default ({ node, people, onSave, close }) => {
+  const [partners, setPartners] = useState(get(node, 'data.partners', []))
 
-    const partners = get(props, 'node.partners')
-    this.state = {
-      partners
-    }
-
-    this.handleAddPartner = this.handleAddPartner.bind(this)
-    this.removePartner = this.removePartner.bind(this)
-    this.partnersUpdated = this.partnersUpdated.bind(this)
-    this.handleSaveNodePartners = this.handleSaveNodePartners.bind(this)
-    this.handleClose = props.close
-  }
-
-  handleAddPartner () {
-    const partners = this.state.partners.concat([{
+  function handleAddPartner () {
+    setPartners(partners.concat([{
       people: [],
       type: 'PARTNER'
-    }])
-
-    this.setState({
-      partners
-    })
+    }]))
   }
 
-  removePartner (index) {
-    const arr = this.state.partners
-    const partners = [...arr.slice(0, index), ...arr.slice(index + 1)]
-
-    this.setState({
-      partners
-    })
+  function removePartner (index) {
+    setPartners([...partners.slice(0, index), ...partners.slice(index + 1)])
   }
 
-  partnersUpdated (partnerRowIndex, partnerRowState) {
-    const newPartners = this.state.partners.map((partnerObject, index) => {
-      if (index !== partnerRowIndex) {
-        return partnerObject
-      }
-
-      const partners = get(partnerRowState, 'partners') || []
-
-      return {
-        type: partnerRowState.type,
-        people: partners.map((partner) => {
-          return this.props.people.find(person => person._id === partner.value)
-        })
-      }
-    })
-
-    this.setState({
-      partners: newPartners
-    })
-  }
-
-  handleSaveNodePartners () {
-    const newNodeData = {
-      partners: this.state.partners
+  function partnerUpdated (partnerRowIndex, partner) {
+    const { type, partners: partnerRowPartners } = partner
+    const newPartner = {
+      type,
+      people: partnerRowPartners.map((partner) => people.find(person => person._id === partner.value))
     }
 
-    this.props.onSave(newNodeData)
-    this.props.close()
+    const newPartners = partners
+      .map((originalPartner, index) => index === partnerRowIndex ? newPartner : originalPartner)
+
+    setPartners(newPartners)
   }
 
-  render () {
-    const { partners } = this.state
-    const people = this.props.people.map(person => {
-      return { label: `${person.firstName} ${person.lastName}`, value: person._id }
-    })
-
-    return (
-      <div>
-        <h2>Persons Partners</h2>
-        <p>Add partners by using the "Add Partner" button and selecting Sims.</p>
-        <button className='btn btn-primary' onClick={this.handleAddPartner}><i className='icon-plus' /> Add Partner</button>
-
-        {partners.map((partner, index) => {
-          return (
-            <PartnerRow
-              key={index}
-              index={index}
-              partner={partner}
-              people={people}
-              partnersUpdated={this.partnersUpdated}
-              removePartner={this.removePartner}
-            />
-          )
-        })}
-
-        <button className='btn btn-default' onClick={this.handleClose}>Cancel</button>
-        <button className='btn btn-primary' onClick={this.handleSaveNodePartners}>Save</button>
-      </div>
-    )
-  }
-};
-
-class PartnerRow extends Component {
-  constructor (props) {
-    super(props)
-
-    const partnerPeople = get(props, 'partner.people')
-    const partners = partnerPeople.map(person => {
-      return { label: `${person.firstName} ${person.lastName}`, value: person._id }
-    })
-    const type = get(props, 'partner.partnerType', 'PARTNER')
-    this.state = {
-      partners,
-      type
-    }
-
-    this.handleTypeChange = this.handleTypeChange.bind(this)
-    this.handlePeopleChange = this.handlePeopleChange.bind(this)
-    this.handleRemovePartner = this.handleRemovePartner.bind(this)
+  function handleSaveNodePartners () {
+    onSave({ partners })
+    close()
   }
 
-  handleTypeChange (event) {
-    this.setState({
-      type: event.target.value
-    }, () => {
-      this.props.partnersUpdated(this.props.index, this.state)
-    })
-  }
+  const peopleOptions = people.map(person => {
+    return { label: `${person.firstName} ${person.lastName}`, value: person._id }
+  })
 
-  handlePeopleChange (partners) {
-    this.setState({
-      partners
-    }, () => {
-      this.props.partnersUpdated(this.props.index, this.state)
-    })
-  }
+  return (
+    <div>
+      <h2>Persons Partners</h2>
+      <p>Add partners by using the "Add Partner" button and selecting Sims.</p>
+      <button className='btn btn-primary' onClick={handleAddPartner}><i className='icon-plus' /> Add Partner</button>
 
-  handleRemovePartner () {
-    this.props.removePartner(this.props.index)
-  }
-
-  render () {
-    const { people, index } = this.props
-    const { partners, type } = this.state
-
-    return (
-      <div className={styles.partnerTile}>
-        <div className='form-group'>
-          <label>Partner Sim(s)</label>
-          <PeopleSelect
-            options={people}
-            onValuesChange={this.handlePeopleChange}
-            defaultValues={partners}
+      {partners.map((partner, index) => {
+        return (
+          <PartnerRow
+            key={index}
+            index={index}
+            partner={partner}
+            people={peopleOptions}
+            onChange={partnerUpdated}
+            onRemove={removePartner}
           />
-        </div>
+        )
+      })}
 
-        <div className='form-group'>
-          <label>Partner Type</label>
-          <input id={`partner-${index}`} type='radio' name={`type-${index}`} value='PARTNER' checked={type === 'PARTNER'} onChange={this.handleTypeChange} />
-          <label className='radio' htmlFor={`partner-${index}`}>
-            <span /> Partner
-          </label>
-          <input id={`ex-partner-${index}`} type='radio' name={`type-${index}`} value='EX_PARTNER' checked={type === 'EX_PARTNER'} onChange={this.handleTypeChange} />
-          <label className='radio' htmlFor={`ex-partner-${index}`}>
-            <span /> Ex-Partner
-          </label>
-          <input id={`married-${index}`} type='radio' name={`type-${index}`} value='MARRIED' checked={type === 'MARRIED'} onChange={this.handleTypeChange} />
-          <label className='radio' htmlFor={`married-${index}`}>
-            <span /> Married
-          </label>
-          <input id={`abduction-${index}`} type='radio' name={`type-${index}`} value='ABDUCTION' checked={type === 'ABDUCTION'} onChange={this.handleTypeChange} />
-          <label className='radio' htmlFor={`abduction-${index}`}>
-            <span /> Abduction
-          </label>
-        </div>
-        <button className='btn btn-danger' onClick={this.handleRemovePartner}>Remove Partner</button>
-      </div>
-    )
-  }
+      <button className='btn btn-default' onClick={close}>Cancel</button>
+      <button className='btn btn-primary' onClick={handleSaveNodePartners}>Save</button>
+    </div>
+  )
 }
-
-export default Partners
