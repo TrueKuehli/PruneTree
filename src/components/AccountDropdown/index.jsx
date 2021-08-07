@@ -37,7 +37,7 @@ export default () => {
 
   return (
     <div ref={wrapperRef}>
-      <div className={styles.dropdownButton} onClick={handleDropdownToggle}>
+      <div id='account-dropdown' className={styles.dropdownButton} onClick={handleDropdownToggle}>
         Account
         <i className={open ? `${styles.downArrow} ${styles.downArrowActive}` : styles.downArrow} />
       </div>
@@ -46,7 +46,7 @@ export default () => {
           ? (
             <ul>
               <li><Link to='/account' onClick={handleDropdownToggle}>Account Settings</Link></li>
-              <li><Link to='/' onClick={handleLogout}>Logout</Link></li>
+              <li><Link id='account-logout' to='/' onClick={handleLogout}>Logout</Link></li>
             </ul>
             )
           : (

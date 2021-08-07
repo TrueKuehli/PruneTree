@@ -59,13 +59,13 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className='form-group'>
             <label>Username</label>
-            <input className='form-control' type='text' name='username' value={this.state.username} onChange={this.handleChange} />
+            <input id='username-input' className='form-control' type='text' name='username' value={this.state.username} onChange={this.handleChange} />
           </div>
           <div className='form-group'>
             <label>Password</label>
-            <input className='form-control' type='password' name='password' value={this.state.password} onChange={this.handleChange} autoComplete='on' />
+            <input id='password-input' className='form-control' type='password' name='password' value={this.state.password} onChange={this.handleChange} autoComplete='on' />
           </div>
-          <button type='submit' className='btn btn-primary'>Login</button>
+          <button id='login-submit' type='submit' className='btn btn-primary'>Login</button>
           <p>Not signed up yet? <Link to='signup'>Click here to create an account.</Link></p>
           <p>Forgot your password? <Link to='forgot-password'>Click here to reset it.</Link></p>
           <p>Can't remember your username? <Link to='forgot-username'>Click here retreive it.</Link></p>
