@@ -51,17 +51,17 @@ class Signup extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className='form-group'>
             <label>Username</label>
-            <input className='form-control' placeholder='BobPancake100' type='text' name='username' value={this.state.username} onChange={this.handleChange} />
+            <input id='username-input' className='form-control' placeholder='BobPancake100' type='text' name='username' value={this.state.username} onChange={this.handleChange} />
           </div>
           <div className='form-group'>
             <label>Email</label>
-            <input className='form-control' placeholder='bob@example.com' type='text' name='email' value={this.state.email} onChange={this.handleChange} />
+            <input id='email-input' className='form-control' placeholder='bob@example.com' type='text' name='email' value={this.state.email} onChange={this.handleChange} />
           </div>
           <div className='form-group'>
             <label>Password</label>
-            <input className='form-control' type='password' name='password' value={this.state.password} onChange={this.handleChange} />
+            <input id='password-input' className='form-control' type='password' name='password' value={this.state.password} onChange={this.handleChange} />
           </div>
-          <button type='submit' className='btn btn-primary'>Create Account</button>
+          <button id='signup-submit' type='submit' className='btn btn-primary'>Create Account</button>
           <p>Already got an account? <Link to='login'>Click here to login.</Link></p>
         </form>
       </div>
