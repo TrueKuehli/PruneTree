@@ -121,7 +121,7 @@ class Node extends Component {
 
         {!this.props.readonly && (
           <circle
-            className={styles.addChildIcon}
+            className={`${styles.addChildIcon} add-node`}
             cx={partners.length ? NODE_HEIGHT : NODE_HEIGHT / 2}
             cy={NODE_HEIGHT}
             fill={`url(#${PLUS_BUTTON_PATTERN})`}
