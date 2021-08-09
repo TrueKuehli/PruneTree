@@ -74,22 +74,27 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
   }
 
   const ACTION_MENU_ITEMS = [{
+    id: 'actions-dropdown-save',
     label: 'Save Tree',
     onClick: saveTree
   }, {
+    id: 'actions-dropdown-publish',
     label: 'Publish Tree',
     onClick: closeMenus,
     link: `/trees/${get(tree, '_id')}/publish`
   }, {
+    id: 'actions-dropdown-delete',
     label: 'Delete Tree',
     onClick: deleteTree
   }]
 
   const EDIT_MENU_ITEMS = [{
+    id: 'edit-dropdown-tree-details',
     label: 'Tree Details',
     onClick: closeMenus,
     link: `/trees/${get(tree, '_id')}/details`
   }, {
+    id: 'edit-dropdown-people',
     label: 'People in Tree',
     onClick: closeMenus,
     link: `/trees/${get(tree, '_id')}/people`
@@ -102,10 +107,12 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
         <div className={styles.toolbar}>
           <span className={styles.toolbarTitle}>Tree Editor</span>
           <ToolbarDropdown
+            id='actions-dropdown'
             label='Actions'
             items={ACTION_MENU_ITEMS}
           />
           <ToolbarDropdown
+            id='edit-dropdown'
             label='Edit'
             items={EDIT_MENU_ITEMS}
           />

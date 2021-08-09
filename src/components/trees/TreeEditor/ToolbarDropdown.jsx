@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.scss'
 
-export default ({ label, items }) => {
+export default ({ id, label, items }) => {
   const [open, setOpen] = useState(false)
   const wrapperRef = useRef(null)
 
@@ -33,14 +33,14 @@ export default ({ label, items }) => {
 
   return (
     <div className={styles.toolbarDropdown} ref={wrapperRef}>
-      <div className={styles.toolbarItem} onClick={handleDropdownToggle}>
+      <div id={id} className={styles.toolbarItem} onClick={handleDropdownToggle}>
         {label} <i className={open ? `${styles.downArrow} ${styles.downArrowActive}` : styles.downArrow} />
       </div>
       <div className={open ? `${styles.menu} ${styles.menuActive}` : styles.menu}>
         <ul>
           {items.map((menuItem, index) => {
             return (
-              <li key={index}>
+              <li id={menuItem.id} key={index}>
                 {menuItem.link
                   ? (
                     <Link to={menuItem.link} onClick={() => handleItemClick(menuItem)}>{menuItem.label}</Link>
