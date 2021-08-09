@@ -182,12 +182,12 @@ export default ({ history, match: { params: { treeId, personId } } }) => {
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
           <label>First Name</label>
-          <input className='form-control' type='text' name='firstName' value={firstName} onChange={(ev) => setFirstName(ev.target.value)} />
+          <input id='first-name' className='form-control' type='text' name='firstName' value={firstName} onChange={(ev) => setFirstName(ev.target.value)} />
         </div>
 
         <div className='form-group'>
           <label>Last Name</label>
-          <input className='form-control' type='text' name='lastName' value={lastName} onChange={(ev) => setLastName(ev.target.value)} />
+          <input id='last-name' className='form-control' type='text' name='lastName' value={lastName} onChange={(ev) => setLastName(ev.target.value)} />
         </div>
 
         <RichEditor initialHtml={bio} onUpdate={setBio} />
@@ -256,7 +256,7 @@ export default ({ history, match: { params: { treeId, personId } } }) => {
         </div>
 
         <Link className='btn btn-default' to={`/trees/${treeId}/people`}>Cancel</Link>
-        <button type='submit' className='btn btn-primary'>{personId ? 'Update Person' : 'Create Person'}</button>
+        <button id='save-person' type='submit' className='btn btn-primary'>{personId ? 'Update Person' : 'Create Person'}</button>
       </form>
     </div>
   )

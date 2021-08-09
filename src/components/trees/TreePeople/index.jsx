@@ -151,8 +151,8 @@ class TreePeople extends Component {
         <h1>Manage People in Your Tree</h1>
         <p>Here you can create people to place in the structure of your family tree or edit existing people already in the tree.</p>
         <div className={styles.navButtons}>
-          <Link className='btn btn-default' to={`/trees/${treeId}`}><i className='icon-chevron-left' /> Back to Your Tree</Link>
-          <Link className='btn btn-primary' to={personCreateLink}><i className='icon-plus' /> Add Someone New</Link>
+          <Link id='back-to-tree' className='btn btn-default' to={`/trees/${treeId}`}><i className='icon-chevron-left' /> Back to Your Tree</Link>
+          <Link id='add-new-person' className='btn btn-primary' to={personCreateLink}><i className='icon-plus' /> Add Someone New</Link>
         </div>
         <div className='form-group'>
           <label>Search</label>
@@ -185,7 +185,7 @@ class TreePeople extends Component {
           }
 
           return (
-            <div key={person._id} className={styles.personTile}>
+            <div key={person._id} className={`${styles.personTile} people-list-item`}>
               <div className={styles.avatar} style={inlineAvatarStyle} />
               <div>{name}</div>
               <div className={styles.personMenu}>
