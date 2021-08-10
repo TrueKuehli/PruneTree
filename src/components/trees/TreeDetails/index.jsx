@@ -176,11 +176,11 @@ class TreeDetails extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className='form-group'>
             <label>Title</label>
-            <input className='form-control' type='text' name='title' value={this.state.title} onChange={this.handleChange} />
+            <input id='tree-title-input' className='form-control' type='text' name='title' value={this.state.title} onChange={this.handleChange} />
           </div>
           <RichEditor initialHtml={this.state.description} onUpdate={this.handleDescriptionUpdate} />
           <Link className={cancelClass} to={cancelLink}>Cancel</Link>
-          <button type='submit' className={submitClass}>{treeId ? 'Update Tree Details' : 'Create Tree'}</button>
+          <button id='tree-details-submit' type='submit' className={submitClass}>{treeId ? 'Update Tree Details' : 'Create Tree'}</button>
         </form>
       </div>
     )
