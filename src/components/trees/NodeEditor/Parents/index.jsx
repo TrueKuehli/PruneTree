@@ -3,7 +3,6 @@ import get from 'lodash.get'
 import PeopleSelect from '../PeopleSelect'
 
 export default ({ node, people, onSave, close }) => {
-  console.log(node)
   const [conception, setConception] = useState(get(node, 'data.parentType', 'NONE'))
   const [parents, setParents] = useState(get(node, 'data.parents', [])
     .map(person => ({ label: `${person.firstName} ${person.lastName}`, value: person._id })))

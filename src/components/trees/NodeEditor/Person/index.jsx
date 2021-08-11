@@ -32,6 +32,7 @@ export default ({ node, people, onSave, close }) => {
 
       <div className='form-group'>
         <PersonSelect
+          inputId='node-person-select'
           options={peopleOptions}
           onValueChange={(selected) => selectPerson(selected.value)}
           defaultValue={defaultValue}
