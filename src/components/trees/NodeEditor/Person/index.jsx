@@ -40,7 +40,7 @@ export default ({ node, people, onSave, close }) => {
       </div>
 
       <button className='btn btn-default' onClick={close}>Cancel</button>
-      <button className='btn btn-primary' onClick={handleSaveNodePerson}>Save</button>
+      <button id='save-node-person' className='btn btn-primary' onClick={handleSaveNodePerson}>Save</button>
     </div>
   )
 }

@@ -73,7 +73,7 @@ export default ({ people = [], tree, node, close, onChange }) => {
   return (
     <div className={styles.editNodeContainer}>
       <div className='container'>
-        <div className={styles.closeButton} onClick={close}>
+        <div id='close-node-editor' className={styles.closeButton} onClick={close}>
           <span>Close</span>
           <i className={styles.close} />
         </div>

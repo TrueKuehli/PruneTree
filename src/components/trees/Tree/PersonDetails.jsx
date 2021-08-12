@@ -47,12 +47,12 @@ class PersonDetails extends Component {
             <span>Edit</span>
           </Link>
         )}
-        <div className={styles.closeButton} onClick={() => this.props.closeDetails()}>
+        <div id='close-person-details' className={styles.closeButton} onClick={() => this.props.closeDetails()}>
           <span>Close</span>
         </div>
         <div className={styles.personDetailsTop}>
           <div className={styles.personDetailsAvatar} style={inlineAvatarStyle} />
-          <h2>{this.props.firstName} {this.props.lastName}</h2>
+          <h2 id='person-details-name'>{this.props.firstName} {this.props.lastName}</h2>
         </div>
         <div>
           <RawHTML html={this.props.bio} />
@@ -60,14 +60,14 @@ class PersonDetails extends Component {
 
         {parents.length > 0 && (
           <div>
-            <h3>Biological Parents <ParentType type={parentType} /></h3>
+            <h3 id='person-details-biological-parents-title'>Biological Parents <ParentType type={parentType} /></h3>
             <div>
               {parents.map((parent, index) => {
                 const backgroundImage = parent.avatar ? `url(${getUploadedImageUri(parent.avatar)})` : `url(${defaultAvatar})`
                 return (
                   <div className={styles.parentRow} key={index}>
                     <div className={styles.parentAvatar} style={{ backgroundImage }} />
-                    <span>{parent.firstName} {parent.lastName}</span>
+                    <span className='person-details-biological-parent-name'>{parent.firstName} {parent.lastName}</span>
                   </div>
                 )
               })}
