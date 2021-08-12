@@ -56,7 +56,8 @@ class PersonSelect extends Component {
     const {
       options,
       onValueChange,
-      defaultValue
+      defaultValue,
+      inputId
     } = this.props
 
     return (
@@ -67,6 +68,7 @@ class PersonSelect extends Component {
         isSearchable
         options={options}
         styles={customStyles}
+        inputId={inputId}
       />
     )
   }

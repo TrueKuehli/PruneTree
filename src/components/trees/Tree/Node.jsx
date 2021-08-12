@@ -132,7 +132,7 @@ class Node extends Component {
 
         {!this.props.readonly && (
           <circle
-            className={styles.editNodeIcon}
+            className={`${styles.editNodeIcon} edit-node`}
             cy={NODE_HEIGHT / 2}
             fill={`url(#${EDIT_BUTTON_PATTERN})`}
             r={NODE_BUTTON_RADIUS}

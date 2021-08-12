@@ -56,11 +56,13 @@ class PeopleSelect extends Component {
     const {
       options,
       onValuesChange,
-      defaultValues
+      defaultValues,
+      inputId
     } = this.props
 
     return (
       <Select
+        inputId={inputId}
         value={defaultValues}
         onChange={onValuesChange}
         options={options}

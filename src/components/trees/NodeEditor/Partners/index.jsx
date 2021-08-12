@@ -42,7 +42,7 @@ export default ({ node, people, onSave, close }) => {
     <div>
       <h2>Persons Partners</h2>
       <p>Add partners by using the "Add Partner" button and selecting Sims.</p>
-      <button className='btn btn-primary' onClick={handleAddPartner}><i className='icon-plus' /> Add Partner</button>
+      <button id='add-node-partner' className='btn btn-primary' onClick={handleAddPartner}><i className='icon-plus' /> Add Partner</button>
 
       {partners.map((partner, index) => {
         return (
@@ -58,7 +58,7 @@ export default ({ node, people, onSave, close }) => {
       })}
 
       <button className='btn btn-default' onClick={close}>Cancel</button>
-      <button className='btn btn-primary' onClick={handleSaveNodePartners}>Save</button>
+      <button id='save-node-partners' className='btn btn-primary' onClick={handleSaveNodePartners}>Save</button>
     </div>
   )
 }

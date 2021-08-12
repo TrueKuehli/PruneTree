@@ -3,7 +3,6 @@ import get from 'lodash.get'
 import PeopleSelect from '../PeopleSelect'
 
 export default ({ node, people, onSave, close }) => {
-  console.log(node)
   const [conception, setConception] = useState(get(node, 'data.parentType', 'NONE'))
   const [parents, setParents] = useState(get(node, 'data.parents', [])
     .map(person => ({ label: `${person.firstName} ${person.lastName}`, value: person._id })))
@@ -37,6 +36,7 @@ export default ({ node, people, onSave, close }) => {
       <div className='form-group'>
         <label>Parents</label>
         <PeopleSelect
+          inputId='node-parents-select'
           options={peopleOptions}
           onValuesChange={setParents}
           defaultValues={parents}
@@ -63,6 +63,7 @@ export default ({ node, people, onSave, close }) => {
       <div className='form-group'>
         <label>Parents</label>
         <PeopleSelect
+          inputId='node-adoptive-parents-select'
           options={peopleOptions}
           onValuesChange={setAdoptiveParents}
           defaultValues={adoptiveParents}
@@ -70,7 +71,7 @@ export default ({ node, people, onSave, close }) => {
       </div>
 
       <button className='btn btn-default' onClick={close}>Cancel</button>
-      <button className='btn btn-primary' onClick={handleSaveNodeParents}>Save</button>
+      <button id='save-node-parents' className='btn btn-primary' onClick={handleSaveNodeParents}>Save</button>
     </div>
   )
 }

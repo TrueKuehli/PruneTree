@@ -32,6 +32,7 @@ export default ({ node, people, onSave, close }) => {
 
       <div className='form-group'>
         <PersonSelect
+          inputId='node-person-select'
           options={peopleOptions}
           onValueChange={(selected) => selectPerson(selected.value)}
           defaultValue={defaultValue}
@@ -39,7 +40,7 @@ export default ({ node, people, onSave, close }) => {
       </div>
 
       <button className='btn btn-default' onClick={close}>Cancel</button>
-      <button className='btn btn-primary' onClick={handleSaveNodePerson}>Save</button>
+      <button id='save-node-person' className='btn btn-primary' onClick={handleSaveNodePerson}>Save</button>
     </div>
   )
 }

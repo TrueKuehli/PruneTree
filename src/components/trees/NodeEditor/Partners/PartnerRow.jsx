@@ -28,6 +28,7 @@ export default ({ partner, people, index, onChange, onRemove }) => {
       <div className='form-group'>
         <label>Partner Sim(s)</label>
         <PeopleSelect
+          inputId={`node-partner-select-${index}`}
           options={people}
           onValuesChange={setPartners}
           defaultValues={partners}
@@ -37,19 +38,19 @@ export default ({ partner, people, index, onChange, onRemove }) => {
       <div className='form-group'>
         <label>Partner Type</label>
         <input id={`partner-${index}`} type='radio' name={`type-${index}`} value='PARTNER' checked={type === 'PARTNER'} onChange={handleTypeChange} />
-        <label className='radio' htmlFor={`partner-${index}`}>
+        <label id={`partner-label-${index}`} className='radio' htmlFor={`partner-${index}`}>
           <span /> Partner
         </label>
         <input id={`ex-partner-${index}`} type='radio' name={`type-${index}`} value='EX_PARTNER' checked={type === 'EX_PARTNER'} onChange={handleTypeChange} />
-        <label className='radio' htmlFor={`ex-partner-${index}`}>
+        <label id={`ex-partner-label-${index}`} className='radio' htmlFor={`ex-partner-${index}`}>
           <span /> Ex-Partner
         </label>
         <input id={`married-${index}`} type='radio' name={`type-${index}`} value='MARRIED' checked={type === 'MARRIED'} onChange={handleTypeChange} />
-        <label className='radio' htmlFor={`married-${index}`}>
+        <label id={`married-label-${index}`} className='radio' htmlFor={`married-${index}`}>
           <span /> Married
         </label>
         <input id={`abduction-${index}`} type='radio' name={`type-${index}`} value='ABDUCTION' checked={type === 'ABDUCTION'} onChange={handleTypeChange} />
-        <label className='radio' htmlFor={`abduction-${index}`}>
+        <label id={`abduction-label-${index}`} className='radio' htmlFor={`abduction-${index}`}>
           <span /> Abduction
         </label>
       </div>

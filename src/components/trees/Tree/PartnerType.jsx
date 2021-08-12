@@ -20,7 +20,7 @@ class PartnerType extends Component {
         transform += ' rotate(45,5,5)'
       }
       return (
-        <g className={styles.plus} transform={transform}>
+        <g className={type === 'EX_PARTNER' ? `${styles.plus} ex-partner-symbol` : `${styles.plus} partner-symbol`} transform={transform}>
           <line
             x1={NODE_PLUS_WIDTH / 2}
             y1='0'
@@ -39,7 +39,7 @@ class PartnerType extends Component {
 
     if (type === 'ABDUCTION') {
       return (
-        <g className={styles.abduction} transform='translate(-5,35)'>
+        <g className={`${styles.abduction} abduction-symbol`} transform='translate(-5,35)'>
           <circle
             cx={PARTNER_ABDUCTION_BASE_WIDTH / 2}
             cy={PARTNER_ABDUCTION_TOP_Y}
@@ -60,7 +60,7 @@ class PartnerType extends Component {
       return (
         <polyline
           transform='translate(-2,35)'
-          className={styles.marriage}
+          className={`${styles.marriage} marriage-symbol`}
           points='0,10 0,3 3,6 6,3 6,10'
         />
       )

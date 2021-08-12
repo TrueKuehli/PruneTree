@@ -9,7 +9,6 @@ export default ({ people = [], tree, node, close, onChange }) => {
   const [editingNode, setEditingNode] = useState(node)
 
   function updateNode (newNodeData) {
-    console.log(newNodeData)
     // create a record of the child indexes in the tree to get to the node we
     // want delete
     let parentNode = node
@@ -74,7 +73,7 @@ export default ({ people = [], tree, node, close, onChange }) => {
   return (
     <div className={styles.editNodeContainer}>
       <div className='container'>
-        <div className={styles.closeButton} onClick={close}>
+        <div id='close-node-editor' className={styles.closeButton} onClick={close}>
           <span>Close</span>
           <i className={styles.close} />
         </div>
@@ -114,25 +113,25 @@ export default ({ people = [], tree, node, close, onChange }) => {
             <div className={styles.editNodeSection}>
               <h2>Set Node Person</h2>
               <p>A node person is the Sim you'll see on the left at each point in the tree with their parents above, partners to the right and children below.</p>
-              <button className='btn btn-primary' onClick={() => setCurrentView('person')}>Set This Nodes Person <i className='icon-chevron-right' /></button>
+              <button id='set-node-person' className='btn btn-primary' onClick={() => setCurrentView('person')}>Set This Nodes Person <i className='icon-chevron-right' /></button>
             </div>
 
             <div className={styles.editNodeSection}>
               <h2>Set Node Partners</h2>
               <p>A Sim can have multiple partners current or past.</p>
-              <button className='btn btn-primary' onClick={() => setCurrentView('partners')}>Set This Nodes Partners <i className='icon-chevron-right' /></button>
+              <button id='set-node-partners' className='btn btn-primary' onClick={() => setCurrentView('partners')}>Set This Nodes Partners <i className='icon-chevron-right' /></button>
             </div>
 
             <div className={styles.editNodeSection}>
               <h2>Set Node Parents</h2>
               <p>Add extra information on how your Sim came to be and who raised them.</p>
-              <button className='btn btn-primary' onClick={() => setCurrentView('parents')}>Set This Nodes Parent Details <i className='icon-chevron-right' /></button>
+              <button id='set-node-parents' className='btn btn-primary' onClick={() => setCurrentView('parents')}>Set This Nodes Parent Details <i className='icon-chevron-right' /></button>
             </div>
 
             <div className={styles.editNodeSection}>
               <h2>Danger Zone</h2>
               <p>Delete this node? Remember if you delete this node you will also delete any children attached to it too.</p>
-              <button className='btn btn-danger' onClick={deleteNode}>Delete This Node</button>
+              <button id='delete-node' className='btn btn-danger' onClick={deleteNode}>Delete This Node</button>
             </div>
           </div>
         )}
