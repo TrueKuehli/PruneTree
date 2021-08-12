@@ -1,12 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
 import styles from './styles.scss'
 import plumbob from './plumbob.png'
 import thumbsup from './thumbsup.png'
 import lifering from './lifering.png'
-import ServerStatus from '../ServerStatus'
-import SiteStats from '../SiteStats'
+import SiteStats from './SiteStats'
 
 export default () => {
   return (
@@ -18,12 +16,9 @@ export default () => {
           <p>Create dynamic family trees for your sims legacies.</p>
           <p>Then publish and share your trees for others to see.</p>
         </div>
-
-        <ServerStatus />
         <div className={styles.devsWanted}>
           We're looking for people to <a href='/devs-wanted'>help us build the Plum Tree</a>.
         </div>
-
         <div className='row'>
           <div className='col-12 col-md-4'>
             <img src={plumbob} className={styles.featureImage} width='100' />
