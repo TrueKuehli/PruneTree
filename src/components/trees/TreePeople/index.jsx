@@ -189,9 +189,9 @@ class TreePeople extends Component {
               <div className={styles.avatar} style={inlineAvatarStyle} />
               <div>{name}</div>
               <div className={styles.personMenu}>
-                <Link className='btn btn-small btn-default' to={personEditLink}>Edit</Link>
-                <Link className='btn btn-small btn-default' to={personLinkLink}>Link</Link>
-                <button className='btn btn-small btn-danger' onClick={() => this.deletePerson(person._id)}>Delete</button>
+                <Link className='btn btn-small btn-default edit-person' to={personEditLink}>Edit</Link>
+                <Link className='btn btn-small btn-default link-person' to={personLinkLink}>Link</Link>
+                <button className='btn btn-small btn-danger delete-person' onClick={() => this.deletePerson(person._id)}>Delete</button>
               </div>
             </div>
           )
