@@ -49,7 +49,7 @@ class PersonLinks extends Component {
     return (
       <g className='person-link'>
         <circle
-          className={styles.linksIcon}
+          className={`${styles.linksIcon} person-links`}
           cx={centered + offset}
           cy={centered - offset}
           fill={`url(#${LINK_BUTTON_PATTERN})`}
@@ -66,7 +66,7 @@ class PersonLinks extends Component {
               return (
                 <g
                   key={index}
-                  className={styles.linkListItem}
+                  className={`${styles.linkListItem} person-link`}
                   transform={`translate(0,${48 * index})`}
                   onClick={() => this.goToTree(treeId, personId)}
                 >

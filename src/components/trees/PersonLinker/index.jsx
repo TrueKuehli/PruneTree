@@ -25,7 +25,7 @@ export default ({ match: { params: { personId, treeId } } }) => {
 
     axios.get(`/api/people/${personId}`, { headers: { Authorization: `Bearer ${authToken}` } })
       .then((response) => {
-        const links = get(response, 'data.person.links', [])
+        const links = get(response, 'data.links', [])
         setLoading(false)
         setLinks(links)
       })
@@ -46,8 +46,8 @@ export default ({ match: { params: { personId, treeId } } }) => {
 
     links.push({
       title,
-      treeId,
-      personId
+      treeId: tree,
+      personId: person
     })
 
     axios.put(`/api/people/${personId}`,
@@ -107,15 +107,15 @@ export default ({ match: { params: { personId, treeId } } }) => {
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
           <label>Title</label>
-          <input id='link-tree-title' className='form-control' type='text' name='title' placeholder='My Other Tree' value={title} onChange={setTitle} />
+          <input id='link-tree-title' className='form-control' type='text' name='title' placeholder='My Other Tree' value={title} onChange={ev => setTitle(ev.target.value)} />
         </div>
         <div className='form-group'>
           <label>Tree ID</label>
-          <input id='link-tree-id' className='form-control' type='text' name='tree' value={tree} onChange={setTree} />
+          <input id='link-tree-id' className='form-control' type='text' name='tree' value={tree} onChange={ev => setTree(ev.target.value)} />
         </div>
         <div className='form-group'>
           <label>Person ID</label>
-          <input id='link-tree-person' className='form-control' type='text' name='person' value={person} onChange={setPerson} />
+          <input id='link-tree-person' className='form-control' type='text' name='person' value={person} onChange={ev => setPerson(ev.target.value)} />
         </div>
         <Link className={cancelClass} to={cancelLink}><i className='icon-chevron-left' /> Back to Tree People</Link>
         <button id='submit-tree-link' type='submit' className={submitClass}><i className='icon-plus' />  Link Person</button>
@@ -137,11 +137,11 @@ export default ({ match: { params: { personId, treeId } } }) => {
               <button className='btn btn-small btn-danger' onClick={() => deleteLink(linkData)}>Delete</button>
             </div>
             <div className={styles.linkDetails}>
-              <a href='/'>
+              <a id={`link-info-title-${index}`} href='/'>
                 {linkData.title} <i className='icon-link' />
               </a>
-              <div><strong>Tree Id:</strong> {linkData.treeId}</div>
-              <div><strong>Person Id:</strong> {linkData.personId}</div>
+              <div id={`link-info-tree-${index}`}><strong>Tree Id:</strong> {linkData.treeId}</div>
+              <div id={`link-info-person-${index}`}><strong>Person Id:</strong> {linkData.personId}</div>
             </div>
           </div>
         )
