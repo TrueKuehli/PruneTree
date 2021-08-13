@@ -107,18 +107,18 @@ export default ({ match: { params: { personId, treeId } } }) => {
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
           <label>Title</label>
-          <input className='form-control' type='text' name='title' placeholder='My Other Tree' value={title} onChange={setTitle} />
+          <input id='link-tree-title' className='form-control' type='text' name='title' placeholder='My Other Tree' value={title} onChange={setTitle} />
         </div>
         <div className='form-group'>
           <label>Tree ID</label>
-          <input className='form-control' type='text' name='tree' value={tree} onChange={setTree} />
+          <input id='link-tree-id' className='form-control' type='text' name='tree' value={tree} onChange={setTree} />
         </div>
         <div className='form-group'>
           <label>Person ID</label>
-          <input className='form-control' type='text' name='person' value={person} onChange={setPerson} />
+          <input id='link-tree-person' className='form-control' type='text' name='person' value={person} onChange={setPerson} />
         </div>
         <Link className={cancelClass} to={cancelLink}><i className='icon-chevron-left' /> Back to Tree People</Link>
-        <button type='submit' className={submitClass}><i className='icon-plus' />  Link Person</button>
+        <button id='submit-tree-link' type='submit' className={submitClass}><i className='icon-plus' />  Link Person</button>
       </form>
       <h2>Existing Links</h2>
 
