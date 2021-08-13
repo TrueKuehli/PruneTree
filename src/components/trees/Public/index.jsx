@@ -37,7 +37,7 @@ export default ({ match: { params: { treeId } } }) => {
         tree={tree}
         people={get(tree, 'people', [])}
         readonly
-        loading={this.state.loading}
+        loading={loading}
       />
     </div>
   )
