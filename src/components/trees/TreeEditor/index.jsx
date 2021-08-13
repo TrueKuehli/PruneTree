@@ -62,7 +62,7 @@ export default ({ match: { params: { treeId } } }) => {
       .then(() => {
         setTree(tree)
         if (alertSuccess) {
-          toast.success('Tree data saved')
+          toast.success('Tree saved')
         }
       })
       .catch((error) => {

@@ -37,7 +37,7 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
 
   function saveTree () {
     closeMenus()
-    onSaveTree && onSaveTree(true)
+    onSaveTree && onSaveTree(tree, true)
   }
 
   function deleteTree () {
