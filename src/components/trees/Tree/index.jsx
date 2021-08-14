@@ -15,6 +15,14 @@ import styles from './styles.scss'
 import RawHTML from '../../RawHTML'
 import Loading from '../../Loading'
 
+function usePrevious (value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
+
 export default ({ tree, people = [], loading, readonly, onChange, onEditNode }) => {
   const [zoomInitialized, setZoomInitialized] = useState(false)
   const [links, setLinks] = useState([])
@@ -27,6 +35,8 @@ export default ({ tree, people = [], loading, readonly, onChange, onEditNode }) 
   const [parents, setParents] = useState([])
   const [adoptiveParents, setAdoptiveParents] = useState([])
 
+  const prevTree = usePrevious(tree)
+
   const svg = useRef(null)
   const zoom = useRef(null)
 
@@ -35,6 +45,13 @@ export default ({ tree, people = [], loading, readonly, onChange, onEditNode }) 
   }, [])
 
   useEffect(() => {
+    // when moving between trees the component will try and be smart and not
+    // remove the Component from the DOM. This makes re-render faster but screws
+    // up the zoom handler. So we need to re-init by setting zoomInitialized to
+    // false
+    if (get(tree, '_id') !== get(prevTree, '_id')) {
+      setZoomInitialized(false)
+    }
     if (tree && tree.data) {
       updateTreeState(tree.data)
     }
