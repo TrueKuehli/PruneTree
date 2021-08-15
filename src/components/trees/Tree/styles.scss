@@ -104,8 +104,8 @@
   bottom: 0px;
   right: 15px;
   left: 15px;
-  max-width: 700px;
-  margin: 15px auto;
+  max-width: 300px;
+  margin: 15px 0;
   box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
   z-index: 200;
   background: #f4f7f6;
@@ -116,7 +116,7 @@
 
 .treeImage {
   background-repeat: cover;
-  height: 200px;
+  height: 160px;
   background-size: cover;
   background-position-x: center;
   background-position-y: center;

@@ -159,7 +159,7 @@ class TreeDetails extends Component {
 
       imagePreview = (<div className={styles.coverImage} style={style} />)
     } else {
-      imagePreview = (<div className='side-note'>No cover image currently set.</div>)
+      imagePreview = (<div className={styles.coverImage}>No cover image currently set.</div>)
     }
 
     return (
