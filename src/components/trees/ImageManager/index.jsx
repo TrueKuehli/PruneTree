@@ -57,16 +57,24 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
       { headers: { Authorization: `Bearer ${authToken}` } })
       .then(response => {
         uploadedFile = response.data.filename
+
+        const options = {
+          headers: {
+            'Content-Type': type,
+            'x-amz-acl': 'public-read'
+          }
+        }
+
+        // todo - do this for sim avatars too
+        if (dir === 'cover') {
+          options.headers['x-amz-tagging'] = 'temp=true'
+        }
+
         // upload to S3
         return axios.put(
           response.data.uploadURL,
           file,
-          {
-            headers: {
-              'Content-Type': type,
-              'x-amz-acl': 'public-read'
-            }
-          })
+          options)
       })
       .then(() => {
         onImageChange(uploadedFile)
