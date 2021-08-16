@@ -4,24 +4,19 @@ import axios from 'axios'
 import get from 'lodash.get'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/lib/ReactCrop.scss'
-
 import auth from '../../../common/js/auth'
 import Loading from '../../Loading'
 import { getOrigUploadedImageUri } from '../../../common/js/utils'
 
-export default (props) => {
+export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) => {
   const fileRef = useRef(null)
 
-  const { imagePreview, onImageChange } = props
-  const dir = get(props, 'dir', 'avatar')
-
-  const [image, setImage] = useState(props.image)
   const [uploading, setUploading] = useState(false)
   const [showCropper, setShowCropper] = useState(false)
   const [cropping, setCropping] = useState(false)
   const [naturalHeight, setNaturalHeight] = useState(null)
   const [naturalWidth, setNaturalWidth] = useState(null)
-  const [crop, setCrop] = useState({ aspect: props.aspect })
+  const [crop, setCrop] = useState({ aspect })
   const [percentCrop, setPercentCrop] = useState(null)
 
   function selectImage (ev) {
@@ -75,7 +70,6 @@ export default (props) => {
       })
       .then(() => {
         onImageChange(uploadedFile)
-        setImage(uploadedFile)
         setUploading(false)
       })
   }
@@ -134,7 +128,6 @@ export default (props) => {
         const croppedFile = get(response, 'data.filename')
         setCropping(false)
         onImageChange(croppedFile)
-        setImage(croppedFile)
         setShowCropper(false)
         toast.success('Image cropped')
       })

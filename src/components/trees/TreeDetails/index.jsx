@@ -64,6 +64,7 @@ class TreeDetails extends Component {
   }
 
   handleImageChange (cover) {
+    // todo - if old cover does not equal saved cover delete it
     this.setState({ cover })
   }
 
