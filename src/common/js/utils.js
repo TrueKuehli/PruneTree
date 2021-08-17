@@ -14,13 +14,16 @@ const isMigratedImage = (image) => {
  * original s3 uploads bucket. Otherwise we can get them from the plum tree
  * domain as they are served from the API Gateway (resized).
  */
-const getUploadedImageUri = (image) => {
+const getUploadedImageUri = (image, dimensions) => {
   if (!image) return null
 
   const s3Host = 'https://s3-eu-west-1.amazonaws.com/plum-tree-uploads/'
   const migratedHost = 'https://theplumtreeapp.com/uploads/'
 
-  return isMigratedImage(image) ? `${migratedHost}${image}` : `${s3Host}${image}`
+  if (isMigratedImage(image)) {
+    return dimensions ? `/api/upload/${dimensions}/${image}` : `${migratedHost}${image}`
+  }
+  return `${s3Host}${image}`
 }
 
 /**

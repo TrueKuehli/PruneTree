@@ -6,7 +6,7 @@ import ReactCrop from 'react-image-crop'
 import 'react-image-crop/lib/ReactCrop.scss'
 import auth from '../../../common/js/auth'
 import Loading from '../../Loading'
-import { getOrigUploadedImageUri } from '../../../common/js/utils'
+import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
 
 export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) => {
   const fileRef = useRef(null)
@@ -18,6 +18,8 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
   const [naturalWidth, setNaturalWidth] = useState(null)
   const [crop, setCrop] = useState({ aspect })
   const [percentCrop, setPercentCrop] = useState(null)
+  // todo - get cropImage from getUploadedImageUri for avatars too
+  const [cropImageUri, setCropImageUri] = useState(dir === 'cover' ? getUploadedImageUri(image) : getOrigUploadedImageUri(image))
 
   function selectImage (ev) {
     ev.preventDefault()
@@ -78,6 +80,7 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
       })
       .then(() => {
         onImageChange(uploadedFile)
+        setCropImageUri(getOrigUploadedImageUri(uploadedFile))
         setUploading(false)
       })
   }
@@ -161,7 +164,7 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
     return (
       <div>
         <ReactCrop
-          src={`${getOrigUploadedImageUri(image)}`}
+          src={cropImageUri}
           crop={crop}
           onChange={onCropChange}
           onImageLoaded={onImageLoaded}
