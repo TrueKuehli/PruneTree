@@ -32,7 +32,7 @@ export default ({ addTree, updateTree, history, match: { params: { treeId } } })
           setTitle(title)
           setDescription(description)
           setCover(cover)
-          setCoverUri(getUploadedImageUri(cover, '300x160'))
+          setCoverUri(getUploadedImageUri(cover, '600x320'))
           setLoading(false)
         })
         .catch((error) => {
