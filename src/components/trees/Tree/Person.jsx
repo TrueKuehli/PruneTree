@@ -47,7 +47,7 @@ const Person = (props) => {
         className='avatar-image'
         aria-hidden='true'
         xmlnsXlink='http://www.w3.org/1999/xlink'
-        xlinkHref={getUploadedImageUri(personData.avatar)}
+        xlinkHref={getUploadedImageUri(personData.avatar, '200x200')}
         x='0'
         y='0'
         width={avatarRadius * 2}
