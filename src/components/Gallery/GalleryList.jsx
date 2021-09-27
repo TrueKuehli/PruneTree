@@ -18,7 +18,7 @@ export default ({ loading, trees }) => {
         let description = <div className={styles.treeTileNoDescription}>No description</div>
 
         if (tree.cover) {
-          const coverCss = { backgroundImage: `url("${getUploadedImageUri(tree.cover)}")` }
+          const coverCss = { backgroundImage: `url("${getUploadedImageUri(tree.cover, '600x320')}")` }
           coverImage = <div className={styles.treeTileImage} style={coverCss} />
         }
 

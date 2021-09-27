@@ -7,7 +7,7 @@ class TreeDetails extends Component {
   render () {
     const inlineAvatarStyle = {}
     if (this.props.image) {
-      inlineAvatarStyle.backgroundImage = `url(${getUploadedImageUri(this.props.image)})`
+      inlineAvatarStyle.backgroundImage = `url(${getUploadedImageUri(this.props.image, '600x320')})`
     }
 
     return (

@@ -3,26 +3,23 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import get from 'lodash.get'
 import ReactCrop from 'react-image-crop'
-import 'react-image-crop/lib/ReactCrop.scss'
-
+import 'react-image-crop/dist/ReactCrop.css'
 import auth from '../../../common/js/auth'
 import Loading from '../../Loading'
-import { getOrigUploadedImageUri } from '../../../common/js/utils'
+import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
 
-export default (props) => {
+export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) => {
   const fileRef = useRef(null)
 
-  const { imagePreview, onImageChange } = props
-  const dir = get(props, 'dir', 'avatar')
-
-  const [image, setImage] = useState(props.image)
   const [uploading, setUploading] = useState(false)
   const [showCropper, setShowCropper] = useState(false)
   const [cropping, setCropping] = useState(false)
   const [naturalHeight, setNaturalHeight] = useState(null)
   const [naturalWidth, setNaturalWidth] = useState(null)
-  const [crop, setCrop] = useState({ aspect: props.aspect })
+  const [crop, setCrop] = useState({ aspect })
   const [percentCrop, setPercentCrop] = useState(null)
+  // todo - get cropImage from getUploadedImageUri for avatars too
+  const [cropImageUri, setCropImageUri] = useState(dir === 'cover' ? getUploadedImageUri(image) : getOrigUploadedImageUri(image))
 
   function selectImage (ev) {
     ev.preventDefault()
@@ -62,20 +59,28 @@ export default (props) => {
       { headers: { Authorization: `Bearer ${authToken}` } })
       .then(response => {
         uploadedFile = response.data.filename
+
+        const options = {
+          headers: {
+            'Content-Type': type,
+            'x-amz-acl': 'public-read'
+          }
+        }
+
+        // todo - do this for sim avatars too
+        if (dir === 'cover') {
+          options.headers['x-amz-tagging'] = 'temp=true'
+        }
+
         // upload to S3
         return axios.put(
           response.data.uploadURL,
           file,
-          {
-            headers: {
-              'Content-Type': type,
-              'x-amz-acl': 'public-read'
-            }
-          })
+          options)
       })
       .then(() => {
         onImageChange(uploadedFile)
-        setImage(uploadedFile)
+        setCropImageUri(getOrigUploadedImageUri(uploadedFile))
         setUploading(false)
       })
   }
@@ -134,7 +139,6 @@ export default (props) => {
         const croppedFile = get(response, 'data.filename')
         setCropping(false)
         onImageChange(croppedFile)
-        setImage(croppedFile)
         setShowCropper(false)
         toast.success('Image cropped')
       })
@@ -160,7 +164,7 @@ export default (props) => {
     return (
       <div>
         <ReactCrop
-          src={`${getOrigUploadedImageUri(image)}`}
+          src={cropImageUri}
           crop={crop}
           onChange={onCropChange}
           onImageLoaded={onImageLoaded}
