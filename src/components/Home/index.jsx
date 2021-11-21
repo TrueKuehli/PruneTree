@@ -16,9 +16,6 @@ export default () => {
           <p>Create dynamic family trees for your sims legacies.</p>
           <p>Then publish and share your trees for others to see.</p>
         </div>
-        <div className={styles.devsWanted}>
-          We're looking for people to <a href='/devs-wanted'>help us build the Plum Tree</a>.
-        </div>
         <div className='row'>
           <div className='col-12 col-md-4'>
             <img src={plumbob} className={styles.featureImage} width='100' />

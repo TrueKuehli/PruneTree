@@ -7,7 +7,6 @@ import logo from '../../common/images/logo.png'
 import Home from '../Home'
 import Guides from '../Guides'
 import Donate from '../Donate'
-import DevsWanted from '../DevsWanted'
 import Gallery from '../Gallery'
 import Signup from '../Signup'
 import Login from '../../containers/Login'
@@ -92,7 +91,6 @@ class Layout extends Component {
               <Route exact path='/signup' component={Signup} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/donate' component={Donate} />
-              <Route exact path='/devs-wanted' component={DevsWanted} />
               <Route exact path='/gallery' component={Gallery} />
               <Route exact path='/account' component={Account} />
               <Route exact path='/support' component={Support} />
