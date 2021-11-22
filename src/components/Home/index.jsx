@@ -37,7 +37,18 @@ export default () => {
             <p>Need help or have a question? Checkout <Link to='guides'>our guides</Link> or <Link to='support'>send us a message</Link>.</p>
           </div>
         </div>
-
+        <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2245006307128743' crossorigin='anonymous' />
+        <ins
+          class='adsbygoogle'
+          style='display:block'
+          data-ad-client='ca-pub-2245006307128743'
+          data-ad-slot='2668691138'
+          data-ad-format='auto'
+          data-full-width-responsive='true'
+        />
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
         <div className='row'>
           <div className='col-12'>
             <h2>Using The Plum Tree</h2>
