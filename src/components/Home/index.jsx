@@ -5,6 +5,7 @@ import plumbob from './plumbob.png'
 import thumbsup from './thumbsup.png'
 import lifering from './lifering.png'
 import SiteStats from './SiteStats'
+import DonateTarget from './DonateTarget'
 
 export default () => {
   return (
@@ -16,6 +17,7 @@ export default () => {
           <p>Create dynamic family trees for your sims legacies.</p>
           <p>Then publish and share your trees for others to see.</p>
         </div>
+        <DonateTarget />
         <div className='row'>
           <div className='col-12 col-md-4'>
             <img src={plumbob} className={styles.featureImage} width='100' />
