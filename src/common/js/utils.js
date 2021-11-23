@@ -46,9 +46,17 @@ const isValidEmail = (email) => {
   return re.test(String(email).toLowerCase())
 }
 
+const sendGoogleAnalyticsPageView = page => {
+  if (window.ga) {
+    window.ga('set', 'page', location.pathname + location.search)
+    window.ga('send', 'pageview')
+  }
+}
+
 export {
   isMigratedImage,
   getUploadedImageUri,
   getOrigUploadedImageUri,
-  isValidEmail
+  isValidEmail,
+  sendGoogleAnalyticsPageView
 }
