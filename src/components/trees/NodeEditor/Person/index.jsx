@@ -18,7 +18,7 @@ export default ({ node, people, onSave, close }) => {
     close()
   }
 
-  const backgroundImage = get(person, 'avatar') ? `url(${getUploadedImageUri(person.avatar)})` : `url(${defaultAvatar})`
+  const backgroundImage = get(person, 'avatar') ? `url(${getUploadedImageUri(person.avatar, '200x200')})` : `url(${defaultAvatar})`
   const peopleOptions = people.map(person => {
     return { label: `${person.firstName} ${person.lastName}`, value: person._id }
   })

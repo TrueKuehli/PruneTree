@@ -35,7 +35,7 @@ class PersonDetails extends Component {
 
     const inlineAvatarStyle = {}
     if (this.props.avatar) {
-      inlineAvatarStyle.backgroundImage = `url(${getUploadedImageUri(this.props.avatar)})`
+      inlineAvatarStyle.backgroundImage = `url(${getUploadedImageUri(this.props.avatar, '200x200')})`
     } else {
       inlineAvatarStyle.backgroundImage = `url(${defaultAvatar})`
     }
@@ -63,7 +63,7 @@ class PersonDetails extends Component {
             <h3 id='person-details-biological-parents-title'>Biological Parents <ParentType type={parentType} /></h3>
             <div>
               {parents.map((parent, index) => {
-                const backgroundImage = parent.avatar ? `url(${getUploadedImageUri(parent.avatar)})` : `url(${defaultAvatar})`
+                const backgroundImage = parent.avatar ? `url(${getUploadedImageUri(parent.avatar, '200x200')})` : `url(${defaultAvatar})`
                 return (
                   <div className={styles.parentRow} key={index}>
                     <div className={styles.parentAvatar} style={{ backgroundImage }} />
@@ -80,7 +80,7 @@ class PersonDetails extends Component {
             <h3>Adoptive Parents</h3>
             <div>
               {adoptiveParents.map((parent, index) => {
-                const backgroundImage = parent.avatar ? `url(${getUploadedImageUri(parent.avatar)})` : `url(${defaultAvatar})`
+                const backgroundImage = parent.avatar ? `url(${getUploadedImageUri(parent.avatar, '200x200')})` : `url(${defaultAvatar})`
                 return (
                   <div className={styles.parentRow} key={index}>
                     <div className={styles.parentAvatar} style={{ backgroundImage }} />

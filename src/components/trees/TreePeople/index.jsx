@@ -171,7 +171,7 @@ class TreePeople extends Component {
 
           let backgroundImage
           if (person.avatar) {
-            backgroundImage = `url(${getUploadedImageUri(person.avatar)})`
+            backgroundImage = `url(${getUploadedImageUri(person.avatar, '200x200')})`
           } else {
             backgroundImage = `url(${defaultAvatar})`
           }

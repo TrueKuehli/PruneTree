@@ -14,10 +14,11 @@ import aspirationOptions from '../../../common/js/aspirations'
 import lifeStateOptions from '../../../common/js/lifeStates'
 import styles from './styles.scss'
 import defaultAvatar from '../../../common/images/default-avatar.png'
-import { getOrigUploadedImageUri } from '../../../common/js/utils'
+import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
 
 export default ({ history, match: { params: { treeId, personId } } }) => {
   const [avatar, setAvatar] = useState(null)
+  const [avatarUri, setAvatarUri] = useState(null)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [bio, setBio] = useState('')
@@ -39,6 +40,7 @@ export default ({ history, match: { params: { treeId, personId } } }) => {
         .then((response) => {
           const { avatar, firstName, lastName, bio, traits, aspirations, lifeStates, custom } = response.data
           setAvatar(avatar)
+          setAvatarUri(getUploadedImageUri(avatar, '200x200'))
           setFirstName(firstName)
           setLastName(lastName)
           setBio(bio)
@@ -55,6 +57,11 @@ export default ({ history, match: { params: { treeId, personId } } }) => {
         })
     }
   }, [])
+
+  function updateAvatar (image) {
+    setAvatarUri(getOrigUploadedImageUri(image))
+    setAvatar(image)
+  }
 
   /**
    * Saves/updates the persons detail from what is currently in the state
@@ -162,7 +169,7 @@ export default ({ history, match: { params: { treeId, personId } } }) => {
 
   let imagePreview
   if (avatar) {
-    const style = { backgroundImage: `url(${getOrigUploadedImageUri(avatar)})` }
+    const style = { backgroundImage: `url(${avatarUri})` }
     imagePreview = (<div className={styles.personAvatarImage} style={style} />)
   } else {
     const style = { backgroundImage: `url(${defaultAvatar})` }
@@ -176,7 +183,8 @@ export default ({ history, match: { params: { treeId, personId } } }) => {
         aspect={1}
         image={avatar}
         imagePreview={imagePreview}
-        onImageChange={setAvatar}
+        dir='avatar'
+        onImageChange={updateAvatar}
       />
 
       <form onSubmit={handleSubmit}>

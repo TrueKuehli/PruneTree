@@ -18,8 +18,7 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
   const [naturalWidth, setNaturalWidth] = useState(null)
   const [crop, setCrop] = useState({ aspect })
   const [percentCrop, setPercentCrop] = useState(null)
-  // todo - get cropImage from getUploadedImageUri for avatars too
-  const [cropImageUri, setCropImageUri] = useState(dir === 'cover' ? getUploadedImageUri(image) : getOrigUploadedImageUri(image))
+  const [cropImageUri, setCropImageUri] = useState(getUploadedImageUri(image))
 
   function selectImage (ev) {
     ev.preventDefault()
@@ -67,10 +66,7 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
           }
         }
 
-        // todo - do this for sim avatars too
-        if (dir === 'cover') {
-          options.headers['x-amz-tagging'] = 'temp=true'
-        }
+        options.headers['x-amz-tagging'] = 'temp=true'
 
         // upload to S3
         return axios.put(
