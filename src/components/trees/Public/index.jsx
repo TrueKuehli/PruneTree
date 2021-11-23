@@ -3,6 +3,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
 
+import { sendGoogleAnalyticsPageView } from '../../../common/js/utils'
 import Loading from '../../Loading'
 import Tree from '../Tree'
 
@@ -12,12 +13,14 @@ export default ({ match: { params: { treeId } } }) => {
 
   useEffect(() => {
     setLoading(true)
+
     axios.get(`/api/published/${treeId}`)
       .then((response) => {
         const tree = get(response, 'data')
 
         setTree(tree)
         setLoading(false)
+        sendGoogleAnalyticsPageView(`/public/${treeId}`)
       })
       .catch((error) => {
         setLoading(false)

@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { Route, Link, Switch } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Route, Link, Switch, useLocation } from 'react-router-dom'
 
 import styles from './styles.scss'
 import logo from '../../common/images/logo.png'
+import { sendGoogleAnalyticsPageView } from '../../common/js/utils'
 
 import Home from '../Home'
 import Guides from '../Guides'
 import Donate from '../Donate'
-import DevsWanted from '../DevsWanted'
 import Gallery from '../Gallery'
 import Signup from '../Signup'
 import Login from '../../containers/Login'
@@ -26,105 +26,71 @@ import AccountDropdown from '../AccountDropdown'
 import SideNav from '../../containers/SideNav'
 import NotFound from '../NotFound'
 
-class Layout extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      menuOpen: false // side nav state
-    }
+export default () => {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
 
-    this.handleOpenMenu = this.handleOpenMenu.bind(this)
-    this.handleCloseMenu = this.handleCloseMenu.bind(this)
-  }
+  useEffect(() => {
+    sendGoogleAnalyticsPageView(location.pathname + location.search)
+  }, [location])
 
-  handleOpenMenu () {
-    this._setMenuOpenState(true)
-  }
-
-  handleCloseMenu () {
-    this._setMenuOpenState(false)
-  }
-
-  _setMenuOpenState (open) {
-    const newState = {}
-    newState.menuOpen = open
-    this.setState(newState)
-  }
-
-  render () {
-    const menuOpen = this.state.menuOpen
-    const containerClassNames = [styles.container]
-    const maskClassNames = [styles.navMask]
-    const burgerClassNames = [styles.hamburger]
-
-    if (menuOpen) {
-      containerClassNames.push(styles.containerActiveMenu)
-      maskClassNames.push(styles.navMaskActiveMenu)
-      burgerClassNames.push(styles.hamburgerActive)
-    }
-
-    return (
-      <div className={styles.root}>
-
-        <div className={containerClassNames.join(' ')}>
-          <header className={styles.header}>
-            <div className={styles.menuButton} onClick={this.handleOpenMenu}>
-              <i className={burgerClassNames.join(' ')}>
-                <div />
-                <div />
-                <div />
-              </i>
-              Menu
-            </div>
-
-            <div className={styles.brand}>
-              <img src={logo} className={styles.headerLogo} height='40' width='40' />
-              <h1 className='hidden-xs-down'><Link to='/'> The Plum Tree </Link></h1>
-            </div>
-
-            <AccountDropdown />
-          </header>
-
-          <div className={styles.body}>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path='/guides' component={Guides} />
-              <Route exact path='/signup' component={Signup} />
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/donate' component={Donate} />
-              <Route exact path='/devs-wanted' component={DevsWanted} />
-              <Route exact path='/gallery' component={Gallery} />
-              <Route exact path='/account' component={Account} />
-              <Route exact path='/support' component={Support} />
-              <Route exact path='/forgot-password' component={ForgotPassword} />
-              <Route exact path='/reset-password' component={ResetPassword} />
-              <Route exact path='/forgot-username' component={ForgotUsername} />
-              <Route exact path='/trees/create' component={TreeDetails} />
-              <Route exact path='/trees/:treeId' component={TreeEditor} />
-              <Route exact path='/trees/:treeId/publish' component={TreePublish} />
-              <Route exact path='/trees/:treeId/details' component={TreeDetails} />
-              <Route exact path='/trees/:treeId/people' component={TreePeople} />
-              <Route exact path='/trees/:treeId/people/add' component={PersonEditor} />
-              <Route exact path='/trees/:treeId/people/:personId' component={PersonEditor} />
-              <Route exact path='/trees/:treeId/people/:personId/link' component={PersonLinker} />
-              <Route component={NotFound} />
-            </Switch>
+  return (
+    <div className={styles.root}>
+      <div className={menuOpen ? `${styles.container} ${styles.containerActiveMenu}` : styles.container}>
+        <header className={styles.header}>
+          <div className={styles.menuButton} onClick={() => setMenuOpen(true)}>
+            <i className={menuOpen ? `${styles.hamburger} ${styles.hamburgerActive}` : styles.hamburger}>
+              <div />
+              <div />
+              <div />
+            </i>
+            Menu
           </div>
 
-          <nav className={styles.nav}>
-            <div className={styles.closeRow}>
-              <div className={styles.closeButton} onClick={this.handleCloseMenu}>
-                <span>Close</span>
-                <i className={styles.close} />
-              </div>
-            </div>
-            <SideNav onItemClick={this.handleCloseMenu} />
-          </nav>
-          <div className={maskClassNames.join(' ')} onClick={this.handleCloseMenu} />
-        </div>
-      </div>
-    )
-  }
-};
+          <div className={styles.brand}>
+            <img src={logo} className={styles.headerLogo} height='40' width='40' />
+            <h1 className='hidden-xs-down'><Link to='/'> The Plum Tree </Link></h1>
+          </div>
 
-export default Layout
+          <AccountDropdown />
+        </header>
+
+        <div className={styles.body}>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/guides' component={Guides} />
+            <Route exact path='/signup' component={Signup} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/donate' component={Donate} />
+            <Route exact path='/gallery' component={Gallery} />
+            <Route exact path='/account' component={Account} />
+            <Route exact path='/support' component={Support} />
+            <Route exact path='/forgot-password' component={ForgotPassword} />
+            <Route exact path='/reset-password' component={ResetPassword} />
+            <Route exact path='/forgot-username' component={ForgotUsername} />
+            <Route exact path='/trees/create' component={TreeDetails} />
+            <Route exact path='/trees/:treeId' component={TreeEditor} />
+            <Route exact path='/trees/:treeId/publish' component={TreePublish} />
+            <Route exact path='/trees/:treeId/details' component={TreeDetails} />
+            <Route exact path='/trees/:treeId/people' component={TreePeople} />
+            <Route exact path='/trees/:treeId/people/add' component={PersonEditor} />
+            <Route exact path='/trees/:treeId/people/:personId' component={PersonEditor} />
+            <Route exact path='/trees/:treeId/people/:personId/link' component={PersonLinker} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+
+        <nav className={styles.nav}>
+          <div className={styles.closeRow}>
+            <div className={styles.closeButton} onClick={() => setMenuOpen(false)}>
+              <span>Close</span>
+              <i className={styles.close} />
+            </div>
+          </div>
+          <SideNav onItemClick={() => setMenuOpen(false)} />
+        </nav>
+        <div className={menuOpen ? `${styles.navMask} ${styles.navMaskActiveMenu}` : styles.navMask} onClick={() => setMenuOpen(false)} />
+      </div>
+    </div>
+  )
+}
