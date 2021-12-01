@@ -45,7 +45,7 @@ export default () => {
       </div>
       <div className={styles.donateIntro}>
         <p>The plum tree is free to use but not free to run. Please consider donating to help me out in keeping the project going.</p>
-        <p>Last months bill was {formatCents(bill)}, donations this month are up to {formatCents(donations)}.</p>
+        <p>Last month's bill was {formatCents(bill)}, donations this month are up to {formatCents(donations)}.</p>
       </div>
       <div className={styles.donateButtons}>
         <Link to='/donate'>More Info</Link>
