@@ -109,7 +109,8 @@ module.exports = {
     fallback: {
       util: require.resolve('util/'),
       crypto: require.resolve('crypto-browserify'),
-      stream: require.resolve('stream-browserify')
+      stream: require.resolve('stream-browserify'),
+      querystring: require.resolve('querystring-es3')
     }
   },
   output: {
@@ -137,7 +138,6 @@ module.exports = {
       template: 'src/public.html',
       filename: 'public.html'
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: '[fullhash].[name].css',
       chunkFilename: '[fullhash].[id].css'
@@ -152,7 +152,6 @@ module.exports = {
     })
   ],
   devServer: {
-    hot: true,
     historyApiFallback: true,
     proxy: {
       '/api': {
