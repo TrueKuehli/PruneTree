@@ -34,7 +34,7 @@ export default () => {
           </div>
           <div className='col-12 col-md-4'>
             <img src={lifering} className={styles.featureImage} width='100' />
-            <p>Need help or have a question? Checkout <Link to='guides'>our guides</Link> or <Link to='support'>send us a message</Link>.</p>
+            <p>Need help or have a question? Checkout <Link to='guides'>our guides</Link> or <Link to='support'>see our support page</Link>.</p>
           </div>
         </div>
         <div className='row'>
