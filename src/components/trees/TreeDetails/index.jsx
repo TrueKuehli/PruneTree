@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import get from 'lodash.get'
@@ -10,7 +10,10 @@ import styles from './styles.scss'
 import Loading from '../../Loading'
 import ImageManager from '../ImageManager'
 
-export default ({ addTree, updateTree, history, match: { params: { treeId } } }) => {
+export default ({ addTree, updateTree }) => {
+  const navigate = useNavigate()
+  const params = useParams()
+  const { treeId } = params
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [cover, setCover] = useState(null)
@@ -74,7 +77,7 @@ export default ({ addTree, updateTree, history, match: { params: { treeId } } })
         const tree = get(response, 'data')
         const treeId = get(response, 'data._id')
         toast.success('Tree created')
-        history.push(`/trees/${treeId}`)
+        navigate(`/trees/${treeId}`)
         // update the side nav
         addTree(tree)
       })
@@ -90,7 +93,7 @@ export default ({ addTree, updateTree, history, match: { params: { treeId } } })
     )
       .then(() => {
         toast.success('Tree details updated')
-        history.push(`/trees/${treeId}`)
+        navigate(`/trees/${treeId}`)
         // update the side nav
         updateTree(Object.assign(tree, { _id: treeId }))
       })

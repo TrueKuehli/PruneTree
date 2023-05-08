@@ -1,5 +1,5 @@
 import React from 'react'
-import uuid from 'uuid'
+import { v4 } from 'uuid'
 import PersonLinks from './PersonLinks'
 import styles from './styles.scss'
 import get from 'lodash.get'
@@ -41,7 +41,7 @@ const Person = (props) => {
   }
 
   if (personAvatar) {
-    fillId = uuid.v4()
+    fillId = v4()
     image = (
       <image
         className='avatar-image'

@@ -35,9 +35,9 @@ export default () => {
       <p>To delete a node <strong>and all of its child nodes</strong> click the <strong>Wrench Icon</strong> on a node.</p>
       <p>Scroll down to the bottom of the edit node page and click <strong>Delete This Node</strong> and confirm you want to delete it.</p>
       <GuideNavLinks
-        prevLink='create-and-edit-sims'
+        prevLink='/guides/create-and-edit-sims'
         prevText='Adding/Editing Sims'
-        nextLink='publising-trees'
+        nextLink='/guides/publising-trees'
         nextText='Publish Your Tree'
       />
     </div>

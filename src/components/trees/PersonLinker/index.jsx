@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
@@ -8,7 +8,9 @@ import auth from '../../../common/js/auth'
 import styles from './styles.scss'
 import Loading from '../../Loading'
 
-export default ({ match: { params: { personId, treeId } } }) => {
+export default () => {
+  const params = useParams()
+  const { treeId, personId } = params
   const [title, setTitle] = useState('')
   const [person, setPerson] = useState('')
   const [tree, setTree] = useState('')

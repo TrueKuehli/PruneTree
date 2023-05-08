@@ -25,7 +25,7 @@ export default () => {
       <p>You can update the details you set when creating your tree by finding <strong>Tree Details</strong> under the <strong>Edit</strong> menu in the tree editor toolbar.</p>
       <MobileMock display={editTreeGif} />
       <GuideNavLinks
-        nextLink='tree-editor'
+        nextLink='/guides/tree-editor'
         nextText='The Tree Editor'
       />
     </div>

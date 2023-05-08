@@ -43,9 +43,9 @@ export default () => {
       <p>The button below allows you to add child <strong>Nodes</strong>, each you can setup in the same was as the inital <strong>Node</strong> by clicking the wrench for that child.</p>
       <p>You can keep adding as many child <strong>Nodes</strong> to any depth as you need. Just remember you'll need to create the Sims you want to put in a <strong>Node</strong> beforehand.</p>
       <GuideNavLinks
-        prevLink='create-a-tree'
+        prevLink='/guides/create-a-tree'
         prevText='Create a Tree'
-        nextLink='create-and-edit-sims'
+        nextLink='/guides/create-and-edit-sims'
         nextText='Adding/Editing Sims'
       />
     </div>

@@ -40,7 +40,7 @@ module.exports = {
   // todo - may be able to code split to be more efficient?
   entry: './src/AppRoot.jsx',
   mode: process.env.NODE_ENV,
-  devtool: 'hidden-source-map',
+  // devtool: 'hidden-source-map',
   // webpack loaders
   module: {
     rules: [
@@ -109,8 +109,7 @@ module.exports = {
     fallback: {
       util: require.resolve('util/'),
       crypto: require.resolve('crypto-browserify'),
-      stream: require.resolve('stream-browserify'),
-      querystring: require.resolve('querystring-es3')
+      stream: require.resolve('stream-browserify')
     }
   },
   output: {

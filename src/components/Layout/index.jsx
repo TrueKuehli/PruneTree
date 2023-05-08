@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Route, Link, Switch, useLocation } from 'react-router-dom'
+import { Route, Link, Routes, useLocation } from 'react-router-dom'
 
 import styles from './styles.scss'
 import logo from '../../common/images/logo.png'
@@ -56,28 +56,28 @@ export default () => {
         </header>
 
         <div className={styles.body}>
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/guides' component={Guides} />
-            <Route exact path='/signup' component={Signup} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/donate' component={Donate} />
-            <Route exact path='/gallery' component={Gallery} />
-            <Route exact path='/account' component={Account} />
-            <Route exact path='/support' component={Support} />
-            <Route exact path='/forgot-password' component={ForgotPassword} />
-            <Route exact path='/reset-password' component={ResetPassword} />
-            <Route exact path='/forgot-username' component={ForgotUsername} />
-            <Route exact path='/trees/create' component={TreeDetails} />
-            <Route exact path='/trees/:treeId' component={TreeEditor} />
-            <Route exact path='/trees/:treeId/publish' component={TreePublish} />
-            <Route exact path='/trees/:treeId/details' component={TreeDetails} />
-            <Route exact path='/trees/:treeId/people' component={TreePeople} />
-            <Route exact path='/trees/:treeId/people/add' component={PersonEditor} />
-            <Route exact path='/trees/:treeId/people/:personId' component={PersonEditor} />
-            <Route exact path='/trees/:treeId/people/:personId/link' component={PersonLinker} />
-            <Route component={NotFound} />
-          </Switch>
+          <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route path='/guides/*' element={<Guides />} />
+            <Route exact path='/signup' element={<Signup />} />
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/donate' element={<Donate />} />
+            <Route exact path='/gallery' element={<Gallery />} />
+            <Route exact path='/account' element={<Account />} />
+            <Route exact path='/support' element={<Support />} />
+            <Route exact path='/forgot-password' element={<ForgotPassword />} />
+            <Route exact path='/reset-password' element={<ResetPassword />} />
+            <Route exact path='/forgot-username' element={<ForgotUsername />} />
+            <Route exact path='/trees/create' element={<TreeDetails />} />
+            <Route exact path='/trees/:treeId' element={<TreeEditor />} />
+            <Route exact path='/trees/:treeId/publish' element={<TreePublish />} />
+            <Route exact path='/trees/:treeId/details' element={<TreeDetails />} />
+            <Route exact path='/trees/:treeId/people' element={<TreePeople />} />
+            <Route exact path='/trees/:treeId/people/add' element={<PersonEditor />} />
+            <Route exact path='/trees/:treeId/people/:personId' element={<PersonEditor />} />
+            <Route exact path='/trees/:treeId/people/:personId/link' element={<PersonLinker />} />
+            <Route path='/*' element={<NotFound />} />
+          </Routes>
         </div>
 
         <nav className={styles.nav}>

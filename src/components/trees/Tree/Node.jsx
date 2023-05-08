@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import get from 'lodash.get'
 import styles from './styles.scss'
-
 import Partner from './Partner'
 import Person from './Person'
 
@@ -14,16 +13,17 @@ import {
   EDIT_BUTTON_PATTERN
 } from './constants'
 
-class Node extends Component {
-  constructor (props) {
-    super(props)
-
-    this.highlightParents = this.highlightParents.bind(this)
-    this.unhighlightParents = this.unhighlightParents.bind(this)
-  }
-
-  highlightParents () {
-    const { nodeData, highlightParents } = this.props
+export default ({
+  nodeData,
+  highlightPeople,
+  highlightParents,
+  showPersonDetails,
+  people,
+  readonly,
+  editNode,
+  addNode
+}) => {
+  function doHighlightParents () {
     const nodeParentIds = get(nodeData, 'data.parents', []).map((parent) => parent._id)
 
     if (get(nodeData, 'parent') && highlightParents) {
@@ -31,15 +31,13 @@ class Node extends Component {
     }
   }
 
-  unhighlightParents () {
-    const { nodeData, highlightParents } = this.props
-
+  function doUnhighlightParents () {
     if (get(nodeData, 'parent') && highlightParents) {
       highlightParents(nodeData.parent, [])
     }
   }
 
-  nodePosition (node) {
+  function nodePosition (node) {
     let left = NODE_HEIGHT / 2
 
     if (node.data.partners.length > 0) {
@@ -49,7 +47,7 @@ class Node extends Component {
     return [node.x - left, node.y]
   }
 
-  partnerPosition (index, partnerCount) {
+  function getPartnerPosition (index, partnerCount) {
     const partnerSize = (NODE_SMALL_AVATAR_RADIUS * 2) + PARTNER_PADDING
     const totalHeight = partnerCount * partnerSize
     const heightDiff = (NODE_HEIGHT - totalHeight) / 2
@@ -60,88 +58,81 @@ class Node extends Component {
     return [80, y]
   }
 
-  nodeWidth (node) {
+  function getNodeWidth (node) {
     if (node.data.partners.length > 0) {
       return NODE_HEIGHT * 2
     }
     return NODE_HEIGHT
   }
 
-  render () {
-    const node = this.props.nodeData
+  const nodeX = nodePosition(nodeData)[0]
+  const nodeY = nodePosition(nodeData)[1]
+  const nodeWidth = getNodeWidth(nodeData)
 
-    const nodeX = this.nodePosition(node)[0]
-    const nodeY = this.nodePosition(node)[1]
-    const nodeWidth = this.nodeWidth(node)
+  const personData = people.find(p => p._id === get(nodeData, 'data.person._id'))
+  const partners = nodeData.data.partners
 
-    const personData = this.props.people.find(p => p._id === get(node, 'data.person._id'))
-    const partners = node.data.partners
+  // check if we need to mute/darken the node person.
+  const personId = get(personData, '_id')
+  const mute = personId && highlightPeople && highlightPeople.length && !highlightPeople.includes(personId)
 
-    // check if we need to mute/darken the node person.
-    const personId = get(personData, '_id')
-    const highlightPeople = get(this.props, 'highlightPeople', [])
-    const mute = personId && highlightPeople.length && !highlightPeople.includes(personId)
-
-    return (
-      <g className='node' transform={`translate(${nodeX},${nodeY})`}>
-        {!this.props.readonly && (
-          <rect
-            height={NODE_HEIGHT}
-            width={nodeWidth}
-            rx={NODE_HEIGHT / 2}
-            ry={NODE_HEIGHT / 2}
-            className={styles.background}
-          />
-        )}
-
-        <Person
-          personData={personData}
-          nodeData={node}
-          showPersonDetails={this.props.showPersonDetails}
-          mute={mute}
-          highlightParents={this.highlightParents}
-          unhighlightParents={this.unhighlightParents}
+  return (
+    <g className='node' transform={`translate(${nodeX},${nodeY})`}>
+      {!readonly && (
+        <rect
+          height={NODE_HEIGHT}
+          width={nodeWidth}
+          rx={NODE_HEIGHT / 2}
+          ry={NODE_HEIGHT / 2}
+          className={styles.background}
         />
+      )}
 
-        {partners.map((partnerData, index, partners) => {
-          const partnerPosition = this.partnerPosition(index, partners.length)
+      <Person
+        personData={personData}
+        nodeData={nodeData}
+        showPersonDetails={showPersonDetails}
+        mute={mute}
+        highlightParents={doHighlightParents}
+        unhighlightParents={doUnhighlightParents}
+      />
 
-          return (
-            <Partner
-              key={index}
-              partnerData={partnerData}
-              partners={partners}
-              people={this.props.people}
-              transform={`translate(${partnerPosition[0]},${partnerPosition[1]})`}
-              showPersonDetails={this.props.showPersonDetails}
-              highlightPeople={highlightPeople}
-            />
-          )
-        })}
+      {partners.map((partnerData, index, partners) => {
+        const partnerPosition = getPartnerPosition(index, partners.length)
 
-        {!this.props.readonly && (
-          <circle
-            className={`${styles.addChildIcon} add-node`}
-            cx={partners.length ? NODE_HEIGHT : NODE_HEIGHT / 2}
-            cy={NODE_HEIGHT}
-            fill={`url(#${PLUS_BUTTON_PATTERN})`}
-            r={NODE_BUTTON_RADIUS}
-            onClick={() => this.props.addNode(node)}
+        return (
+          <Partner
+            key={index}
+            partnerData={partnerData}
+            partners={partners}
+            people={people}
+            transform={`translate(${partnerPosition[0]},${partnerPosition[1]})`}
+            showPersonDetails={showPersonDetails}
+            highlightPeople={highlightPeople}
           />
-        )}
+        )
+      })}
 
-        {!this.props.readonly && (
-          <circle
-            className={`${styles.editNodeIcon} edit-node`}
-            cy={NODE_HEIGHT / 2}
-            fill={`url(#${EDIT_BUTTON_PATTERN})`}
-            r={NODE_BUTTON_RADIUS}
-            onClick={() => this.props.editNode(node)}
-          />
-        )}
-      </g>
-    )
-  }
-};
+      {!readonly && (
+        <circle
+          className={`${styles.addChildIcon} add-node`}
+          cx={partners.length ? NODE_HEIGHT : NODE_HEIGHT / 2}
+          cy={NODE_HEIGHT}
+          fill={`url(#${PLUS_BUTTON_PATTERN})`}
+          r={NODE_BUTTON_RADIUS}
+          onClick={() => addNode(nodeData)}
+        />
+      )}
 
-export default Node
+      {!readonly && (
+        <circle
+          className={`${styles.editNodeIcon} edit-node`}
+          cy={NODE_HEIGHT / 2}
+          fill={`url(#${EDIT_BUTTON_PATTERN})`}
+          r={NODE_BUTTON_RADIUS}
+          onClick={() => editNode(nodeData)}
+        />
+      )}
+    </g>
+  )
+}
