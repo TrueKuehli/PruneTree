@@ -47,7 +47,7 @@ export default () => {
           <input id='password-input' className='form-control' type='password' name='password' value={password} onChange={ev => setPassword(ev.target.value)} />
         </div>
         <button id='signup-submit' type='submit' className='btn btn-primary'>Create Account</button>
-        <p>Already got an account? <Link to='login'>Click here to login.</Link></p>
+        <p>Already got an account? <Link to='/login'>Click here to login.</Link></p>
       </form>
     </div>
   )

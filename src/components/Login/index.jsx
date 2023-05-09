@@ -51,9 +51,9 @@ export default ({ loadUsersTree }) => {
           <input id='password-input' className='form-control' type='password' name='password' value={password} onChange={ev => setPassword(ev.target.value)} autoComplete='on' />
         </div>
         <button id='login-submit' type='submit' className='btn btn-primary'>Login</button>
-        <p>Not signed up yet? <Link to='signup'>Click here to create an account.</Link></p>
-        <p>Forgot your password? <Link to='forgot-password'>Click here to reset it.</Link></p>
-        <p>Can't remember your username? <Link to='forgot-username'>Click here retreive it.</Link></p>
+        <p>Not signed up yet? <Link to='/signup'>Click here to create an account.</Link></p>
+        <p>Forgot your password? <Link to='/forgot-password'>Click here to reset it.</Link></p>
+        <p>Can't remember your username? <Link to='/forgot-username'>Click here retreive it.</Link></p>
       </form>
     </div>
   )

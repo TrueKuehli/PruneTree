@@ -31,6 +31,7 @@ export default () => {
           setPublishDate(null)
           setPublishedToGallery(false)
           setLoading(false)
+          return
         }
         toast.error('Failed to get tree info', { autoClose: false })
       })

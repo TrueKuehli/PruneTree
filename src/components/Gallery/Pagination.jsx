@@ -9,8 +9,8 @@ export default ({ loading, page, items, totalPages, changePage, search }) => {
 
   const activeClass = [styles.paginationBtn, styles.active]
   const searchQuery = search.trim().length > 1 ? `&search=${search}` : ''
-  const prevLink = `gallery?page=${page - 1}${searchQuery}`
-  const nextLink = `gallery?page=${page + 1}${searchQuery}`
+  const prevLink = `/gallery?page=${page - 1}${searchQuery}`
+  const nextLink = `/gallery?page=${page + 1}${searchQuery}`
 
   let prevBtn = <Link className={styles.paginationBtn} to={prevLink} onClick={() => changePage(page - 1)}>&laquo;</Link>
   let nextBtn = <Link className={styles.paginationBtn} to={nextLink} onClick={() => changePage(page + 1)}>&raquo;</Link>
@@ -43,9 +43,9 @@ export default ({ loading, page, items, totalPages, changePage, search }) => {
 
         {pages.map((pageNum, index) => {
           if (pageNum === page) {
-            return (<Link key={index} className={activeClass.join(' ')} to={`gallery?page=${pageNum}${search}`} onClick={() => changePage(pageNum)}>{pageNum}</Link>)
+            return (<Link key={index} className={activeClass.join(' ')} to={`/gallery?page=${pageNum}${search}`} onClick={() => changePage(pageNum)}>{pageNum}</Link>)
           }
-          return (<Link key={index} className={styles.paginationBtn} to={`gallery?page=${pageNum}${search}`} onClick={() => changePage(pageNum)}>{pageNum}</Link>)
+          return (<Link key={index} className={styles.paginationBtn} to={`/gallery?page=${pageNum}${search}`} onClick={() => changePage(pageNum)}>{pageNum}</Link>)
         })}
 
         {nextBtn}

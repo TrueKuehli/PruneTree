@@ -16,7 +16,7 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
   const [cropping, setCropping] = useState(false)
   const [naturalHeight, setNaturalHeight] = useState(null)
   const [naturalWidth, setNaturalWidth] = useState(null)
-  const [crop, setCrop] = useState({ aspect })
+  const [crop, setCrop] = useState(null)
   const [percentCrop, setPercentCrop] = useState(null)
   const [cropImageUri, setCropImageUri] = useState(getUploadedImageUri(image))
 
@@ -99,8 +99,8 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
    * @return {void}
    */
   function onImageLoaded (image) {
-    setNaturalWidth(image.naturalWidth)
-    setNaturalHeight(image.naturalHeight)
+    setNaturalWidth(image.currentTarget.naturalWidth)
+    setNaturalHeight(image.currentTarget.naturalHeight)
   }
 
   /**
@@ -157,14 +157,16 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
   if (cropping) { return (<Loading message='Cropping image...' />) }
 
   if (showCropper) {
+    console.log(cropImageUri)
     return (
       <div>
         <ReactCrop
-          src={cropImageUri}
           crop={crop}
           onChange={onCropChange}
-          onImageLoaded={onImageLoaded}
-        />
+          aspect={aspect}
+        >
+            <img src={cropImageUri} onLoad={onImageLoaded} />
+          </ReactCrop>
         <div style={{ textAlign: 'center' }}>
           <button className='btn btn-default' onClick={cancelCrop}>Cancel Crop</button>
           <button className='btn btn-primary' onClick={cropImage}>Crop Image</button>

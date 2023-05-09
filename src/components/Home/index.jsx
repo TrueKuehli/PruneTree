@@ -34,10 +34,10 @@ export default () => {
           </div>
           <div className='col-12 col-md-4'>
             <img src={lifering} className={styles.featureImage} width='100' />
-            <p>Need help or have a question? Checkout <Link to='guides'>our guides</Link> or <Link to='support'>see our support page</Link>.</p>
+            <p>Need help or have a question? Checkout <Link to='/guides'>our guides</Link> or <Link to='/support'>see our support page</Link>.</p>
           </div>
         </div>
-        {/* <div className='row'>
+        <div className='row'>
           <div className='col-12'>
             <h2>Using The Plum Tree</h2>
             <p>If our guides don't do it for you, check out <a href='https://www.youtube.com/channel/UCYorr-o7j29k9vF8xGiiCmA' target='_blank' rel='noopener noreferrer'>The SimTwins</a> video instead. We thank them for this brilliant guide they put together on how to build the perfect Sims 4 family tree.</p>
@@ -45,7 +45,7 @@ export default () => {
               <iframe width='560' height='315' src='https://www.youtube.com/embed/QatRM3knISY' frameBorder='0' allowFullScreen />
             </div>
           </div>
-        </div> */}
+        </div>
 
         <div className='row'>
           <div className='col-12 col-md-6'>
