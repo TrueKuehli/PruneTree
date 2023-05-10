@@ -134,7 +134,9 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
       .then((response) => {
         const croppedFile = get(response, 'data.filename')
         setCropping(false)
+        setCrop(null)
         onImageChange(croppedFile)
+        setCropImageUri(getOrigUploadedImageUri(croppedFile))
         setShowCropper(false)
         toast.success('Image cropped')
       })
@@ -157,7 +159,6 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
   if (cropping) { return (<Loading message='Cropping image...' />) }
 
   if (showCropper) {
-    console.log(cropImageUri)
     return (
       <div>
         <ReactCrop
@@ -165,8 +166,8 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
           onChange={onCropChange}
           aspect={aspect}
         >
-            <img src={cropImageUri} onLoad={onImageLoaded} />
-          </ReactCrop>
+          <img src={cropImageUri} onLoad={onImageLoaded} />
+        </ReactCrop>
         <div style={{ textAlign: 'center' }}>
           <button className='btn btn-default' onClick={cancelCrop}>Cancel Crop</button>
           <button className='btn btn-primary' onClick={cropImage}>Crop Image</button>

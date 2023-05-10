@@ -112,6 +112,7 @@ export default ({ addTree, updateTree }) => {
 
   let imagePreview
   if (cover) {
+    console.log(cover)
     const style = { backgroundImage: `url(${coverUri})` }
     imagePreview = (<div className={styles.coverImage} style={style} />)
   } else {
