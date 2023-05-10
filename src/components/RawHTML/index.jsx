@@ -1,11 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class RawHTML extends Component {
-  render () {
-    return (
-      <div dangerouslySetInnerHTML={{ __html: this.props.html }} />
-    )
-  }
-};
-
-export default RawHTML
+export default ({ html }) => {
+  return (
+    <div dangerouslySetInnerHTML={{ __html: html }} />
+  )
+}

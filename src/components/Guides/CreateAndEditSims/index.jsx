@@ -43,9 +43,9 @@ export default () => {
         <dd>Add any other details that can be displayed as a title and value. These items will be shown as a simple table in the Sims info panel.</dd>
       </dl>
       <GuideNavLinks
-        prevLink='tree-editor'
+        prevLink='/guides/tree-editor'
         prevText='The Tree Editor'
-        nextLink='placing-sims'
+        nextLink='/guides/placing-sims'
         nextText='Placing Sims in Your Tree'
       />
     </div>

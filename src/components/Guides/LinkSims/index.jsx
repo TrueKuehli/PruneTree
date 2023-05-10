@@ -3,6 +3,7 @@ import GuideIndexLink from '../GuideIndexLink'
 import MobileMock from '../MobileMock'
 import linkDetails from './link-details.gif'
 import addLink from './add-link.gif'
+import GuideNavLinks from '../GuideNavLinks'
 
 export default () => {
   return (
@@ -31,6 +32,10 @@ export default () => {
       <p>In the tree you want to remove a link from - in the editor toolbar under <strong>Edit</strong> click <strong>People in Tree</strong>.</p>
       <p>Find the Sim you want to remove a link from in the list of Sims and click the <strong>Link</strong> button in that row.</p>
       <p>Find the link you want to remove in the list and click <strong>Delete</strong>.</p>
+      <GuideNavLinks
+        prevLink='/guides/publising-trees'
+        prevText='Publish Your Tree'
+      />
     </div>
   )
 }

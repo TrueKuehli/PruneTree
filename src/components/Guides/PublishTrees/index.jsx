@@ -27,9 +27,9 @@ export default () => {
       <p>Click <strong>Save</strong> and your trees public visibility settings will be saved.</p>
 
       <GuideNavLinks
-        prevLink='placing-sims'
+        prevLink='/guides/placing-sims'
         prevText='Placing Sims in Your Tree'
-        nextLink='linking-sims-to-other-trees'
+        nextLink='/guides/linking-sims-to-other-trees'
         nextText='Link Sims Across Multiple Trees'
       />
     </div>

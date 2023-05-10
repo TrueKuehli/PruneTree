@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import querystring from 'querystring'
 import get from 'lodash.get'
 import Pagination from './Pagination'
 import GalleryList from './GalleryList'
 import styles from './styles.scss'
 
-export default ({ location, history }) => {
+export default ({ location }) => {
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [trees, setTrees] = useState([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
@@ -15,14 +17,7 @@ export default ({ location, history }) => {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    let urlParamsString = get(location, 'search', '')
-    if (urlParamsString.charAt(0) === '?') {
-      urlParamsString = urlParamsString.substr(1)
-    }
-
-    const urlParams = querystring.parse(urlParamsString)
-
-    setSearch(urlParams.search || '')
+    setSearch(searchParams.get('search') || '')
   }, [])
 
   useEffect(() => {
@@ -33,14 +28,7 @@ export default ({ location, history }) => {
     // if we didn't load the page use the page URL query parameter or default to
     // page 1
     if (!page) {
-      let urlParamsString = get(location, 'search', '')
-      if (urlParamsString.charAt(0) === '?') {
-        urlParamsString = urlParamsString.substr(1)
-      }
-
-      const urlParams = querystring.parse(urlParamsString)
-
-      page = parseInt(urlParams.page, 10) || 1
+      page = parseInt(searchParams.get('page')) || 1
     }
 
     setTrees([])
@@ -64,15 +52,9 @@ export default ({ location, history }) => {
     event.preventDefault()
 
     if (search.trim().length > 1) {
-      history.push({
-        pathname: '/gallery',
-        search: `?page=1&search=${search}`
-      })
+      navigate(`/gallery?page=1&search=${search}`)
     } else {
-      history.push({
-        pathname: '/gallery',
-        search: '?page=1'
-      })
+      navigate('/gallery?page=1')
     }
 
     loadGalleryItems(1)

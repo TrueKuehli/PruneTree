@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import get from 'lodash.get'
 import { toast } from 'react-toastify'
@@ -7,7 +8,8 @@ import auth from '../../common/js/auth'
 import { isValidEmail } from '../../common/js/utils'
 import styles from './styles.scss'
 
-export default ({ history }) => {
+export default () => {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [email, setEmail] = useState('')
@@ -150,7 +152,7 @@ export default ({ history }) => {
         const session = auth.getSession()
         auth.clearToken()
         toast.success(`Account ${session.username} has now been deleted`)
-        history.push('/')
+        navigate('/')
       })
       .catch((error) => {
         console.error(error)

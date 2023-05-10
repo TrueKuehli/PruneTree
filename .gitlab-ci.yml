@@ -1,5 +1,5 @@
 .executor-node: &executor-node
-  image: node:14
+  image: node:18
   tags:
     - docker
 
@@ -50,4 +50,4 @@ deploy:
     # install dependencies & deploy
     - npm ci
     - export NODE_ENV=production
-    - npm run deploy
+    - bucket=com.theplumtreeapp.$COLOR-assets npm run deploy

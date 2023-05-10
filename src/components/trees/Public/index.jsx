@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
-
+import { useParams } from 'react-router-dom'
 import { sendGoogleAnalyticsPageView } from '../../../common/js/utils'
 import Loading from '../../Loading'
 import Tree from '../Tree'
 
-export default ({ match: { params: { treeId } } }) => {
+export default () => {
+  const params = useParams()
+  const { treeId } = params
   const [loading, setLoading] = useState(true)
   const [tree, setTree] = useState(null)
 

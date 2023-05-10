@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import get from 'lodash.get'
@@ -16,7 +16,10 @@ import styles from './styles.scss'
 import defaultAvatar from '../../../common/images/default-avatar.png'
 import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
 
-export default ({ history, match: { params: { treeId, personId } } }) => {
+export default () => {
+  const navigate = useNavigate()
+  const params = useParams()
+  const { treeId, personId } = params
   const [avatar, setAvatar] = useState(null)
   const [avatarUri, setAvatarUri] = useState(null)
   const [firstName, setFirstName] = useState('')
@@ -102,7 +105,7 @@ export default ({ history, match: { params: { treeId, personId } } }) => {
     )
       .then(() => {
         toast.success('Person created')
-        history.push(`/trees/${treeId}/people`)
+        navigate(`/trees/${treeId}/people`)
       })
       .catch((error) => {
         console.error(error)
@@ -119,7 +122,7 @@ export default ({ history, match: { params: { treeId, personId } } }) => {
     )
       .then(() => {
         toast.success('Person updated')
-        history.goBack()
+        navigate(-1)
       })
       .catch((error) => {
         console.error(error)
@@ -270,76 +273,68 @@ export default ({ history, match: { params: { treeId, personId } } }) => {
   )
 }
 
-class PlumTreeMultiSelect extends Component {
-  render () {
-    const customStyles = {
-      multiValue: (provided, state) => {
-        return {
-          ...provided,
-          ...{
-            background: '#3498db',
-            borderRadius: 3,
-            boxShadow: '0 2px 3px 0 rgba(0,0,0,.075)'
+const PlumTreeMultiSelect = ({ options, onValuesChange, defaultValues }) => {
+  const customStyles = {
+    multiValue: (provided, state) => {
+      return {
+        ...provided,
+        ...{
+          background: '#3498db',
+          borderRadius: 3,
+          boxShadow: '0 2px 3px 0 rgba(0,0,0,.075)'
+        }
+      }
+    },
+    multiValueLabel: (provided, state) => {
+      return {
+        ...provided,
+        ...{
+          color: '#fff',
+          padding: '3px 10px',
+          textShadow: '0 1px 2px rgba(0,0,0,.2)',
+          fontSize: 16,
+          fontWeight: 300
+        }
+      }
+    },
+    multiValueRemove: (provided, state) => {
+      return {
+        ...provided,
+        ...{
+          color: '#fff',
+          textShadow: '0 1px 2px rgba(0,0,0,.2)',
+          cursor: 'pointer',
+          ':hover': {
+            backgroundColor: '#2980b9',
+            color: '#fff'
           }
         }
-      },
-      multiValueLabel: (provided, state) => {
-        return {
-          ...provided,
-          ...{
-            color: '#fff',
-            padding: '3px 10px',
-            textShadow: '0 1px 2px rgba(0,0,0,.2)',
-            fontSize: 16,
-            fontWeight: 300
-          }
-        }
-      },
-      multiValueRemove: (provided, state) => {
-        return {
-          ...provided,
-          ...{
-            color: '#fff',
-            textShadow: '0 1px 2px rgba(0,0,0,.2)',
-            cursor: 'pointer',
-            ':hover': {
-              backgroundColor: '#2980b9',
-              color: '#fff'
-            }
-          }
-        }
-      },
-      control: (provided, state) => {
-        return {
-          ...provided,
-          ...{
-            borderColor: '#ccc',
-            ':hover': {
-              borderColor: 'rgba(26, 188, 156, 1)'
-            }
+      }
+    },
+    control: (provided, state) => {
+      return {
+        ...provided,
+        ...{
+          borderColor: '#ccc',
+          ':hover': {
+            borderColor: 'rgba(26, 188, 156, 1)'
           }
         }
       }
     }
-
-    const {
-      options,
-      onValuesChange,
-      defaultValues
-    } = this.props
-
-    const optionObjects = options.map(value => { return { label: value, value } })
-    const defaultValueObjects = defaultValues.map(value => { return { label: value, value } })
-
-    return (
-      <Select
-        value={defaultValueObjects}
-        onChange={onValuesChange}
-        options={optionObjects}
-        isMulti
-        isSearchable
-        styles={customStyles}
-      />
-    )
   }
+
+  const optionObjects = options.map(value => { return { label: value, value } })
+  const defaultValueObjects = defaultValues.map(value => { return { label: value, value } })
+
+  return (
+    <Select
+      value={defaultValueObjects}
+      onChange={onValuesChange}
+      options={optionObjects}
+      isMulti
+      isSearchable
+      styles={customStyles}
+    />
+  )
 }

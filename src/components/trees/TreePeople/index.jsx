@@ -1,38 +1,26 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
-import { Link } from 'react-router-dom'
-
+import { Link, useParams } from 'react-router-dom'
 import styles from './styles.scss'
 import auth from '../../../common/js/auth'
 import defaultAvatar from '../../../common/images/default-avatar.png'
 import Loading from '../../Loading'
 import { getUploadedImageUri } from '../../../common/js/utils'
 
-class TreePeople extends Component {
-  constructor (props) {
-    super(props)
+export default ({ loading: loadingProp }) => {
+  const params = useParams()
+  const { treeId } = params
+  const [loading, setLoading] = useState(loadingProp)
+  const [people, setPeople] = useState([])
+  const [tree, setTree] = useState(null)
+  const [filter, setFilter] = useState('')
+  const [filteredPeople, setFilteredPeople] = useState([])
 
-    this.state = {
-      loading: false,
-      people: [],
-      filter: '',
-      filteredPeople: []
-    }
+  useEffect(() => {
+    setLoading(true)
 
-    this.handleFilterPeople = this.handleFilterPeople.bind(this)
-    this._filterPeople = this._filterPeople.bind(this)
-    this.deletePerson = this.deletePerson.bind(this)
-    this._removePersonFromTree = this._removePersonFromTree.bind(this)
-  }
-
-  componentDidMount () {
-    this.setState({
-      loading: true
-    })
-
-    const treeId = this.props.match.params.treeId
     const authToken = auth.getToken()
     const headers = { headers: { Authorization: `Bearer ${authToken}` } }
 
@@ -44,30 +32,24 @@ class TreePeople extends Component {
         const people = get(peopleResponse, 'data')
         const tree = get(treeResponse, 'data')
 
-        this.setState({
-          loading: false,
-          people,
-          tree,
-          filter: '',
-          filteredPeople: people
-        })
+        setPeople(people)
+        setTree(tree)
+        setFilter('')
+        setFilteredPeople(people)
+        setLoading(false)
       }))
       .catch((error) => {
-        this.setState({
-          loading: false
-        })
+        setLoading(false)
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
       })
+  }, [])
+
+  function handleFilterPeople (event) {
+    setFilter(event.target.value)
+    setFilteredPeople(_filterPeople(people, event.target.value))
   }
 
-  handleFilterPeople (event) {
-    this.setState({
-      filter: event.target.value,
-      filteredPeople: this._filterPeople(this.state.people, event.target.value)
-    })
-  }
-
-  _filterPeople (people, filter = '') {
+  function _filterPeople (people, filter = '') {
     if (filter === '') {
       return people
     }
@@ -78,8 +60,7 @@ class TreePeople extends Component {
     })
   }
 
-  deletePerson (personId) {
-    const treeId = this.props.match.params.treeId
+  function deletePerson (personId) {
     const authToken = auth.getToken()
     const headers = { headers: { Authorization: `Bearer ${authToken}` } }
 
@@ -91,18 +72,16 @@ class TreePeople extends Component {
 
     if (deleteConfirmed) {
       // delete all references of this person in the tree
-      const tree = Object.assign({}, this.state.tree)
-      this._removePersonFromTree(personId, tree.data)
+      const updatedTree = Object.assign({}, tree)
+      _removePersonFromTree(personId, updatedTree.data)
 
       axios.all([
-        axios.patch(`/api/trees/${treeId}`, { data: tree.data }, headers),
+        axios.patch(`/api/trees/${treeId}`, { data: updatedTree.data }, headers),
         axios.delete(`/api/people/${personId}`, headers)
       ])
         .then(axios.spread((saveTreeResponse, deletePersonResponse) => {
-          this.setState({
-            people: this.state.people.filter((person) => person._id !== personId),
-            filteredPeople: this.state.filteredPeople.filter((person) => person._id !== personId)
-          })
+          setPeople(people.filter((person) => person._id !== personId))
+          setFilteredPeople(filteredPeople.filter((person) => person._id !== personId))
           toast.success('Person removed')
         }))
         .catch((error) => {
@@ -112,7 +91,7 @@ class TreePeople extends Component {
     }
   }
 
-  _removePersonFromTree (personId, treeNode) {
+  function _removePersonFromTree (personId, treeNode) {
     if (get(treeNode, 'person._id') === personId) {
       treeNode.person = null
     }
@@ -131,74 +110,68 @@ class TreePeople extends Component {
       })
     }
     if (get(treeNode, 'children.length', false)) {
-      treeNode.children.forEach(child => this._removePersonFromTree(personId, child))
+      treeNode.children.forEach(child => _removePersonFromTree(personId, child))
     }
   }
 
-  render () {
-    if (this.state.loading) {
-      return (
-        <Loading message='Loading people' />
-      )
-    }
-
-    const people = this.state.filteredPeople
-    const treeId = this.props.match.params.treeId
-    const personCreateLink = `/trees/${treeId}/people/add`
-
+  if (loading) {
     return (
-      <div className='container'>
-        <h1>Manage People in Your Tree</h1>
-        <p>Here you can create people to place in the structure of your family tree or edit existing people already in the tree.</p>
-        <div className={styles.navButtons}>
-          <Link id='back-to-tree' className='btn btn-default' to={`/trees/${treeId}`}><i className='icon-chevron-left' /> Back to Your Tree</Link>
-          <Link id='add-new-person' className='btn btn-primary' to={personCreateLink}><i className='icon-plus' /> Add Someone New</Link>
-        </div>
-        <div className='form-group'>
-          <label>Search</label>
-          <input
-            className='form-control'
-            type='text'
-            name='filter'
-            value={this.state.filter}
-            placeholder='Start typing to filter...'
-            onChange={this.handleFilterPeople}
-          />
-        </div>
-        {people.map((person) => {
-          const personEditLink = `/trees/${treeId}/people/${person._id}`
-          const personLinkLink = `/trees/${treeId}/people/${person._id}/link`
-
-          let backgroundImage
-          if (person.avatar) {
-            backgroundImage = `url(${getUploadedImageUri(person.avatar, '200x200')})`
-          } else {
-            backgroundImage = `url(${defaultAvatar})`
-          }
-
-          const inlineAvatarStyle = { backgroundImage }
-          let name
-          if (person.firstName || person.lastName) {
-            name = `${person.firstName} ${person.lastName}`
-          } else {
-            name = (<i>~ No Name ~</i>)
-          }
-
-          return (
-            <div key={person._id} className={`${styles.personTile} people-list-item`}>
-              <div className={styles.avatar} style={inlineAvatarStyle} />
-              <div>{name}</div>
-              <div className={styles.personMenu}>
-                <Link className='btn btn-small btn-default edit-person' to={personEditLink}>Edit</Link>
-                <Link className='btn btn-small btn-default link-person' to={personLinkLink}>Link</Link>
-                <button className='btn btn-small btn-danger delete-person' onClick={() => this.deletePerson(person._id)}>Delete</button>
-              </div>
-            </div>
-          )
-        })}
-      </div>
+      <Loading message='Loading people' />
     )
   }
-};
 
-export default TreePeople
+  const personCreateLink = `/trees/${treeId}/people/add`
+
+  return (
+    <div className='container'>
+      <h1>Manage People in Your Tree</h1>
+      <p>Here you can create people to place in the structure of your family tree or edit existing people already in the tree.</p>
+      <div className={styles.navButtons}>
+        <Link id='back-to-tree' className='btn btn-default' to={`/trees/${treeId}`}><i className='icon-chevron-left' /> Back to Your Tree</Link>
+        <Link id='add-new-person' className='btn btn-primary' to={personCreateLink}><i className='icon-plus' /> Add Someone New</Link>
+      </div>
+      <div className='form-group'>
+        <label>Search</label>
+        <input
+          className='form-control'
+          type='text'
+          name='filter'
+          value={filter}
+          placeholder='Start typing to filter...'
+          onChange={handleFilterPeople}
+        />
+      </div>
+      {filteredPeople.map((person) => {
+        const personEditLink = `/trees/${treeId}/people/${person._id}`
+        const personLinkLink = `/trees/${treeId}/people/${person._id}/link`
+
+        let backgroundImage
+        if (person.avatar) {
+          backgroundImage = `url(${getUploadedImageUri(person.avatar, '200x200')})`
+        } else {
+          backgroundImage = `url(${defaultAvatar})`
+        }
+
+        const inlineAvatarStyle = { backgroundImage }
+        let name
+        if (person.firstName || person.lastName) {
+          name = `${person.firstName} ${person.lastName}`
+        } else {
+          name = (<i>~ No Name ~</i>)
+        }
+
+        return (
+          <div key={person._id} className={`${styles.personTile} people-list-item`}>
+            <div className={styles.avatar} style={inlineAvatarStyle} />
+            <div>{name}</div>
+            <div className={styles.personMenu}>
+              <Link className='btn btn-small btn-default edit-person' to={personEditLink}>Edit</Link>
+              <Link className='btn btn-small btn-default link-person' to={personLinkLink}>Link</Link>
+              <button className='btn btn-small btn-danger delete-person' onClick={() => deletePerson(person._id)}>Delete</button>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}

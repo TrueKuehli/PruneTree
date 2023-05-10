@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styles from './styles.scss'
 import {
   TREE_DEPTH,
@@ -7,10 +7,8 @@ import {
   PARTNER_PADDING
 } from './constants'
 
-class Link extends Component {
-  drawPath () {
-    const { linkData } = this.props
-
+export default ({ linkData }) => {
+  function drawPath () {
     let path = 'M '
     const startX = linkData.parent.x
 
@@ -50,17 +48,10 @@ class Link extends Component {
     return path
   }
 
-  render () {
-    return (
-      <path
-        className={styles.link}
-        ref={l => {
-          this.link = l
-        }}
-        d={this.drawPath()}
-      />
-    )
-  }
-};
-
-export default Link
+  return (
+    <path
+      className={styles.link}
+      d={drawPath()}
+    />
+  )
+}

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React, { useRef, useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 import GuidesHome from './GuidesHome'
 import CreateTree from './CreateTree'
@@ -8,19 +8,28 @@ import CreateAndEditSims from './CreateAndEditSims'
 import PlacingSims from './PlacingSims'
 import PublishTrees from './PublishTrees'
 import LinkSims from './LinkSims'
+import NotFound from '../NotFound'
 
 export default () => {
+  const location = useLocation()
+  const myRef = useRef(null)
+
+  useEffect(() => {
+    myRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [location])
+
   return (
-    <div className='container'>
-      <Switch>
-        <Route exact path='/guides' component={GuidesHome} />
-        <Route exact path='/guides/create-a-tree' component={CreateTree} />
-        <Route exact path='/guides/tree-editor' component={TreeEditor} />
-        <Route exact path='/guides/create-and-edit-sims' component={CreateAndEditSims} />
-        <Route exact path='/guides/placing-sims' component={PlacingSims} />
-        <Route exact path='/guides/publising-trees' component={PublishTrees} />
-        <Route exact path='/guides/linking-sims-to-other-trees' component={LinkSims} />
-      </Switch>
+    <div className='container' ref={myRef}>
+      <Routes>
+        <Route exact path='/' element={<GuidesHome />} />
+        <Route exact path='/create-a-tree' element={<CreateTree />} />
+        <Route exact path='/tree-editor' element={<TreeEditor />} />
+        <Route exact path='/create-and-edit-sims' element={<CreateAndEditSims />} />
+        <Route exact path='/placing-sims' element={<PlacingSims />} />
+        <Route exact path='/publising-trees' element={<PublishTrees />} />
+        <Route exact path='/linking-sims-to-other-trees' element={<LinkSims />} />
+        <Route exact path='/*' element={<NotFound />} />
+      </Routes>
     </div>
   )
 }

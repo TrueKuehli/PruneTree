@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { stateToHTML } from 'draft-js-export-html'
 import { stateFromHTML } from 'draft-js-import-html'
 import { Editor, EditorState, RichUtils } from 'draft-js'
@@ -112,31 +112,17 @@ export default ({ initialHtml, onUpdate }) => {
   )
 }
 
-class StyleButton extends Component {
-  constructor () {
-    super()
-    this.handleToggle = (e) => {
-      e.preventDefault()
-      this.props.onToggle(this.props.style)
-    }
+const StyleButton = ({ onToggle, style, active, icon }) => {
+  function handleToggle (e) {
+    e.preventDefault()
+    onToggle(style)
   }
 
-  render () {
-    let btnClass = 'btn'
-    if (this.props.active) {
-      btnClass += ' btn-primary'
-    } else {
-      btnClass += ' btn-default'
-    }
-
-    const iconClass = `icon-${this.props.icon}`
-
-    return (
-      <span className={btnClass} onMouseDown={this.handleToggle}>
-        <i className={iconClass} />
-      </span>
-    )
-  }
+  return (
+    <span className={active ? 'btn btn-primary' : 'btn btn-default'} onMouseDown={handleToggle}>
+      <i className={`icon-${icon}`} />
+    </span>
+  )
 }
 
 const StylesToolbar = (props) => {
