@@ -43,7 +43,6 @@ export default ({ loadUsersTree, trees, onItemClick }) => {
             <Link to='/login' onClick={onItemClick}>Login</Link> or <Link to='/signup' onClick={onItemClick}>Create an Account</Link> to create, view and edit your trees.
           </p>
           )}
-      <div className={styles.version}>Version {COMMITHASH.substring(0, 7)}</div>
     </div>
   )
 }

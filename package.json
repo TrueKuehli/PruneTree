@@ -16,7 +16,7 @@
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production webpack",
     "predeploy": "npm run build",
-    "deploy": "aws s3 sync --delete dist/ s3://$bucket"
+    "deploy": "aws s3 sync --delete dist/ s3://com.theplumtreeapp.$STACK-assets "
   },
   "standard": {
     "ignore": [
@@ -24,6 +24,7 @@
     ],
     "globals": [
       "COMMITHASH",
+      "STACK",
       "FileReader",
       "localStorage",
       "btoa",

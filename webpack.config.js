@@ -142,7 +142,8 @@ module.exports = {
       chunkFilename: '[fullhash].[id].css'
     }),
     new webpack.DefinePlugin({
-      COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash())
+      COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
+      STACK: JSON.stringify(process.env.STACK)
     }),
     new FaviconsWebpackPlugin({
       logo: './src/common/images/favicon.png',

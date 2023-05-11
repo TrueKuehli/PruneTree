@@ -33,7 +33,7 @@ and accountability.
 The Plum Tree uses a [blue/green][bluegreen] deploy mechanism.
 
 By default the validation jobs will run when a pipeline is triggered. To show
-the deploy stage a `COLOR` variable must be passed. This signify which
+the deploy stage a `STACK` variable must be passed. This signify which
 environment to deploy to.
 
 Generally we should deploy to a non active color and perform a blue/green flip
