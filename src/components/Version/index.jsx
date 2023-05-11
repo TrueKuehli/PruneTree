@@ -43,7 +43,7 @@ export default () => {
         </tr>
         <tr>
           <th>UI Color</th>
-          <td>{COLOR}</td>
+          <td>{STACK}</td>
         </tr>
       </table>
     </div>

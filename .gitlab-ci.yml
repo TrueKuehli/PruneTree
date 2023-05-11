@@ -40,7 +40,7 @@ deploy:
   <<: *executor-node
   only:
     variables:
-      - $COLOR
+      - $STACK
   when: manual
   script:
     - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -50,4 +50,4 @@ deploy:
     # install dependencies & deploy
     - npm ci
     - export NODE_ENV=production
-    - bucket=com.theplumtreeapp.$COLOR-assets npm run deploy
+    - npm run deploy

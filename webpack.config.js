@@ -143,7 +143,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
-      COLOR: JSON.stringify(process.env.COLOR)
+      STACK: JSON.stringify(process.env.STACK)
     }),
     new FaviconsWebpackPlugin({
       logo: './src/common/images/favicon.png',
