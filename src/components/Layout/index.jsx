@@ -24,6 +24,7 @@ import PersonEditor from '../trees/PersonEditor'
 import PersonLinker from '../trees/PersonLinker'
 import AccountDropdown from '../AccountDropdown'
 import SideNav from '../../containers/SideNav'
+import Version from '../Version'
 import NotFound from '../NotFound'
 
 export default () => {
@@ -76,6 +77,7 @@ export default () => {
             <Route exact path='/trees/:treeId/people/add' element={<PersonEditor />} />
             <Route exact path='/trees/:treeId/people/:personId' element={<PersonEditor />} />
             <Route exact path='/trees/:treeId/people/:personId/link' element={<PersonLinker />} />
+            <Route exact path='/version' element={<Version />} />
             <Route path='/*' element={<NotFound />} />
           </Routes>
         </div>
