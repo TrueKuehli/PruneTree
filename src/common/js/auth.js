@@ -1,4 +1,6 @@
 import { decode } from 'jsonwebtoken'
+import { toast } from 'react-toastify'
+import get from 'lodash.get'
 
 /**
  * Util object for dealing with the auth token.
@@ -35,5 +37,22 @@ export default {
    */
   clearToken: () => {
     localStorage.removeItem('token')
+  },
+
+  /**
+   * Checks if a error given is a axios error with a response code of 403. If so
+   * we redirect the user to login and let them know they need to sign in again.
+   * @param {Object} error
+   * @param {Object} navigate
+   * @returns
+   */
+  loginRequired: (error, navigate) => {
+    if (get(error, 'response.status') == 403) {
+      localStorage.removeItem('token')
+      toast.warn(`You're session expired. Please login again.`)
+      navigate('/login')
+      return true
+    }
+    return false
   }
 }

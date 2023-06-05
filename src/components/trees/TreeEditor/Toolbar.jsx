@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import get from 'lodash.get'
@@ -8,6 +8,7 @@ import auth from '../../../common/js/auth'
 import ToolbarDropdown from './ToolbarDropdown'
 
 export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTree }) => {
+  const navigate = useNavigate()
   const [previewMode, setPreviewMode] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -59,7 +60,9 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
           window.location.href = '/'
         })
         .catch((error) => {
-          console.error(error)
+          if(auth.loginRequired(error, navigate)) {
+            return
+          }
           toast.error('Failed to delete your tree', { autoClose: false })
         })
     }

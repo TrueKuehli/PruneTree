@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import get from 'lodash.get'
 import ReactCrop from 'react-image-crop'
@@ -10,6 +11,7 @@ import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js
 
 export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) => {
   const fileRef = useRef(null)
+  const navigate = useNavigate()
 
   const [uploading, setUploading] = useState(false)
   const [showCropper, setShowCropper] = useState(false)
@@ -79,6 +81,12 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
         setCropImageUri(getOrigUploadedImageUri(uploadedFile))
         setUploading(false)
       })
+      .catch(error => {
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
+        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred uploading your file'), { autoClose: false })
+      })
   }
 
   /**
@@ -141,7 +149,9 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
         toast.success('Image cropped')
       })
       .catch((error) => {
-        console.error(error)
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred while cropping image'), { autoClose: false })
       })
   }

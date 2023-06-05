@@ -39,6 +39,9 @@ export default ({ addTree, updateTree }) => {
           setLoading(false)
         })
         .catch((error) => {
+          if(auth.loginRequired(error, navigate)) {
+            return
+          }
           setLoading(false)
           toast.error(get(error, 'response.data.errors[0].detail', 'Failed to get tree info'), { autoClose: false })
         })
@@ -82,6 +85,9 @@ export default ({ addTree, updateTree }) => {
         addTree(tree)
       })
       .catch((error) => {
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred creating tree'), { autoClose: false })
       })
   }
@@ -98,6 +104,9 @@ export default ({ addTree, updateTree }) => {
         updateTree(Object.assign(tree, { _id: treeId }))
       })
       .catch((error) => {
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating tree details'), { autoClose: false })
       })
   }

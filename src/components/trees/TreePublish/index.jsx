@@ -70,7 +70,9 @@ export default () => {
         navigate(`/trees/${treeId}`)
       })
       .catch((error) => {
-        console.error(error)
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred publishing your tree'), { autoClose: false })
       })
   }
@@ -89,6 +91,9 @@ export default () => {
         if (get(error, 'response.status') === 404) {
           toast.success('Tree is already not published')
           return navigate(`/trees/${treeId}`)
+        }
+        if(auth.loginRequired(error, navigate)) {
+          return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred unpublishing your tree'), { autoClose: false })
       })

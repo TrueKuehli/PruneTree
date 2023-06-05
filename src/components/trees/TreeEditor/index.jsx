@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import styles from './styles.scss'
 import Toolbar from './Toolbar'
 import NodeEdit from '../NodeEditor'
@@ -11,6 +11,7 @@ import auth from '../../../common/js/auth'
 
 export default () => {
   const params = useParams()
+  const navigate = useNavigate()
   const { treeId } = params
   const [loading, setLoading] = useState(true)
   const [tree, setTree] = useState(null)
@@ -42,6 +43,9 @@ export default () => {
         setPeople(people)
       })
       .catch((error) => {
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         setLoading(false)
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
       })
@@ -68,6 +72,9 @@ export default () => {
         }
       })
       .catch((error) => {
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
       })
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
@@ -10,6 +10,7 @@ import Loading from '../../Loading'
 
 export default () => {
   const params = useParams()
+  const navigate = useNavigate()
   const { treeId, personId } = params
   const [title, setTitle] = useState('')
   const [person, setPerson] = useState('')
@@ -32,6 +33,9 @@ export default () => {
         setLinks(links)
       })
       .catch((error) => {
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         setLoading(false)
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
       })
@@ -61,7 +65,9 @@ export default () => {
         setLinks(response.data.links)
       })
       .catch((error) => {
-        console.error(error)
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating persons links'), { autoClose: false })
       })
   }
@@ -86,7 +92,9 @@ export default () => {
         setLinks(response.data.links)
       })
       .catch((error) => {
-        console.error(error)
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating persons links'), { autoClose: false })
       })
   }

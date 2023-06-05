@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import styles from './styles.scss'
 import auth from '../../../common/js/auth'
 import defaultAvatar from '../../../common/images/default-avatar.png'
@@ -11,6 +11,7 @@ import { getUploadedImageUri } from '../../../common/js/utils'
 
 export default ({ loading: loadingProp }) => {
   const params = useParams()
+  const navigate = useNavigate()
   const { treeId } = params
   const [loading, setLoading] = useState(loadingProp)
   const [people, setPeople] = useState([])
@@ -39,6 +40,9 @@ export default ({ loading: loadingProp }) => {
         setLoading(false)
       }))
       .catch((error) => {
+        if(auth.loginRequired(error, navigate)) {
+          return
+        }
         setLoading(false)
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
       })
@@ -85,7 +89,9 @@ export default ({ loading: loadingProp }) => {
           toast.success('Person removed')
         }))
         .catch((error) => {
-          console.error(error)
+          if(auth.loginRequired(error, navigate)) {
+            return
+          }
           toast.error(get(error, 'response.data.errors[0].detail', 'Failed to delete person from tree'), { autoClose: false })
         })
     }

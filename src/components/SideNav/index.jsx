@@ -11,8 +11,8 @@ export default ({ loadUsersTree, trees, onItemClick }) => {
       .then((response) => {
         loadUsersTree(response.data)
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(() => {
+        // nothing to do here - user is just not logged in
       })
   }, [])
 
