@@ -82,7 +82,7 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
         setUploading(false)
       })
       .catch(error => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred uploading your file'), { autoClose: false })
@@ -149,7 +149,7 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
         toast.success('Image cropped')
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred while cropping image'), { autoClose: false })

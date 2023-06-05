@@ -33,7 +33,7 @@ export default () => {
         setLoading(false)
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         setLoading(false)
@@ -85,7 +85,7 @@ export default () => {
         toast.success('Your email address has been updated')
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating your email'), { autoClose: false })
@@ -124,7 +124,7 @@ export default () => {
         setConfirmPassword('')
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating your password'), { autoClose: false })
@@ -161,7 +161,7 @@ export default () => {
         navigate('/')
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating your password'), { autoClose: false })
