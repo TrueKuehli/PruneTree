@@ -60,7 +60,7 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
           window.location.href = '/'
         })
         .catch((error) => {
-          if(auth.loginRequired(error, navigate)) {
+          if (auth.loginRequired(error, navigate)) {
             return
           }
           toast.error('Failed to delete your tree', { autoClose: false })

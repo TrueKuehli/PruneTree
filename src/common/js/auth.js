@@ -47,9 +47,9 @@ export default {
    * @returns
    */
   loginRequired: (error, navigate) => {
-    if (get(error, 'response.status') == 403) {
+    if (get(error, 'response.status') === 403) {
       localStorage.removeItem('token')
-      toast.warn(`You're session expired. Please login again.`)
+      toast.warn('You\'re session expired. Please login again.')
       navigate('/login')
       return true
     }

@@ -40,7 +40,7 @@ export default ({ loading: loadingProp }) => {
         setLoading(false)
       }))
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         setLoading(false)
@@ -89,7 +89,7 @@ export default ({ loading: loadingProp }) => {
           toast.success('Person removed')
         }))
         .catch((error) => {
-          if(auth.loginRequired(error, navigate)) {
+          if (auth.loginRequired(error, navigate)) {
             return
           }
           toast.error(get(error, 'response.data.errors[0].detail', 'Failed to delete person from tree'), { autoClose: false })

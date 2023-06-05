@@ -54,7 +54,7 @@ export default () => {
           setLoading(false)
         })
         .catch((error) => {
-          if(auth.loginRequired(error, navigate)) {
+          if (auth.loginRequired(error, navigate)) {
             return
           }
           setLoading(false)
@@ -110,7 +110,7 @@ export default () => {
         navigate(`/trees/${treeId}/people`)
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred creating person'), { autoClose: false })
@@ -129,7 +129,7 @@ export default () => {
         navigate(-1)
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating person'), { autoClose: false })

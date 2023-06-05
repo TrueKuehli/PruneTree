@@ -33,7 +33,7 @@ export default () => {
         setLinks(links)
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         setLoading(false)
@@ -65,7 +65,7 @@ export default () => {
         setLinks(response.data.links)
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating persons links'), { autoClose: false })
@@ -92,7 +92,7 @@ export default () => {
         setLinks(response.data.links)
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating persons links'), { autoClose: false })

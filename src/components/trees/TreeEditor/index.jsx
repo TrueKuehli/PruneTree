@@ -43,7 +43,7 @@ export default () => {
         setPeople(people)
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         setLoading(false)
@@ -72,7 +72,7 @@ export default () => {
         }
       })
       .catch((error) => {
-        if(auth.loginRequired(error, navigate)) {
+        if (auth.loginRequired(error, navigate)) {
           return
         }
         toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
