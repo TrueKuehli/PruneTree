@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styles from './styles.scss'
+import paypal from './paypal.png'
+import patreon from './patreon.png'
 
-export default () => {
+export default ({ showWhy = false }) => {
+  const [loading, setLoading] = useState(true)
   const [bill, setBill] = useState(0)
   const [donations, setDonations] = useState(0)
   const [percent, setPercent] = useState(0)
@@ -14,6 +17,7 @@ export default () => {
         const { billCents, donationsCents } = response.data
         setBill(billCents)
         setDonations(donationsCents)
+        setLoading(false)
       })
       .catch((error) => {
         console.log(error)
@@ -35,7 +39,10 @@ export default () => {
 
   return (
     <div className={styles.donateContainer}>
-      <div className={styles.donateTitle}>Donations Target ({getPercent()})</div>
+      <div className={styles.donateTitle}>Donations Target</div>
+      {loading
+        ? <div className={styles.donateIntro}>Loading donations...</div>
+        : <div className={styles.donateIntro}>{formatCents(donations)} of {formatCents(bill)} ({getPercent()})</div>}
       <div className={styles.bar}>
         <div
           className={styles.fill} style={{
@@ -43,20 +50,25 @@ export default () => {
           }}
         />
       </div>
-      <div className={styles.donateIntro}>
-        <p>The plum tree is free to use but not free to run. Please consider donating to help me out in keeping the project going.</p>
-        <p>Last month's bill was {formatCents(bill)}, donations this month are up to {formatCents(donations)}.</p>
-      </div>
+
       <div className={styles.donateButtons}>
-        <Link to='/donate'>More Info</Link>
+        <a
+          className='btn btn-patreon'
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://patreon.com/ThePlumTree'
+        >
+          <img src={patreon} height='20' style={{ verticalAlign: 'middle' }} /> Patreon
+        </a>
         <a
           className='btn btn-primary'
           target='_blank'
           rel='noopener noreferrer'
           href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZXUTDCZXY7L28&source=url'
         >
-          Donate Now
+          <img src={paypal} height='20' style={{ verticalAlign: 'middle' }} /> PayPal
         </a>
+        {showWhy && <Link to='/donate'>Why Donate?</Link>}
       </div>
     </div>
   )

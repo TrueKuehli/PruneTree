@@ -17,7 +17,7 @@ export default () => {
           <p>Create dynamic family trees for your sims legacies.</p>
           <p>Then publish and share your trees for others to see.</p>
         </div>
-        <DonateTarget />
+        <DonateTarget showWhy />
         <div className='row'>
           <div className='col-12 col-md-4'>
             <img src={plumbob} className={styles.featureImage} width='100' />

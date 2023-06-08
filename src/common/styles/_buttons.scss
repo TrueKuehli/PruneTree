@@ -37,6 +37,11 @@
     }
   }
 
+  &.btn-patreon {
+    color: $color-white;
+    background-color:#f96854;
+  }
+
   &.btn-danger {
     color: $color-white;
     background-color: $danger1;
