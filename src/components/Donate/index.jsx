@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import axios from 'axios'
-import DonateTarget from '../Home/DonateTarget'
+import DonateBar from '../DonateBar'
 import SiteStats from '../Home/SiteStats'
 
 export default () => {
@@ -45,7 +45,7 @@ export default () => {
         browsing the trees created.
       </p>
       <p>I humbly thank those of you that are able to contribute even just a little.</p>
-      <DonateTarget />
+      <DonateBar />
       <SiteStats />
       <h2>Last Months Costs</h2>
       <p>Last months bill was {formatCents(bill)}, donations this month are up to {formatCents(donations)} which means we've covered {getPercent()} of that.</p>
