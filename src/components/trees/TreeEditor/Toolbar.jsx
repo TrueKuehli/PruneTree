@@ -68,7 +68,7 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
     }
   }
 
-  function downloadTree() {
+  function downloadTree () {
     closeMenus()
 
     const authToken = auth.getToken()
@@ -78,24 +78,23 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
 
     axios.get(`/api/trees/${get(tree, '_id')}/download`, {
       responseType: 'blob',
-      headers: {
-        Authorization: `Bearer ${authToken}` }
-      })
+      headers: { Authorization: `Bearer ${authToken}` }
+    })
       .then((response) => {
         // create file link in browser's memory
-        const href = URL.createObjectURL(response.data);
+        const href = URL.createObjectURL(response.data)
 
         // create "a" HTML element with href to file & click
-        const link = document.createElement('a');
-        link.href = href;
-        link.setAttribute('download', 'tree.zip');
-        document.body.appendChild(link);
-        link.click();
+        const link = document.createElement('a')
+        link.href = href
+        link.setAttribute('download', 'tree.zip')
+        document.body.appendChild(link)
+        link.click()
 
         // clean up "a" element & remove ObjectURL
-        document.body.removeChild(link);
-        URL.revokeObjectURL(href);
-    })
+        document.body.removeChild(link)
+        URL.revokeObjectURL(href)
+      })
   }
 
   const burgerClassNames = [styles.hamburger]

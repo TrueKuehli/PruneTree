@@ -51,13 +51,6 @@ export default ({
     return [80, y]
   }
 
-  function getNodeWidth (node) {
-    if (node.data.partners.length > 0) {
-      return NODE_HEIGHT * 2
-    }
-    return NODE_HEIGHT
-  }
-
   const nodeX = nodePosition(nodeData)[0]
   const nodeY = nodePosition(nodeData)[1]
 

@@ -21,7 +21,6 @@ export default ({
   const inlineAvatarStyle = {}
   if (avatar) {
     inlineAvatarStyle.backgroundImage = `url(./images/${avatar})`
-
   } else {
     inlineAvatarStyle.backgroundImage = `url(${defaultAvatar})`
   }
