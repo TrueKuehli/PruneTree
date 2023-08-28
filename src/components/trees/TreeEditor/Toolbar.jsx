@@ -68,35 +68,6 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
     }
   }
 
-  function downloadTree () {
-    closeMenus()
-
-    const authToken = auth.getToken()
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
-    axios.get(`/api/trees/${get(tree, '_id')}/download`, {
-      responseType: 'blob',
-      headers: { Authorization: `Bearer ${authToken}` }
-    })
-      .then((response) => {
-        // create file link in browser's memory
-        const href = URL.createObjectURL(response.data)
-
-        // create "a" HTML element with href to file & click
-        const link = document.createElement('a')
-        link.href = href
-        link.setAttribute('download', 'tree.zip')
-        document.body.appendChild(link)
-        link.click()
-
-        // clean up "a" element & remove ObjectURL
-        document.body.removeChild(link)
-        URL.revokeObjectURL(href)
-      })
-  }
-
   const burgerClassNames = [styles.hamburger]
   const mobileMenuClassNames = [styles.menuMobile]
 
@@ -121,7 +92,8 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
   }, {
     id: 'download-tree',
     label: 'Download Tree',
-    onClick: downloadTree
+    onClick: closeMenus,
+    link: `/trees/${get(tree, '_id')}/download`
   }]
 
   const EDIT_MENU_ITEMS = [{

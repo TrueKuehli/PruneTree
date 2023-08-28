@@ -7,5 +7,8 @@ import Download from './components/trees/Download'
 
 const root = ReactDOM.createRoot(document.getElementById('app'))
 root.render(
-  <Download />
+  <Download
+    tree={window.tree}
+    people={window.people}
+  />
 )
