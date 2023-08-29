@@ -19,7 +19,8 @@ export default ({ small, links }) => {
 
   function goToTree (treeId, personId) {
     navigate({
-      pathname: `/public/${treeId}?p=${personId}`
+      pathname: `/public/${treeId}`,
+      search: `?p=${personId}`
     })
   }
 

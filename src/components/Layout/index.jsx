@@ -18,6 +18,7 @@ import ForgotUsername from '../ForgotUsername'
 import Support from '../Support'
 import TreeDetails from '../../containers/TreeDetails'
 import TreePublish from '../trees/TreePublish'
+import TreeDownload from '../trees/TreeDownload'
 import TreeEditor from '../trees/TreeEditor'
 import TreePeople from '../trees/TreePeople'
 import PersonEditor from '../trees/PersonEditor'
@@ -72,6 +73,7 @@ export default () => {
             <Route exact path='/trees/create' element={<TreeDetails />} />
             <Route exact path='/trees/:treeId' element={<TreeEditor />} />
             <Route exact path='/trees/:treeId/publish' element={<TreePublish />} />
+            <Route exact path='/trees/:treeId/download' element={<TreeDownload />} />
             <Route exact path='/trees/:treeId/details' element={<TreeDetails />} />
             <Route exact path='/trees/:treeId/people' element={<TreePeople />} />
             <Route exact path='/trees/:treeId/people/add' element={<PersonEditor />} />

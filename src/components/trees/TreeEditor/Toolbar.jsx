@@ -89,6 +89,11 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
     id: 'actions-dropdown-delete',
     label: 'Delete Tree',
     onClick: deleteTree
+  }, {
+    id: 'download-tree',
+    label: 'Download Tree',
+    onClick: closeMenus,
+    link: `/trees/${get(tree, '_id')}/download`
   }]
 
   const EDIT_MENU_ITEMS = [{

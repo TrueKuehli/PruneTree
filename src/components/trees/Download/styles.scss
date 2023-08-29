@@ -1,0 +1,242 @@
+@import "../../../common/styles/vars";
+@import "../../../common/styles/pallete";
+
+.root {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-image: url('../../../common/images/green-poly.jpg');
+  background-size: cover;
+  overflow: hidden;
+}
+
+.link {
+  fill: none;
+  stroke: #333;
+  stroke-width: 2px;
+}
+
+.person {
+  stroke: #333;
+  stroke-width: 3px;
+  cursor: pointer;
+}
+
+.background {
+  fill: none;
+  stroke: #fff;
+  stroke-dasharray: 5;
+  stroke-width: 2px;
+}
+
+.avatar {
+  stroke: #fff;
+  stroke-width: 3px;
+  cursor: pointer;
+}
+
+.plus {
+  fill: none;
+  stroke: #333;
+  stroke-width: 2px;
+}
+.abduction {
+  fill: #333;
+  stroke: none;
+}
+.marriage {
+  fill: none;
+  stroke: #333;
+  stroke-width: 2px;
+}
+
+.personDetails {
+  position: absolute;
+  z-index: 1000;
+  bottom: 0px;
+  right: 0px;
+  width: 300px;
+  margin: 15px;
+  padding: 15px;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
+
+  background: #f4f7f6;
+  border: $grey-light solid 1px;
+  border-radius: $default-border-radius;
+
+  overflow: auto;
+}
+
+.showTreeDetails {
+  position: absolute;
+  left: 0px;
+  margin: 15px;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  border: $grey-light solid 1px;
+  background: #f4f7f6;
+  border-radius: 20px;
+  line-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 7px;
+  padding-right: 12px;
+  transition: background 0.3s ease-in-out;
+
+  >i {
+    color: #6F1E51;
+    font-size: 30px;
+    height: 30px;
+  }
+
+  &:hover {
+    background: #eee;
+  }
+}
+
+.treeDetails {
+  position: absolute;
+  top: 65px;
+  bottom: 0px;
+  right: 15px;
+  left: 15px;
+  max-width: 300px;
+  margin: 15px 0;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
+  z-index: 200;
+  background: #f4f7f6;
+  border: $grey-light solid 1px;
+  border-radius: $default-border-radius;
+  overflow: auto;
+}
+
+.treeImage {
+  background-repeat: cover;
+  height: 160px;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+  position: relative;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+}
+
+.treeDetailsContent {
+  padding: 15px;
+}
+
+.personDetailsTop {
+  text-align: center;
+}
+
+.personDetailsAvatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: $color-white solid 4px;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
+  display: block;
+  margin: 0px auto;
+  background-position: center center;
+  background-size: cover;
+}
+
+.parentRow {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.parentAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: $color-white solid 4px;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
+  display: block;
+  margin-right: 10px;
+  background-position: center center;
+  background-size: cover;
+}
+
+.editButton ,
+.closeButton {
+  position: absolute;
+  text-decoration: none;
+  color: $font-color;
+  top: 15px;
+  background: #f4f7f6;
+  padding: 5px 15px;
+  cursor: pointer;
+  line-height: 30px;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    background: #eee;
+
+    .close {
+      opacity: 1;
+    }
+  }
+}
+
+.closeButton {
+  right: 15px;
+}
+
+.tag {
+  background: $blue1;
+  color: $color-white;
+  padding: 3px 10px;
+  margin-right: 7px;
+  margin-bottom: 10px;
+  border-radius: $default-border-radius;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
+  text-shadow: 0 1px 2px rgba(0,0,0,.2);
+  display: inline-block;
+}
+
+.linksIcon,
+.addChildIcon,
+.editNodeIcon {
+  cursor: pointer;
+}
+
+.linkList {
+  fill: #f4f7f6;
+  stroke: #E6EAEA;
+  stroke-width: 1;
+}
+
+.linkListItem {
+  fill:#f4f7f6;
+  cursor: pointer;
+  &:hover {
+    fill: #fff;
+  }
+}
+
+.linkListText {
+  cursor: pointer;
+  fill: $font-color;
+}
+
+.linkDetailsToggle {
+  font-size: smaller;
+  color: $blue1;
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline;
+}
+
+.linkDetails {
+  font-size: smaller;
+}
