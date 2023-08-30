@@ -12,7 +12,6 @@ import PersonDetails from './PersonDetails'
 import TreeDetails from './TreeDetails'
 import CommonPatterns from './CommonPatterns'
 import styles from './styles.scss'
-import RawHTML from '../../RawHTML'
 import Loading from '../../Loading'
 
 function usePrevious (value) {
@@ -267,19 +266,6 @@ export default ({ tree, people = [], loading, readonly, onChange, onEditNode }) 
           </g>
         </g>
       </svg>
-      <div className='sr-only'>
-        <h1>{treeTitle}</h1>
-        <RawHTML html={treeDescription} />
-        <h2>People</h2>
-        {people.map((person, index) => {
-          return (
-            <div key={index}>
-              <h3>{person.firstName} {person.lastName}</h3>
-              <RawHTML html={person.bio} />
-            </div>
-          )
-        })}
-      </div>
     </div>
   )
 }
