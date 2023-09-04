@@ -1,5 +1,14 @@
 @import "../../common/styles/pallete";
 
+.sunsetAlert {
+  display: block;
+  color: #fff;
+  background-color: #ff7f48;
+  padding: 15px;
+  margin: 0px -40px;
+  margin-top: -20px;
+}
+
 .homeBannerImage {
   background: url(./tree.png) center center no-repeat;
   background-size: cover;
@@ -22,6 +31,7 @@
   background: #fff;
   border-radius: 5px;
   box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+  overflow: hidden;
 }
 
 .featureImage {
