@@ -32,7 +32,9 @@ export default () => {
 
   return (
     <div className={styles.signupPanel}>
+      <Link to='/sunset' className={styles.sunsetAlert}>The Plum Tree App will be shutting down. Click to find out more.</Link>
       <h1>Create Account</h1>
+
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
           <label>Username</label>

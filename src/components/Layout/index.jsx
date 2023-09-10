@@ -26,6 +26,7 @@ import PersonLinker from '../trees/PersonLinker'
 import AccountDropdown from '../AccountDropdown'
 import SideNav from '../../containers/SideNav'
 import Version from '../Version'
+import Sunset from '../Sunset'
 import NotFound from '../NotFound'
 
 export default () => {
@@ -80,6 +81,7 @@ export default () => {
             <Route exact path='/trees/:treeId/people/:personId' element={<PersonEditor />} />
             <Route exact path='/trees/:treeId/people/:personId/link' element={<PersonLinker />} />
             <Route exact path='/version' element={<Version />} />
+            <Route exact path='/sunset' element={<Sunset />} />
             <Route path='/*' element={<NotFound />} />
           </Routes>
         </div>
@@ -91,6 +93,7 @@ export default () => {
               <i className={styles.close} />
             </div>
           </div>
+          <Link to='/sunset' className={styles.sunsetAlert} onClick={() => setMenuOpen(false)}>The Plum Tree App will be shutting down. Click to find out more.</Link>
           <SideNav onItemClick={() => setMenuOpen(false)} />
         </nav>
         <div className={menuOpen ? `${styles.navMask} ${styles.navMaskActiveMenu}` : styles.navMask} onClick={() => setMenuOpen(false)} />

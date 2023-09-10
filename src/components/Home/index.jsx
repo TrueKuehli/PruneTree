@@ -13,6 +13,7 @@ export default () => {
       <div className={styles.homeBannerImage} />
       <div className='container'>
         <div className={styles.introPanel}>
+          <Link to='/sunset' className={styles.sunsetAlert}>The Plum Tree App will be shutting down. Click to find out more.</Link>
           <p>Welcome to the plum tree app!</p>
           <p>Create dynamic family trees for your sims legacies.</p>
           <p>Then publish and share your trees for others to see.</p>

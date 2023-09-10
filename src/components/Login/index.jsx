@@ -40,6 +40,8 @@ export default ({ loadUsersTree }) => {
 
   return (
     <div className={styles.loginPanel}>
+      <Link to='/sunset' className={styles.sunsetAlert}>The Plum Tree App will be shutting down. Click to find out more.</Link>
+
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
