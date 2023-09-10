@@ -17,25 +17,23 @@ export default () => {
 
     setDownloading(true)
     axios.get(`/api/trees/${treeId}/download`, {
-      responseType: 'blob',
       headers: { Authorization: `Bearer ${authToken}` }
     })
       .then((response) => {
-        // create file link in browser's memory
-        const href = URL.createObjectURL(response.data)
+        console.log(response.data)
 
         // create "a" HTML element with href to file & click
         const link = document.createElement('a')
-        link.href = href
+        link.href = response.data.downloadURL
         link.setAttribute('download', 'tree.zip')
         document.body.appendChild(link)
         link.click()
 
         // clean up "a" element & remove ObjectURL
         document.body.removeChild(link)
-        URL.revokeObjectURL(href)
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err)
         toast.error('Something went wrong with your download', { autoClose: false })
       })
       .finally(() => {
