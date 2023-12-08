@@ -3,6 +3,11 @@ name: Deployment to GitHub Pages
 on:
   workflow_dispatch
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
