@@ -1,11 +1,9 @@
 import React, { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import get from 'lodash.get'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
-import auth from '../../../common/js/auth'
 import Loading from '../../Loading'
 import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
 
@@ -29,64 +27,65 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
 
   /**
    * When a file is selected (a change on the file input) upload it
-   * @param  {Object} event File input change event
+   * @param  {Object} ev File input change event
    * @return {void}
    */
   function fileSelected (ev) {
     ev.preventDefault()
-
-    const authToken = auth.getToken()
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
-    setUploading(true)
-
-    const file = fileRef.current.files[0]
-    const { type, size } = file
-    const acceptedFileTypes = ['image/png', 'image/jpeg']
-
-    if (!acceptedFileTypes.includes(type)) {
-      return toast.info('File must be a JPG or PNG')
-    }
-    if (size > 10000000) {
-      return toast.info('Files must be under 10MB in size')
-    }
-
-    let uploadedFile
-
-    // get S3 signed URL
-    axios.get(`/api/upload/url?type=${type}&dir=${dir}`,
-      { headers: { Authorization: `Bearer ${authToken}` } })
-      .then(response => {
-        uploadedFile = response.data.filename
-
-        const options = {
-          headers: {
-            'Content-Type': type,
-            'x-amz-acl': 'public-read'
-          }
-        }
-
-        options.headers['x-amz-tagging'] = 'temp=true'
-
-        // upload to S3
-        return axios.put(
-          response.data.uploadURL,
-          file,
-          options)
-      })
-      .then(() => {
-        onImageChange(uploadedFile)
-        setCropImageUri(getOrigUploadedImageUri(uploadedFile))
-        setUploading(false)
-      })
-      .catch(error => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred uploading your file'), { autoClose: false })
-      })
+    toast.warn('Image selection is not yet supported')
+    //
+    // const authToken = auth.getToken()
+    // if (!authToken) {
+    //   return toast.error('Looks like you\'re not logged in', { autoClose: false })
+    // }
+    //
+    // setUploading(true)
+    //
+    // const file = fileRef.current.files[0]
+    // const { type, size } = file
+    // const acceptedFileTypes = ['image/png', 'image/jpeg']
+    //
+    // if (!acceptedFileTypes.includes(type)) {
+    //   return toast.info('File must be a JPG or PNG')
+    // }
+    // if (size > 10000000) {
+    //   return toast.info('Files must be under 10MB in size')
+    // }
+    //
+    // let uploadedFile
+    //
+    // // get S3 signed URL
+    // axios.get(`/api/upload/url?type=${type}&dir=${dir}`,
+    //   { headers: { Authorization: `Bearer ${authToken}` } })
+    //   .then(response => {
+    //     uploadedFile = response.data.filename
+    //
+    //     const options = {
+    //       headers: {
+    //         'Content-Type': type,
+    //         'x-amz-acl': 'public-read'
+    //       }
+    //     }
+    //
+    //     options.headers['x-amz-tagging'] = 'temp=true'
+    //
+    //     // upload to S3
+    //     return axios.put(
+    //       response.data.uploadURL,
+    //       file,
+    //       options)
+    //   })
+    //   .then(() => {
+    //     onImageChange(uploadedFile)
+    //     setCropImageUri(getOrigUploadedImageUri(uploadedFile))
+    //     setUploading(false)
+    //   })
+    //   .catch(error => {
+    //     if (auth.loginRequired(error, navigate)) {
+    //       return
+    //     }
+    //     toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred uploading your file'), { autoClose: false })
+    //   })
   }
 
   /**
@@ -119,41 +118,42 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
    */
   function cropImage (e) {
     e.preventDefault()
+    toast.warn('Image selection is not yet supported')
 
-    const authToken = auth.getToken()
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
-    setCropping(true)
-
-    // convert crop data from percentages to pixels
-    const cropData = {
-      x: Math.floor((percentCrop.x / 100) * naturalWidth),
-      y: Math.floor((percentCrop.y / 100) * naturalHeight),
-      width: Math.floor((percentCrop.width / 100) * naturalWidth),
-      height: Math.floor((percentCrop.height / 100) * naturalHeight)
-    }
-
-    axios.put('/api/upload/crop',
-      { cropData, image },
-      { headers: { Authorization: `Bearer ${authToken}` } }
-    )
-      .then((response) => {
-        const croppedFile = get(response, 'data.filename')
-        setCropping(false)
-        setCrop(null)
-        onImageChange(croppedFile)
-        setCropImageUri(getOrigUploadedImageUri(croppedFile))
-        setShowCropper(false)
-        toast.success('Image cropped')
-      })
-      .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred while cropping image'), { autoClose: false })
-      })
+    // const authToken = auth.getToken()
+    // if (!authToken) {
+    //   return toast.error('Looks like you\'re not logged in', { autoClose: false })
+    // }
+    //
+    // setCropping(true)
+    //
+    // // convert crop data from percentages to pixels
+    // const cropData = {
+    //   x: Math.floor((percentCrop.x / 100) * naturalWidth),
+    //   y: Math.floor((percentCrop.y / 100) * naturalHeight),
+    //   width: Math.floor((percentCrop.width / 100) * naturalWidth),
+    //   height: Math.floor((percentCrop.height / 100) * naturalHeight)
+    // }
+    //
+    // axios.put('/api/upload/crop',
+    //   { cropData, image },
+    //   { headers: { Authorization: `Bearer ${authToken}` } }
+    // )
+    //   .then((response) => {
+    //     const croppedFile = get(response, 'data.filename')
+    //     setCropping(false)
+    //     setCrop(null)
+    //     onImageChange(croppedFile)
+    //     setCropImageUri(getOrigUploadedImageUri(croppedFile))
+    //     setShowCropper(false)
+    //     toast.success('Image cropped')
+    //   })
+    //   .catch((error) => {
+    //     if (auth.loginRequired(error, navigate)) {
+    //       return
+    //     }
+    //     toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred while cropping image'), { autoClose: false })
+    //   })
   }
 
   /**

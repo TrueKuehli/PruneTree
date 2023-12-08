@@ -6,9 +6,9 @@ import get from 'lodash.get'
 import styles from './styles.scss'
 import auth from '../../../common/js/auth'
 import ToolbarDropdown from './ToolbarDropdown'
+import database from '../../../database/api'
 
 export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTree }) => {
-  const navigate = useNavigate()
   const [previewMode, setPreviewMode] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -44,15 +44,10 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
   function deleteTree () {
     closeMenus()
 
-    const authToken = auth.getToken()
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
     const deleteConfirmed = confirm('Are you sure you want to delete this tree?')
 
     if (deleteConfirmed) {
-      axios.delete(`/api/trees/${get(tree, '_id')}`, { headers: { Authorization: `Bearer ${authToken}` } })
+      database.deleteTree(get(tree, '_id'))
         .then(() => {
           toast.success('Tree deleted')
           // quickest way to go to homepage and reload trees for side nav is to
@@ -60,9 +55,6 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
           window.location.href = '/'
         })
         .catch((error) => {
-          if (auth.loginRequired(error, navigate)) {
-            return
-          }
           toast.error('Failed to delete your tree', { autoClose: false })
         })
     }
@@ -80,11 +72,6 @@ export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTre
     id: 'actions-dropdown-save',
     label: 'Save Tree',
     onClick: saveTree
-  }, {
-    id: 'actions-dropdown-publish',
-    label: 'Publish Tree',
-    onClick: closeMenus,
-    link: `/trees/${get(tree, '_id')}/publish`
   }, {
     id: 'actions-dropdown-delete',
     label: 'Delete Tree',

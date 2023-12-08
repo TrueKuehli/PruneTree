@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import axios from 'axios'
 import get from 'lodash.get'
 import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
 import RichEditor from '../../RichEditor'
-import auth from '../../../common/js/auth'
 import styles from './styles.scss'
 import Loading from '../../Loading'
 import ImageManager from '../ImageManager'
+import database from '../../../database/api'
 
 export default ({ addTree, updateTree }) => {
   const navigate = useNavigate()
@@ -21,29 +20,19 @@ export default ({ addTree, updateTree }) => {
   const [loading, setLoading] = useState(!!treeId)
 
   useEffect(() => {
-    const authToken = auth.getToken()
-
-    if (!authToken) {
-      setLoading(false)
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
     if (treeId) {
-      axios.get(`/api/trees/${treeId}`, { headers: { Authorization: `Bearer ${authToken}` } })
+      database.getTree(treeId)
         .then((response) => {
           const { title, description, cover } = response.data
           setTitle(title)
           setDescription(description)
           setCover(cover)
-          setCoverUri(getUploadedImageUri(cover, '600x320'))
+          setCoverUri(getUploadedImageUri(cover, '600x320'))  // TODO: Rework cover images to use browser storage
           setLoading(false)
         })
         .catch((error) => {
-          if (auth.loginRequired(error, navigate)) {
-            return
-          }
           setLoading(false)
-          toast.error(get(error, 'response.data.errors[0].detail', 'Failed to get tree info'), { autoClose: false })
+          toast.error(get(error, 'message', 'Failed to get tree info'), { autoClose: false })
         })
     }
   }, [])
@@ -56,26 +45,17 @@ export default ({ addTree, updateTree }) => {
   function handleSubmit (event) {
     event.preventDefault()
 
-    const authToken = auth.getToken()
-
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
     const tree = { title, description, cover }
 
     if (treeId) {
-      _updateTree(treeId, tree, authToken)
+      _updateTree(treeId, tree)
     } else {
-      _createTree(tree, authToken)
+      _createTree(tree)
     }
   }
 
-  function _createTree (tree, authToken) {
-    axios.post('/api/trees',
-      tree,
-      { headers: { Authorization: `Bearer ${authToken}` } }
-    )
+  function _createTree (tree) {
+    database.createTree(tree)
       .then((response) => {
         const tree = get(response, 'data')
         const treeId = get(response, 'data._id')
@@ -85,29 +65,20 @@ export default ({ addTree, updateTree }) => {
         addTree(tree)
       })
       .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred creating tree'), { autoClose: false })
+        toast.error(get(error, 'message', 'Unknown error occurred creating tree'), { autoClose: false })
       })
   }
 
-  function _updateTree (treeId, tree, authToken) {
-    axios.patch(`/api/trees/${treeId}`,
-      tree,
-      { headers: { Authorization: `Bearer ${authToken}` } }
-    )
+  function _updateTree (treeId, tree) {
+    database.updateTree(treeId, tree)
       .then(() => {
         toast.success('Tree details updated')
-        navigate(`/trees/${treeId}`)
+        // navigate(`/trees/${treeId}`)
         // update the side nav
         updateTree(Object.assign(tree, { _id: treeId }))
       })
       .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating tree details'), { autoClose: false })
+        toast.error(get(error, 'message', 'Unknown error occurred updating tree details'), { autoClose: false })
       })
   }
 

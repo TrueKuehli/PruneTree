@@ -3,10 +3,10 @@
 
 .root {
   position: absolute;
-  left: 0px;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   background-image: url('../../../common/images/green-poly.jpg');
   background-size: cover;
   overflow: hidden;
@@ -55,8 +55,8 @@
 .personDetails {
   position: absolute;
   z-index: 1000;
-  bottom: 0px;
-  right: 0px;
+  bottom: 0;
+  right: 0;
   width: 300px;
   margin: 15px;
   padding: 15px;
@@ -71,10 +71,9 @@
 
 .showTreeDetails {
   position: absolute;
-  left: 0px;
+  left: 0;
   margin: 15px;
   cursor: pointer;
-  display: inline-block;
   height: 40px;
   border: $grey-light solid 1px;
   background: #f4f7f6;
@@ -101,7 +100,7 @@
 .treeDetails {
   position: absolute;
   top: 65px;
-  bottom: 0px;
+  bottom: 0;
   right: 15px;
   left: 15px;
   max-width: 300px;
@@ -115,16 +114,15 @@
 }
 
 .treeImage {
-  background-repeat: cover;
   height: 160px;
   background-size: cover;
   background-position-x: center;
   background-position-y: center;
   position: relative;
   width: 100%;
-  left: 0px;
-  top: 0px;
-  right: 0px;
+  left: 0;
+  top: 0;
+  right: 0;
 }
 
 .treeDetailsContent {
@@ -142,7 +140,7 @@
   border: $color-white solid 4px;
   box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
   display: block;
-  margin: 0px auto;
+  margin: 0 auto;
   background-position: center center;
   background-size: cover;
 }
@@ -166,7 +164,7 @@
   background-size: cover;
 }
 
-.editButton ,
+.editButton,
 .closeButton {
   position: absolute;
   text-decoration: none;

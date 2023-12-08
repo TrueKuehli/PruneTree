@@ -15,6 +15,7 @@ import lifeStateOptions from '../../../common/js/lifeStates'
 import styles from './styles.scss'
 import defaultAvatar from '../../../common/images/default-avatar.png'
 import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
+import database from '../../../database/api'
 
 export default () => {
   const navigate = useNavigate()
@@ -32,14 +33,8 @@ export default () => {
   const [loading, setLoading] = useState(Boolean(personId))
 
   useEffect(() => {
-    const authToken = auth.getToken()
-    if (!authToken) {
-      setLoading(false)
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
     if (personId) {
-      axios.get(`/api/people/${personId}`, { headers: { Authorization: `Bearer ${authToken}` } })
+      database.getPerson(personId)
         .then((response) => {
           const { avatar, firstName, lastName, bio, traits, aspirations, lifeStates, custom } = response.data
           setAvatar(avatar)
@@ -54,9 +49,6 @@ export default () => {
           setLoading(false)
         })
         .catch((error) => {
-          if (auth.loginRequired(error, navigate)) {
-            return
-          }
           setLoading(false)
           toast.error('Failed to get person info', { autoClose: false })
         })
@@ -74,13 +66,8 @@ export default () => {
   function handleSubmit (event) {
     event.preventDefault()
 
-    const authToken = auth.getToken()
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
     const person = {
-      tree: treeId,
+      treeId: parseInt(treeId),
       avatar,
       firstName,
       lastName,
@@ -99,40 +86,24 @@ export default () => {
   }
 
   function _createPerson (person) {
-    const authToken = auth.getToken()
-
-    axios.post('/api/people',
-      person,
-      { headers: { Authorization: `Bearer ${authToken}` } }
-    )
+    database.createPerson(person)
       .then(() => {
         toast.success('Person created')
         navigate(`/trees/${treeId}/people`)
       })
       .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred creating person'), { autoClose: false })
+        toast.error(get(error, 'message', 'Unknown error occurred creating person'), { autoClose: false })
       })
   }
 
   function _updatePerson (person) {
-    const authToken = auth.getToken()
-
-    axios.put(`/api/people/${personId}`,
-      person,
-      { headers: { Authorization: `Bearer ${authToken}` } }
-    )
+    database.updatePerson(personId, person)
       .then(() => {
         toast.success('Person updated')
         navigate(-1)
       })
       .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating person'), { autoClose: false })
+        toast.error(get(error, 'message', 'Unknown error occurred updating person'), { autoClose: false })
       })
   }
 

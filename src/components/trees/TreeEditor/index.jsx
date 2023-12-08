@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import styles from './styles.scss'
 import Toolbar from './Toolbar'
 import NodeEdit from '../NodeEditor'
 import Tree from '../Tree'
-import auth from '../../../common/js/auth'
+import database from '../../../database/api'
 
 export default () => {
   const params = useParams()
-  const navigate = useNavigate()
   const { treeId } = params
   const [loading, setLoading] = useState(true)
   const [tree, setTree] = useState(null)
@@ -22,16 +20,8 @@ export default () => {
   useEffect(() => {
     setLoading(true)
 
-    const authToken = auth.getToken()
-
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
-    const getTree = axios.get(`/api/trees/${treeId}`,
-      { headers: { Authorization: `Bearer ${authToken}` } })
-    const getPeople = axios.get(`/api/people?tree=${treeId}`,
-      { headers: { Authorization: `Bearer ${authToken}` } })
+    const getTree = database.getTree(treeId);
+    const getPeople = database.getPeople(treeId);
 
     Promise.all([getTree, getPeople])
       .then((response) => {
@@ -43,28 +33,16 @@ export default () => {
         setPeople(people)
       })
       .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
         setLoading(false)
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
+        toast.error(get(error, 'message', 'Unknown error occurred'), { autoClose: false })
       })
   }, [treeId])
 
   function saveTree (tree, alertSuccess = false) {
-    const authToken = auth.getToken()
-
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
     // only save the tree structure data
     const { data } = tree
 
-    axios.patch(`/api/trees/${treeId}`,
-      { data },
-      { headers: { Authorization: `Bearer ${authToken}` } }
-    )
+    database.updateTree(treeId, data)
       .then(() => {
         setTree(tree)
         if (alertSuccess) {
@@ -72,10 +50,7 @@ export default () => {
         }
       })
       .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
+        toast.error(get(error, 'message', 'Unknown error occurred'), { autoClose: false })
       })
   }
 

@@ -1,10 +1,15 @@
 # Plum Tree UI
 
-> Fool me seven times, shame on you. Fool me eight or more times, shame on me.
+Fork of the now discontinued [Plum Tree][plumtree] app based on the [front-end][frontend] code. 
+The primary goal of this repository is to replace any reliance on servers with local browser storage.
+This offers a replacement for the base features of the original app, but lacks the ability to share trees.
+On a technical side however, this allows the app to be deployed using only static assets, allowing 
+free hosting services like GitHub pages. 
+A further goal of the project is to enable offline usage of the application as a [Progressive Web App][pwa].
 
-[React][reactjs] frontend for The Plum Tree.
-
-This repo is simply built using [Webpack][webpack] and served as static assets.
+The app itself is built on the [React][reactjs] framework with replacements to the server API 
+utilizing an [IndexedDB][indexeddb] in-browser database. 
+The build system uses [Webpack][webpack] to bundle the app as static assets.
 
 [React Router][reactrouter] is used for navigating between pages, only the
 [BrowserRouter][browserrouter] is used (no SSR).
@@ -16,36 +21,32 @@ Trees are rendered using [D3][d3], specifically the [tree hierarchy][d3tree].
 To run locally:
 
 1. Use `npm install` to install the repo dependencies
-1. Run `npm start` to start a local dev server (this may take a minute or two)
-1. Go to [http://localhost:8080/](http://localhost:8080/) when the log reads `Compiled successfully.`
-
-### API configuration
-
-By default any requests to `/api` are proxied to
-[http://localhost:3000/](http://localhost:3000/). You can change/configure this
-in [webpack.config.js](./webpack.config.js).
+2. Run `npm start` to start a local dev server (this may take a minute or two)
+3. Go to [http://localhost:8080/](http://localhost:8080/) when the log reads `Compiled successfully.`
 
 ## Deploying
 
-All deploys should be done via the [GitLab pipelines][pipeline] for consistency
-and accountability.
+TODO:
+- Serve using GitHub pages once the repo is public
+- Add a `deploy` script to `package.json`, as well as instructions on how to use
 
-The Plum Tree uses a [blue/green][bluegreen] deploy mechanism.
+## Contributing
 
-By default the validation jobs will run when a pipeline is triggered. To show
-the deploy stage a `STACK` variable must be passed. This signify which
-environment to deploy to.
+Any contributions to the project are welcome, including issues, pull requests, and forks. 
+If you have any questions, feel free to open an issue.
 
-Generally we should deploy to a non active color and perform a blue/green flip
-once we are happy the deploy was successful. The blue/green flip is done by the
-infrastructure repo which updates the CloudFront behavior to point to the new
-color.
+## Attribution
 
+Many thanks to Tobias Gray for creating the original and maintaining the original Plum Tree app for many years, and for making the source code available for anyone to use.
+
+
+[plumtree]: https://gitlab.com/plum-tree/
+[frontend]: https://gitlab.com/plum-tree/ui
+[pwa]: https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps
 [reactjs]: https://reactjs.org/
+[indexeddb]: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
 [webpack]: https://webpack.js.org/
 [reactrouter]: https://reactrouter.com/
 [browserrouter]: https://reactrouter.com/web/api/BrowserRouter
 [d3]: https://d3js.org/
 [d3tree]: https://github.com/d3/d3-hierarchy#tree
-[pipeline]: https://gitlab.com/plum-tree/ui/-/pipelines
-[bluegreen]: https://martinfowler.com/bliki/BlueGreenDeployment.html

@@ -14,8 +14,8 @@
   justify-content: flex-end;
 
   input[type="checkbox"] + label {
-    padding: 0px 15px;
-    margin: 0px;
+    padding: 0 15px;
+    margin: 0;
     cursor: pointer;
     height: 50px;
     line-height: 50px;
@@ -66,8 +66,8 @@
 }
 
 .toolbarItem, .toolbarHelp {
-  padding: 0px 15px;
-  margin: 0px;
+  padding: 0 15px;
+  margin: 0;
   cursor: pointer;
   height: 50px;
   line-height: 50px;
@@ -91,7 +91,7 @@
 }
 
 .downArrowActive {
-  margin: 5px 3px 0px 10px;
+  margin: 5px 3px 0 10px;
   transform: rotate(225deg);
 }
 
@@ -102,7 +102,7 @@
   color: #333;
   position: absolute;
   top: 60px;
-  right: 0px;
+  right: 0;
   width: 230px;
   box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
   visibility: hidden;
@@ -113,8 +113,8 @@
 
   ul {
     list-style: none;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 
     li {
       cursor: pointer;
@@ -144,7 +144,7 @@
 .menuMobile {
   position: relative;
   margin: 15px;
-  top: 0px;
+  top: 0;
   width: initial;
 }
 
@@ -157,7 +157,7 @@
 
 .toolbarTitle {
   flex: 1;
-  padding: 0px 15px;
+  padding: 0 15px;
   font-weight: 500;
   color: $grey-medium;
 }

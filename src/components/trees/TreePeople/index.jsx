@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import styles from './styles.scss'
-import auth from '../../../common/js/auth'
 import defaultAvatar from '../../../common/images/default-avatar.png'
 import Loading from '../../Loading'
 import { getUploadedImageUri } from '../../../common/js/utils'
+import database from "../../../database/api";
 
 export default ({ loading: loadingProp }) => {
   const params = useParams()
-  const navigate = useNavigate()
   const { treeId } = params
   const [loading, setLoading] = useState(loadingProp)
   const [people, setPeople] = useState([])
@@ -22,31 +20,25 @@ export default ({ loading: loadingProp }) => {
   useEffect(() => {
     setLoading(true)
 
-    const authToken = auth.getToken()
-    const headers = { headers: { Authorization: `Bearer ${authToken}` } }
+    const getTree = database.getTree(treeId);
+    const getPeople = database.getPeople(treeId);
 
-    axios.all([
-      axios.get(`/api/people?tree=${treeId}`, headers),
-      axios.get(`/api/trees/${treeId}`, headers)
-    ])
-      .then(axios.spread((peopleResponse, treeResponse) => {
-        const people = get(peopleResponse, 'data')
-        const tree = get(treeResponse, 'data')
+    Promise.all([getTree, getPeople])
+      .then((response) => {
+        const tree = get(response, '[0].data')
+        const people = get(response, '[1].data')
 
         setPeople(people)
         setTree(tree)
         setFilter('')
         setFilteredPeople(people)
         setLoading(false)
-      }))
-      .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        setLoading(false)
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
       })
-  }, [])
+      .catch((error) => {
+        setLoading(false)
+        toast.error(get(error, 'message', 'Unknown error occurred'), { autoClose: false })
+      })
+  }, [treeId])
 
   function handleFilterPeople (event) {
     setFilter(event.target.value)
@@ -65,13 +57,6 @@ export default ({ loading: loadingProp }) => {
   }
 
   function deletePerson (personId) {
-    const authToken = auth.getToken()
-    const headers = { headers: { Authorization: `Bearer ${authToken}` } }
-
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
     const deleteConfirmed = confirm('Are you sure you want to delete this person?')
 
     if (deleteConfirmed) {
@@ -79,20 +64,16 @@ export default ({ loading: loadingProp }) => {
       const updatedTree = Object.assign({}, tree)
       _removePersonFromTree(personId, updatedTree.data)
 
-      axios.all([
-        axios.patch(`/api/trees/${treeId}`, { data: updatedTree.data }, headers),
-        axios.delete(`/api/people/${personId}`, headers)
-      ])
-        .then(axios.spread((saveTreeResponse, deletePersonResponse) => {
+      const updateTree = database.updateTree(treeId, { data: updatedTree.data });
+      const deletePerson = database.deletePerson(personId);
+      Promise.all([updateTree, deletePerson])
+        .then(() => {
           setPeople(people.filter((person) => person._id !== personId))
           setFilteredPeople(filteredPeople.filter((person) => person._id !== personId))
           toast.success('Person removed')
-        }))
+        })
         .catch((error) => {
-          if (auth.loginRequired(error, navigate)) {
-            return
-          }
-          toast.error(get(error, 'response.data.errors[0].detail', 'Failed to delete person from tree'), { autoClose: false })
+          toast.error(get(error, 'message', 'Unknown error occurred'), { autoClose: false })
         })
     }
   }
@@ -161,7 +142,7 @@ export default ({ loading: loadingProp }) => {
         const inlineAvatarStyle = { backgroundImage }
         let name
         if (person.firstName || person.lastName) {
-          name = `${person.firstName} ${person.lastName}`
+          name = `${person.firstName} ${person.lastName}`.trim()
         } else {
           name = (<i>~ No Name ~</i>)
         }

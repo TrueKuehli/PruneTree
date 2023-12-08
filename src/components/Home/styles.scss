@@ -1,6 +1,6 @@
 @import "../../common/styles/pallete";
 
-.sunsetAlert {
+.alert {
   display: block;
   color: #fff;
   background-color: #ff7f48;
@@ -17,9 +17,9 @@
 
 .homeBannerMask {
   position: absolute;
-  left: 0px;
-  top: 0px;
-  right: 0px;
+  left: 0;
+  top: 0;
+  right: 0;
   height: 250px;
 }
 
@@ -36,17 +36,7 @@
 
 .featureImage {
   display: block;
-  margin: 0px auto;
-}
-
-.galleryImage {
-  display: block;
-  box-shadow: 0 0 10px rgba(0,0,0,.5);
-  border: 7px solid #fff;
-  background-size: cover;
-  background-position: 50%;
-  height: 200px;
-  background-image: url(./browse.jpg);
+  margin: 0 auto;
 }
 
 .guidesImage {

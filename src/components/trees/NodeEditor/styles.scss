@@ -3,10 +3,10 @@
 
 .editNodeContainer {
   position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: $color-white;
 }
 
@@ -56,10 +56,10 @@
 
 .editNodeSection {
   border-top: 1px solid #E6EAEA;
-  margin: 10px 0px;
-  padding: 10px 0px;
+  margin: 10px 0;
+  padding: 10px 0;
 
   h2 {
-    margin-top: 0px;
+    margin-top: 0;
   }
 }

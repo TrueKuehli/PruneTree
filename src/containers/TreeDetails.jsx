@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import TreeDetails from '../components/trees/TreeDetails'
-import { addTree, updateTree } from './../redux/actions'
+import { addTree, updateTree } from '../redux/actions'
 
 const mapStateToProps = state => {
   return {

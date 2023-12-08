@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import './common/styles/app.scss'
 import Layout from './components/Layout'
-import Public from './components/trees/Public'
 
 const store = createStore(plumTreeApp)
 const root = ReactDOM.createRoot(document.getElementById('app'))
@@ -27,7 +26,6 @@ root.render(
           toastClassName='alert'
         />
         <Routes>
-          <Route exact path='/public/:treeId' element={<Public />} />
           <Route path='/*' element={<Layout />} />
         </Routes>
       </div>

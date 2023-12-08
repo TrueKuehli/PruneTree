@@ -37,7 +37,6 @@ module.exports = {
     }
   },
   // main entry
-  // todo - may be able to code split to be more efficient?
   entry: './src/AppRoot.jsx',
   mode: process.env.NODE_ENV,
   // devtool: 'hidden-source-map',
@@ -132,10 +131,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       hash: true
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/public.html',
-      filename: 'public.html'
     }),
     new MiniCssExtractPlugin({
       filename: '[fullhash].[name].css',

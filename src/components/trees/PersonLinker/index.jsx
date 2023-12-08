@@ -3,10 +3,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
-
-import auth from '../../../common/js/auth'
 import styles from './styles.scss'
 import Loading from '../../Loading'
+import database from '../../../database/api'
 
 export default () => {
   const params = useParams()
@@ -19,36 +18,20 @@ export default () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const authToken = auth.getToken()
-
-    if (!authToken) {
-      toast.error('Looks like you\'re not logged in', { autoClose: false })
-      return setLoading(false)
-    }
-
-    axios.get(`/api/people/${personId}`, { headers: { Authorization: `Bearer ${authToken}` } })
+    database.getPerson(personId)
       .then((response) => {
         const links = get(response, 'data.links', [])
         setLoading(false)
         setLinks(links)
       })
       .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
         setLoading(false)
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred'), { autoClose: false })
+        toast.error(get(error, 'message', 'Unknown error occurred'), { autoClose: false })
       })
   }, [])
 
   function handleSubmit (event) {
     event.preventDefault()
-
-    const authToken = auth.getToken()
-
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
 
     links.push({
       title,
@@ -56,46 +39,28 @@ export default () => {
       personId: person
     })
 
-    axios.put(`/api/people/${personId}`,
-      { links },
-      { headers: { Authorization: `Bearer ${authToken}` } }
-    )
+    database.updatePerson(personId, { links })
       .then((response) => {
         toast.success('Person links updated')
         setLinks(response.data.links)
       })
       .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating persons links'), { autoClose: false })
+        toast.error(get(error, 'message', 'Unknown error occurred updating persons links'), { autoClose: false })
       })
   }
 
   function deleteLink (linkData) {
-    const authToken = auth.getToken()
-
-    if (!authToken) {
-      return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    }
-
     const newLinks = links.filter((link) => {
       return link !== linkData
     })
 
-    axios.put(`/api/people/${personId}`,
-      { links: newLinks },
-      { headers: { Authorization: `Bearer ${authToken}` } }
-    )
+    database.updatePerson(personId, { links: newLinks })
       .then((response) => {
         toast.success('Person links updated')
         setLinks(response.data.links)
       })
       .catch((error) => {
-        if (auth.loginRequired(error, navigate)) {
-          return
-        }
-        toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred updating persons links'), { autoClose: false })
+        toast.error(get(error, 'message', 'Unknown error occurred updating persons links'), { autoClose: false })
       })
   }
 

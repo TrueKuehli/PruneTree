@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SideNav from '../components/SideNav'
-import { loadUsersTree } from './../redux/actions'
+import { loadUsersTree } from '../redux/actions'
 
 const mapStateToProps = state => {
   return {
