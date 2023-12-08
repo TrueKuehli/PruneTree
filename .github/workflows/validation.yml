@@ -1,0 +1,35 @@
+name: Testing and Validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validation:
+    name: Running validation and tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 14.x, 16.x, 18.x ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setting up environment using Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing dependencies
+        run: npm ci
+      - name: Auditing dependencies
+        run: npm audit --audit-level=moderate
+      - name: Checking for outdated dependencies
+        run: npm outdated
+      - name: Running Tests
+        run: npm test
+      - name: Running Linter
+        run: npm run lint
