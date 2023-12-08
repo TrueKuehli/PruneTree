@@ -1,4 +1,4 @@
-name: Testing and Deployment to GitHub Pages
+name: Deployment to GitHub Pages
 
 on:
   workflow_dispatch
