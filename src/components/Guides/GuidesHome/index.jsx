@@ -15,8 +15,6 @@ export default () => {
         <li><Link to='/guides/publising-trees'>Publish Your Tree</Link></li>
         <li><Link to='/guides/linking-sims-to-other-trees'>Link Sims Across Multiple Trees</Link></li>
       </ul>
-
-      <p>If you can't find what your looking for in the guides try our <Link to='support'>support page</Link> where there's some FAQs and ways you can get in touch with us.</p>
     </div>
   )
 }
