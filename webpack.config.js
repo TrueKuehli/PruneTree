@@ -82,7 +82,7 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               // The relative path of the file where the current CSS is located relative to the packed root path dist
-              publicPath: process.env.NODE_ENV === 'production' ? '/assets/' : '/'
+              publicPath: '/'
             }
           },
           {
@@ -113,7 +113,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '/dist'),
-    publicPath: process.env.NODE_ENV === 'production' ? '/assets/' : '/',
+    publicPath: '/',
     filename: '[fullhash].[name].js'
   },
   optimization: {
