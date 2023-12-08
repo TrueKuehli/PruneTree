@@ -48,17 +48,6 @@ function upgradeDatabase(event) {
     treesStore.createIndex('title', 'title', { unique: false });
     treesStore.createIndex('description', 'description', { unique: false });
     treesStore.createIndex('cover', 'cover', { unique: false });
-
-    // TODO: Remove this once database is stable
-    treesStore.transaction.oncomplete = (event) => {
-      // Create some test objects
-      const treeStore = db.transaction(['trees'], 'readwrite').objectStore('trees');
-
-      treeStore.add({ title: 'Tree 1', ...defaultTree });
-      treeStore.add({ title: 'Tree 2', ...defaultTree });
-      treeStore.add({ title: 'Tree 3', ...defaultTree });
-      treeStore.add({ title: 'Tree 4', ...defaultTree });
-    }
   }
 
   if (!db.objectStoreNames.contains('people')) {
@@ -66,23 +55,6 @@ function upgradeDatabase(event) {
     peopleStore.createIndex('treeId', 'treeId', { unique: false });
     peopleStore.createIndex('firstName', 'firstName', { unique: false });
     peopleStore.createIndex('lastName', 'lastName', { unique: false });
-
-    // TODO: Remove this once database is stable
-    peopleStore.transaction.oncomplete = (event) => {
-      // Create some test objects
-      const treeStore = db.transaction(['trees'], 'readwrite').objectStore('trees');
-
-      treeStore.add({ title: 'Tree 1', ...defaultTree });
-      treeStore.add({ title: 'Tree 2', ...defaultTree });
-      treeStore.add({ title: 'Tree 3', ...defaultTree });
-      treeStore.add({ title: 'Tree 4', ...defaultTree });
-
-      // Create some test objects
-      const peopleStore = db.transaction(['people'], 'readwrite').objectStore('people');
-
-      peopleStore.add({ ...defaultPerson, treeId: 1 });
-      peopleStore.add({ ...defaultPerson, treeId: 1 });
-    }
   }
 }
 
