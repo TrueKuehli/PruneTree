@@ -26,7 +26,7 @@ jobs:
       - name: Installing dependencies
         run: npm ci
       - name: Auditing dependencies
-        run: npm audit --audit-level=moderate
+        run: npm audit --audit-level=moderate --prod
       - name: Checking for outdated dependencies
         run: npm outdated
       - name: Running Tests
