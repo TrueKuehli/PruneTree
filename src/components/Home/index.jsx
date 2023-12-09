@@ -12,10 +12,11 @@ export default () => {
       <div className='container'>
         <div className={styles.introPanel}>
           <p className={styles.alert}>This fork is still in its very early stages. There may still be bugs and not all features may work as expected. If you notice any issues, feel free to open up an issue on the <Link to={'TODO'}>GitHub</Link> page for this project.</p>
-          <p>Welcome to the &#123;NAME PENDING&#125; app!</p>
-          <p>A fork of the discontinued <Link to='https://gitlab.com/plum-tree'>Plum Tree</Link> app, replacing the server infrastructure with local browser storage.</p>
+          <p>Welcome to the Prune Tree app!</p>
+          <p>An unofficial successor to the discontinued <Link to='https://gitlab.com/plum-tree'>Plum Tree</Link> app, based on the original source code and available on <Link to='https://github.com/TrueKuehli/PruneTree'>GitHub</Link>.</p>
           <p>Create dynamic family trees for your sims legacies.</p>
-          <p>Unlike the original app, sharing a direct link is not possible, instead trees can be exchanged as files or images.</p>
+          <p>The public gallery no longer exists and is not currently planned to return.</p>
+          <p>If you have any feedback or suggestions, feel free to use the <Link to='https://github.com/TrueKuehli/PruneTree/issues'>GitHub Issue Tracker</Link>!</p>
         </div>
         <div className='row'>
           <div className='col-12 col-md-4'>
@@ -38,8 +39,9 @@ export default () => {
         </div>
         <div className='row'>
           <div className='col-12'>
-            <h2>Using The Plum Tree</h2>
+            <h2>Using The Prune Tree</h2>
             <p>If our guides don't do it for you, check out <a href='https://www.youtube.com/channel/UCYorr-o7j29k9vF8xGiiCmA' target='_blank' rel='noopener noreferrer'>The SimTwins</a> video instead. We thank them for this brilliant guide they put together on how to build the perfect Sims 4 family tree.</p>
+            <p>Since the guide was created for the Plum Tree app, some features shown in the video may be missing.</p>
             <div className={styles.guideVideo}>
               <iframe width='560' height='315' src='https://www.youtube.com/embed/QatRM3knISY' frameBorder='0' allowFullScreen />
             </div>
@@ -50,7 +52,7 @@ export default () => {
           <div className='col-12 col-md-6'>
             <h2>Guides</h2>
             <Link className={styles.guidesImage} to='/guides' />
-            <p>Get up to speed with how to use The Plum Tree with our guides.</p>
+            <p>Get up to speed with how to use The Prune Tree with our guides.</p>
             <Link className='btn btn-primary' to='/guides'>Read The Guides</Link>
           </div>
         </div>

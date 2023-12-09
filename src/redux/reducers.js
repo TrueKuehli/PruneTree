@@ -4,7 +4,7 @@ const initialState = {
   usersTrees: []
 }
 
-function plumTreeApp (state = initialState, action) {
+function pruneTreeApp (state = initialState, action) {
   switch (action.type) {
     case ADD_TREE:
       return Object.assign({}, state, {
@@ -37,4 +37,4 @@ function plumTreeApp (state = initialState, action) {
   }
 }
 
-export default plumTreeApp
+export default pruneTreeApp

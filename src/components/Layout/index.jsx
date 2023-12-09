@@ -34,7 +34,7 @@ export default () => {
 
           <div className={styles.brand}>
             <img src={logo} className={styles.headerLogo} height='40' width='40' alt={'Header Logo'}/>
-            <h1 className='hidden-xs-down'><Link to='/'> The Plum Tree </Link></h1>
+            <h1 className='hidden-xs-down'><Link to='/'> The Prune Tree </Link></h1>
           </div>
         </header>
 

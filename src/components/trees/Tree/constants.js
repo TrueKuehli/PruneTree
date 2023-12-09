@@ -1,6 +1,6 @@
 'use strict'
 /*
-    Constants used for rendering a plum tree. Mostly size values used throughout
+    Constants used for rendering a prune tree. Mostly size values used throughout
     the tree.
  */
 export const TREE_DEPTH = 170

@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
-import plumTreeApp from './redux/reducers'
+import pruneTreeApp from './redux/reducers'
 
 import 'normalize.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import './common/styles/app.scss'
 import Layout from './components/Layout'
 
-const store = createStore(plumTreeApp)
+const store = createStore(pruneTreeApp)
 const root = ReactDOM.createRoot(document.getElementById('app'))
 root.render(
   <HashRouter>

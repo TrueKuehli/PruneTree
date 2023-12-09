@@ -14,7 +14,7 @@ export default () => {
       <img src={toolbarGif} width='100%' />
       <p>The tree editor toolbar lets you get to many areas when it comes to editing your tree.</p>
       <h3>Actions - Save Tree</h3>
-      <p>Under <strong>Actions</strong> you can save your tree. The plum tree auto saves as you modify your tree but this lets you be certain everything is saved. A success message will appear to confirm the save.</p>
+      <p>Under <strong>Actions</strong> you can save your tree. The prune tree auto saves as you modify your tree but this lets you be certain everything is saved. A success message will appear to confirm the save.</p>
       <h3>Actions - Publish Tree</h3>
       <p>Under <strong>Actions</strong> when you click <strong>Publish Tree</strong> you'll be given the options to make your tree public and if you want it listed in the gallery.</p>
       <p>We go into more details of this in the guide Publish Your Tree.</p>
@@ -31,9 +31,9 @@ export default () => {
       <p>The guide <strong>Adding/Editing Sims</strong> goes into more details on what you can do there and how.</p>
       <h3>Preview Mode</h3>
       <p>You can toggle preview mode which will hide any buttons in the tree below the toolbar to show you how a tree will look once published.</p>
-      <p>Remeber to turn it off to be able to continue to edit the trees structure.</p>
+      <p>Remember to turn it off to be able to continue to edit the trees structure.</p>
       <h2>The Tree Structure</h2>
-      <p>The Plum Tree seperates the Sims and the structure of your trees into two seperate concepts. You'll create some Sims and you'll also create a structure that shows the links between parents and children.</p>
+      <p>The Prune Tree separates the Sims and the structure of your trees into two seperate concepts. You'll create some Sims and you'll also create a structure that shows the links between parents and children.</p>
       <p>Then you'll place the Sims you created into the structure you created to form a family tree.</p>
       <img src={treeNode} width='150' style={{ margin: '0px auto', display: 'block' }} />
       <p>When you first create a tree below the toolbar you'll see a single empty <strong>Node</strong>.</p>

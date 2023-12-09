@@ -1,11 +1,11 @@
 {
-  "name": "plum-tree-ui",
-  "version": "1.0.0",
+  "name": "prune-tree-app",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:plum-tree/ui.git"
+    "url": "git@github.com:TrueKuehli/PruneTree.git"
   },
-  "description": "The Plum Tree App UI",
+  "description": "The Prune Tree App",
   "browser": "index.js",
   "scripts": {
     "start": "webpack serve --mode development",
@@ -17,8 +17,6 @@
     "build": "NODE_ENV=production webpack",
     "predownload": "npm run clean",
     "download": "NODE_ENV=production webpack --config webpack-download.config.js",
-    "predeploy": "npm run build",
-    "deploy": "aws s3 sync --delete dist/ s3://com.theplumtreeapp.$STACK-assets "
   },
   "standard": {
     "ignore": [
@@ -38,7 +36,7 @@
     ]
   },
   "keywords": [],
-  "author": "Tobias Gray",
+  "author": "Tobias Gray, Timon Scholz",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.21.8",

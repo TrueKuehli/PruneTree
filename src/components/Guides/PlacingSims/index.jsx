@@ -11,7 +11,7 @@ export default () => {
     <div>
       <GuideIndexLink />
       <h1>Placing Sims in Your Tree</h1>
-      <p>Sims and tree structures are two seperate things in The Plum Tree so once you've added some Sims you'll want to master how place them to form a tree.</p>
+      <p>Sims and tree structures are two separate things in The Prune Tree so once you've added some Sims you'll want to master how place them to form a tree.</p>
       <div className='side-note'>Remember you'll have to have already created your Sims before you can place them in a tree</div>
       <h2>Add Your Sim</h2>
       <p>To set the Sim for a node click the <strong>Wrench Icon</strong> on a node.</p>

@@ -182,7 +182,7 @@ export default () => {
 
         <div className='form-group'>
           <label>Traits</label>
-          <PlumTreeMultiSelect
+          <PruneTreeMultiSelect
             options={traitOptions}
             onValuesChange={(values) => setTraits(values.map(v => v.value))}
             defaultValues={traits}
@@ -191,7 +191,7 @@ export default () => {
 
         <div className='form-group'>
           <label>Aspirations</label>
-          <PlumTreeMultiSelect
+          <PruneTreeMultiSelect
             options={aspirationOptions}
             onValuesChange={(values) => setAspirations(values.map(v => v.value))}
             defaultValues={aspirations}
@@ -200,7 +200,7 @@ export default () => {
 
         <div className='form-group'>
           <label>Life States</label>
-          <PlumTreeMultiSelect
+          <PruneTreeMultiSelect
             options={lifeStateOptions}
             onValuesChange={(values) => setLifeStates(values.map(v => v.value))}
             defaultValues={lifeStates}
@@ -250,7 +250,7 @@ export default () => {
   )
 }
 
-const PlumTreeMultiSelect = ({ options, onValuesChange, defaultValues }) => {
+const PruneTreeMultiSelect = ({ options, onValuesChange, defaultValues }) => {
   const customStyles = {
     multiValue: (provided, state) => {
       return {

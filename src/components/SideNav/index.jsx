@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import styles from './styles.scss'
-import auth from '../../common/js/auth'
 import database from "../../database/api";
 import {toast} from "react-toastify";
 import get from "lodash.get";

@@ -2,7 +2,7 @@
  * Util object for handling API calls as IndexedDB actions
  */
 
-const DB_NAME = 'plumtree';
+const DB_NAME = 'prunetree';
 const DB_VERSION = 1;
 
 

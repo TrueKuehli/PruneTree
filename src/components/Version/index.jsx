@@ -7,7 +7,7 @@ export default () => {
       <table>
         <tbody>
           <tr>
-            <th>UI Version</th>
+            <th>App Version</th>
             <td>{COMMITHASH.substring(0, 7)}</td>
           </tr>
         </tbody>
