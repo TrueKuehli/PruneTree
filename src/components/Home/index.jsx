@@ -13,9 +13,10 @@ export default () => {
         <div className={styles.introPanel}>
           <p className={styles.alert}>This fork is still in its very early stages. There may still be bugs and not all features may work as expected. If you notice any issues, feel free to open up an issue on the <Link to={'TODO'}>GitHub</Link> page for this project.</p>
           <p>Welcome to the Prune Tree app!</p>
-          <p>An unofficial successor to the discontinued <Link to='https://gitlab.com/plum-tree'>Plum Tree</Link> app, based on the original source code and available on <Link to='https://github.com/TrueKuehli/PruneTree'>GitHub</Link>.</p>
           <p>Create dynamic family trees for your sims legacies.</p>
-          <p>The public gallery no longer exists and is not currently planned to return.</p>
+          <p>A <Link to='https://en.wikipedia.org/wiki/Fork_(software_development)'>fork</Link> of the <Link to='https://gitlab.com/plum-tree'>Plum Tree</Link> app, based on the original source code and available on <Link to='https://github.com/TrueKuehli/PruneTree'>GitHub</Link>.</p>
+          <p>This fork was created after the shutdown of the website hosting the original app. The goal of this fork is to provide a way to track family trees to the Sims community that looks and feels familiar, yet does not require a server for storing and managing trees.</p>
+          <p>As a consequence of now storing trees locally, there currently is no way to share trees with other people. This will be somewhat improved by better download options in a future version.</p>
           <p>If you have any feedback or suggestions, feel free to use the <Link to='https://github.com/TrueKuehli/PruneTree/issues'>GitHub Issue Tracker</Link>!</p>
         </div>
         <div className='row'>

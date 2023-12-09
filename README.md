@@ -7,7 +7,7 @@
 - THIS PROJECT IS CURRENTLY IN VERY EARLY DEVELOPMENT AND IS NOT READY FOR USE OUTSIDE OF TESTING.
 ```
 
-Fork of the now discontinued [Plum Tree][plumtree] app _pruning_ API calls from the [front-end][frontend] code
+Fork of the [Plum Tree][plumtree] app _pruning_ API calls from the [front-end][frontend] code
 and replacing them with local browser storage.
 This offers a replacement for the base features of the original app, while allowing the app to be deployed using 
 only static assets.
