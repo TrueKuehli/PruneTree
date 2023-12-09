@@ -105,11 +105,7 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.jsx'],
     // webpack 5 polyfilling (https://github.com/webpack/changelog-v5#automatic-nodejs-polyfills-removed)
-    fallback: {
-      util: require.resolve('util/'),
-      crypto: require.resolve('crypto-browserify'),
-      stream: require.resolve('stream-browserify')
-    }
+    fallback: {}
   },
   output: {
     path: path.join(__dirname, '/dist'),

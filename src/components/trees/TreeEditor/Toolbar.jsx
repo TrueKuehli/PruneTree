@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import axios from 'axios'
 import get from 'lodash.get'
 import styles from './styles.scss'
-import auth from '../../../common/js/auth'
 import ToolbarDropdown from './ToolbarDropdown'
 import database from '../../../database/api'
 
