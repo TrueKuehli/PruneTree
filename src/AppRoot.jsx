@@ -1,7 +1,7 @@
 import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import {HashRouter, Routes, Route} from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
@@ -17,7 +17,7 @@ import Layout from './components/Layout'
 const store = createStore(plumTreeApp)
 const root = ReactDOM.createRoot(document.getElementById('app'))
 root.render(
-  <BrowserRouter>
+  <HashRouter>
     <Provider store={store}>
       <div>
         <ToastContainer
@@ -30,5 +30,5 @@ root.render(
         </Routes>
       </div>
     </Provider>
-  </BrowserRouter>
+  </HashRouter>
 )
