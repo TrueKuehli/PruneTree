@@ -1,7 +1,7 @@
 # [The Prune Tree App][prunetree]
 
-![Open App Link Shield](https://img.shields.io/badge/Open%20Application-prunetree.app-purple?labelColor=blue)
-![GitHub License Shield](https://img.shields.io/github/license/TrueKuehli/PruneTree?label=License)
+[![Open App Link Shield](https://img.shields.io/badge/Open%20Application-prunetree.app-purple?labelColor=blue)][prunetree]
+[![GitHub License Shield](https://img.shields.io/github/license/TrueKuehli/PruneTree?label=License)](LICENCE)
 
 ```diff
 - THIS PROJECT IS CURRENTLY IN VERY EARLY DEVELOPMENT AND IS NOT READY FOR USE OUTSIDE OF TESTING.
@@ -23,10 +23,10 @@ Trees are rendered using [D3][d3], specifically the [tree hierarchy][d3tree].
 
 ## Contributing
 
-![GitHub Issues Shield](https://img.shields.io/github/issues/TrueKuehli/PruneTree?label=Open%20Issues)
-![GitHub Pull Requests Shield](https://img.shields.io/github/issues-pr/TrueKuehli/PruneTree?label=Pull%20Requests)
-![Deployment Workflow Shield](https://img.shields.io/github/actions/workflow/status/TrueKuehli/PruneTree/deploy.yml?label=Deployment)
-![Validation Workflow Shield](https://img.shields.io/github/actions/workflow/status/TrueKuehli/PruneTree/validation.yml?label=Validation)
+[![GitHub Issues Shield](https://img.shields.io/github/issues/TrueKuehli/PruneTree?label=Open%20Issues)][issues]
+[![GitHub Pull Requests Shield](https://img.shields.io/github/issues-pr/TrueKuehli/PruneTree?label=Pull%20Requests)][pulls]
+[![Deployment Workflow Shield](https://img.shields.io/github/actions/workflow/status/TrueKuehli/PruneTree/deploy.yml?label=Deployment)][deploy]
+[![Validation Workflow Shield](https://img.shields.io/github/actions/workflow/status/TrueKuehli/PruneTree/validation.yml?label=Validation)][validation]
 
 Any contributions to the project are welcome, including issues, pull requests, and forks.
 If you have any questions, feel free to open an issue.
@@ -64,3 +64,7 @@ and for making the source code available for anyone to use.
 [browserrouter]: https://reactrouter.com/web/api/BrowserRouter
 [d3]: https://d3js.org/
 [d3tree]: https://github.com/d3/d3-hierarchy#tree
+[issues]: https://github.com/TrueKuehli/PruneTree/issues
+[pulls]: https://github.com/TrueKuehli/PruneTree/pulls
+[deploy]: https://github.com/TrueKuehli/PruneTree/actions/workflows/deploy.yml
+[validation]: https://github.com/TrueKuehli/PruneTree/actions/workflows/validation.yml
