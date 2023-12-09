@@ -42,7 +42,7 @@ export default () => {
     // only save the tree structure data
     const { data } = tree
 
-    database.updateTree(treeId, data)
+    database.updateTree(treeId, {data: data})
       .then(() => {
         setTree(tree)
         if (alertSuccess) {
