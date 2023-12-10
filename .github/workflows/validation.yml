@@ -36,5 +36,7 @@ jobs:
         run: npm outdated
       - name: Running Tests
         run: npm test
-      - name: Running Linter
-        run: npm run lint
+      - name: Running Code Linter
+        run: npm run lint:scripts
+      - name: Running Style Linter
+        run: npm run lint:styles

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles.scss'
 import RawHTML from '../../RawHTML'
-import { getUploadedImageUri } from '../../../common/js/utils'
+import { getUploadedImageUri } from '../../../common/scripts/utils'
 
 export default ({ title, description, image, style, closeDetails }) => {
   const inlineAvatarStyle = {}

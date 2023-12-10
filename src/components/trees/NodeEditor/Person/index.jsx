@@ -3,7 +3,7 @@ import get from 'lodash.get'
 import PersonSelect from '../PersonSelect'
 import styles from './styles.scss'
 import defaultAvatar from '../../../../common/images/default-avatar.png'
-import { getUploadedImageUri } from '../../../../common/js/utils'
+import { getUploadedImageUri } from '../../../../common/scripts/utils'
 
 export default ({ node, people, onSave, close }) => {
   const personId = get(node, 'data.person._id')

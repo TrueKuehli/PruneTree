@@ -5,7 +5,7 @@ import get from 'lodash.get'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import Loading from '../../Loading'
-import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
+import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/scripts/utils'
 
 export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) => {
   const fileRef = useRef(null)

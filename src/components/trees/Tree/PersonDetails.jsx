@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from './styles.scss'
 import defaultAvatar from '../../../common/images/default-avatar.png'
 import RawHTML from '../../RawHTML'
-import { getUploadedImageUri } from '../../../common/js/utils'
+import { getUploadedImageUri } from '../../../common/scripts/utils'
 
 export default ({
   personId,

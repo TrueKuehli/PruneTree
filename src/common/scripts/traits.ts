@@ -1,4 +1,4 @@
-module.exports = [
+const traits: string[] = [
   'A Gift of Credits',
   'A True Master',
   'Active',
@@ -340,5 +340,7 @@ module.exports = [
   'Wiggly',
   'Wild',
   'World-Renowned Actor',
-  'Worldly Knowledge'
-]
+  'Worldly Knowledge',
+];
+
+module.exports = traits;

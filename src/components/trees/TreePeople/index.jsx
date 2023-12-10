@@ -5,7 +5,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import styles from './styles.scss'
 import defaultAvatar from '../../../common/images/default-avatar.png'
 import Loading from '../../Loading'
-import { getUploadedImageUri } from '../../../common/js/utils'
+import { getUploadedImageUri } from '../../../common/scripts/utils'
 import database from "../../../database/api";
 
 export default ({ loading: loadingProp }) => {

@@ -1,4 +1,4 @@
-module.exports = [
+const aspirations: string[] = [
   'Academic',
   'Admired Icon',
   'Angling Ace',
@@ -79,5 +79,7 @@ module.exports = [
   'Whiz Kid ',
   'Wildfang Renegade',
   'World-Famous Celebrity',
-  'Zen Guru'
-]
+  'Zen Guru',
+];
+
+module.exports = aspirations;

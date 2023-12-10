@@ -37,7 +37,7 @@ module.exports = {
     }
   },
   // main entry
-  entry: './src/AppRoot.jsx',
+  entry: './src/AppRoot.tsx',
   mode: process.env.NODE_ENV,
   // devtool: 'hidden-source-map',
   // webpack loaders
@@ -51,12 +51,12 @@ module.exports = {
         }
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /core-js/,
         use: {
           loader: 'babel-loader',
           options: {
-            babelrc: false,
+            babelrc: true,
             configFile: path.resolve(__dirname, 'babel.config.js'),
             compact: false,
             cacheDirectory: true,
@@ -103,7 +103,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
     // webpack 5 polyfilling (https://github.com/webpack/changelog-v5#automatic-nodejs-polyfills-removed)
     fallback: {}
   },

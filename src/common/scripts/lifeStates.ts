@@ -1,4 +1,4 @@
-module.exports = [
+const lifeStates: string[] = [
   'Alien',
   'Cat',
   'Dog',
@@ -9,5 +9,7 @@ module.exports = [
   'Sim',
   'Skeleton',
   'Spellcaster',
-  'Vampire'
-]
+  'Vampire',
+];
+
+module.exports = lifeStates;

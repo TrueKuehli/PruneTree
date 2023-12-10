@@ -10,7 +10,7 @@ import {
   DEFAULT_AVATAR_PATTERN,
   DEFAULT_SMALL_AVATAR_PATTERN
 } from './constants'
-import { getUploadedImageUri } from '../../../common/js/utils'
+import { getUploadedImageUri } from '../../../common/scripts/utils'
 
 const Person = (props) => {
   const {
