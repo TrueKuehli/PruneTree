@@ -38,6 +38,7 @@ export default ({ tree, people = [], loading, readonly, onChange, onEditNode }) 
 
   const svg = useRef(null)
   const zoom = useRef(null)
+  const svgElementId = 'prunetree-svg'
 
   useEffect(() => {
     setZoomInitialized(false)
@@ -102,7 +103,7 @@ export default ({ tree, people = [], loading, readonly, onChange, onEditNode }) 
       .scaleExtent([0.1, 3])
       .on('zoom', zoomed)
 
-    const selectionSvg = select('svg')
+    const selectionSvg = select(`svg#${svgElementId}`)
       .call(zoomInstance)
 
     // move to initial position
@@ -228,7 +229,7 @@ export default ({ tree, people = [], loading, readonly, onChange, onEditNode }) 
         />
       )}
 
-      <svg width='100%' height='100%' ref={svg}>
+      <svg width='100%' height='100%' ref={svg} id={svgElementId}>
         <CommonPatterns />
 
         <g ref={zoom}>
