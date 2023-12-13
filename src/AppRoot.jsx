@@ -24,6 +24,7 @@ root.render(
           autoClose={8000}
           position={toast.POSITION.TOP_CENTER}
           toastClassName='alert'
+          theme='colored'
         />
         <Routes>
           <Route path='/*' element={<Layout />} />
