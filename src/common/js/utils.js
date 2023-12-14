@@ -1,62 +1,58 @@
-/**
- * Images with no "avatar" or "cover" prefix a pre-migration so are held in the
- * original s3 uploads bucket. Otherwise we can get them from the plum tree
- * domain as they are served from the API Gateway (resized).
- */
-const isMigratedImage = (image) => {
-  if (!image) return false
+import database from '../../database/api'
+import get from "lodash.get";
+import {toast} from "react-toastify";
 
-  return image.startsWith('avatar/') || image.startsWith('cover/')
+
+let generatedURLs = {
+  'cropped': {},
+  'original': {},
 }
 
+const dataURLRegistry = new FinalizationRegistry((image) => {
+  generatedURLs[image.type][image.id] = undefined
+  URL.revokeObjectURL(image.url)
+})
+
+
 /**
- * Images with no "avatar" or "cover" prefix a pre-migration so are held in the
- * original s3 uploads bucket. Otherwise we can get them from the plum tree
- * domain as they are served from the API Gateway (resized).
+ * Creates an object containing the data URL of the given image ID and returns it
+ * This container object is also cached as a weak reference as long as any strong references
+ *   to this object exist
+ * @param {string} image The image ID
+ * @param {boolean} cropped Whether to get the cropped or original image
+ * @returns {Promise<{url: string}>} The object containing the data URL
  */
-const getUploadedImageUri = (image, dimensions) => {
-  if (!image) return null
-
-  const s3Host = 'https://s3-eu-west-1.amazonaws.com/plum-tree-uploads/'
-  const migratedHost = 'https://theplumtreeapp.com/uploads/'
-
-  if (isMigratedImage(image)) {
-    return dimensions ? `/api/upload/${dimensions}/${image}` : `${migratedHost}${image}`
+const getImageUri = (image, cropped = true) => {
+  const type = cropped ? 'cropped' : 'original'
+  if (generatedURLs[type][image]) {
+    if (generatedURLs[type][image].deref()) {
+      return Promise.resolve(generatedURLs[type][image].deref())
+    }
   }
-  return `${s3Host}${image}`
+
+  return (database.getImage(image)
+    .then((result) => {
+      const generatedURL = {url: URL.createObjectURL(result.data[type])}
+      generatedURLs[type][image] = new WeakRef(generatedURL)
+      dataURLRegistry.register(generatedURL,
+        {id: image, url: generatedURL['url'], type: type})
+
+      return generatedURL
+    }).catch((err) => {
+      toast.error(get(err, 'message', 'Failed to load image'))
+      return null
+    }))
 }
 
 /**
- * Gets the original uploaded image URI (pre-processed original size)
+ * Invalidates the cache entry for the cropped version of a given image ID
+ * @param {string} image The image ID
  */
-const getOrigUploadedImageUri = (image) => {
-  if (!image) return null
-
-  const s3Host = 'https://s3-eu-west-1.amazonaws.com/plum-tree-uploads/'
-  const migratedHost = 'https://theplumtreeapp.com/uploads-orig/'
-
-  return isMigratedImage(image) ? `${migratedHost}${image}` : `${s3Host}${image}`
-}
-
-/**
- * Checks an email string is valid.
- */
-const isValidEmail = (email) => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  return re.test(String(email).toLowerCase())
-}
-
-const sendGoogleAnalyticsPageView = page => {
-  if (window.ga) {
-    window.ga('set', 'page', location.pathname + location.search)
-    window.ga('send', 'pageview')
-  }
+function invalidateCropped(image) {
+  generatedURLs['cropped'][image] = undefined
 }
 
 export {
-  isMigratedImage,
-  getUploadedImageUri,
-  getOrigUploadedImageUri,
-  isValidEmail,
-  sendGoogleAnalyticsPageView
+  getImageUri,
+  invalidateCropped,
 }

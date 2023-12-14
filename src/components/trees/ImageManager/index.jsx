@@ -1,11 +1,38 @@
-import React, { useState, useRef } from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import get from 'lodash.get'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import Loading from '../../Loading'
-import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
+import {getImageUri, invalidateCropped} from '../../../common/js/utils'
+import database from '../../../database/api'
+import Compressor from "compressorjs";
+import Image from "image-js";
+import styles from "../TreeEditor/styles.scss";
+
+
+function compressImage(file) {
+  return new Promise((resolve, reject) => {
+    new Compressor(file, {
+      quality: 0.80,
+      maxWidth: 1920,
+      maxHeight: 1080,
+      convertSize: 3_000_000,
+      drew(context, canvas) {
+        // canvas.width = Math.floor(canvas.width / 2);
+        // canvas.height = Math.floor(canvas.height / 2);
+      },
+      success(result) {
+        resolve(result)
+      },
+      error(err) {
+        reject(err)
+      },
+    });
+  });
+}
+
 
 export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) => {
   const fileRef = useRef(null)
@@ -14,11 +41,25 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
   const [uploading, setUploading] = useState(false)
   const [showCropper, setShowCropper] = useState(false)
   const [cropping, setCropping] = useState(false)
-  const [naturalHeight, setNaturalHeight] = useState(null)
-  const [naturalWidth, setNaturalWidth] = useState(null)
-  const [crop, setCrop] = useState(null)
   const [percentCrop, setPercentCrop] = useState(null)
-  const [cropImageUri, setCropImageUri] = useState(getUploadedImageUri(image))
+  const [cropImageUri, setCropImageUri] = useState(null)
+
+  useEffect(() => {
+    if (image) {
+      database.getImageCrop(image).then(response => {
+        const cropData = response.data
+        setPercentCrop(cropData)
+      }).catch(
+        error => {
+          toast.error(get(error, 'message', 'Failed to get image crop data'), { autoClose: false })
+        }
+      )
+
+      getImageUri(image, false).then(uri => {
+        setCropImageUri(uri)
+      })
+    }
+  }, [image])
 
   function selectImage (ev) {
     ev.preventDefault()
@@ -32,128 +73,99 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
    */
   function fileSelected (ev) {
     ev.preventDefault()
-    toast.warn('Image selection is not yet supported')
-    //
-    // const authToken = auth.getToken()
-    // if (!authToken) {
-    //   return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    // }
-    //
-    // setUploading(true)
-    //
-    // const file = fileRef.current.files[0]
-    // const { type, size } = file
-    // const acceptedFileTypes = ['image/png', 'image/jpeg']
-    //
-    // if (!acceptedFileTypes.includes(type)) {
-    //   return toast.info('File must be a JPG or PNG')
-    // }
-    // if (size > 10000000) {
-    //   return toast.info('Files must be under 10MB in size')
-    // }
-    //
-    // let uploadedFile
-    //
-    // // get S3 signed URL
-    // axios.get(`/api/upload/url?type=${type}&dir=${dir}`,
-    //   { headers: { Authorization: `Bearer ${authToken}` } })
-    //   .then(response => {
-    //     uploadedFile = response.data.filename
-    //
-    //     const options = {
-    //       headers: {
-    //         'Content-Type': type,
-    //         'x-amz-acl': 'public-read'
-    //       }
-    //     }
-    //
-    //     options.headers['x-amz-tagging'] = 'temp=true'
-    //
-    //     // upload to S3
-    //     return axios.put(
-    //       response.data.uploadURL,
-    //       file,
-    //       options)
-    //   })
-    //   .then(() => {
-    //     onImageChange(uploadedFile)
-    //     setCropImageUri(getOrigUploadedImageUri(uploadedFile))
-    //     setUploading(false)
-    //   })
-    //   .catch(error => {
-    //     if (auth.loginRequired(error, navigate)) {
-    //       return
-    //     }
-    //     toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred uploading your file'), { autoClose: false })
-    //   })
+
+    setUploading(true)
+
+    const file = fileRef.current.files[0]
+    const { type, size } = file
+    const acceptedFileTypes = ['image/png', 'image/jpeg']
+
+    if (!acceptedFileTypes.includes(type)) {
+      toast.info('File must be a JPG or PNG')
+      return
+    }
+    if (size > 25_000_000) {
+      toast.info('Files must be under 25MB in size before compression')
+      return
+    }
+
+    setPercentCrop(null)
+
+    compressImage(file).then(async (result) => {
+      return await database.createImage(result)
+    }).then((response) => {
+      getImageUri(response.data._id)
+        .then(uri => {
+          onImageChange(response.data)
+          setCropImageUri(uri)
+          setUploading(false)
+        })
+    }).catch((error) => {
+      toast.error(get(error, 'message', 'Failed to store image'), { autoClose: false })
+    })
   }
 
   /**
    * Called when the selected crop area changes.
-   * @param  {Object} crop New crop selection
-   * @return {void}
+   * @param {Object} _ Crop in pixels, not used since it corresponds to the dimensions of the element,
+   *                   not the underlying image
+   * @param {Object} percentCrop New crop selection in percent
    */
-  function onCropChange (crop, percentCrop) {
-    setCrop(crop)
+  function onCropChange (_, percentCrop) {
     setPercentCrop(percentCrop)
   }
 
   /**
-   * When an image loads in the cropper get its original dimension. This is
-   * because ReactCrop uses percentages for its crop dimensions but our crop
-   * endpoint uses pixels so some math is needed.
-   * @param  {Object} image ReactCrop image object
-   * @return {void}
-   */
-  function onImageLoaded (image) {
-    setNaturalWidth(image.currentTarget.naturalWidth)
-    setNaturalHeight(image.currentTarget.naturalHeight)
-  }
-
-  /**
-   * Calculate the crop pixels and send details of dimensions and image to crop
-   * to our crop endpoint.
+   * Calculate the crop pixels and crop the image
    * @param  {Object} e Click event from the crop image button
    * @return {void}
    */
   function cropImage (e) {
     e.preventDefault()
-    toast.warn('Image selection is not yet supported')
 
-    // const authToken = auth.getToken()
-    // if (!authToken) {
-    //   return toast.error('Looks like you\'re not logged in', { autoClose: false })
-    // }
-    //
-    // setCropping(true)
-    //
-    // // convert crop data from percentages to pixels
-    // const cropData = {
-    //   x: Math.floor((percentCrop.x / 100) * naturalWidth),
-    //   y: Math.floor((percentCrop.y / 100) * naturalHeight),
-    //   width: Math.floor((percentCrop.width / 100) * naturalWidth),
-    //   height: Math.floor((percentCrop.height / 100) * naturalHeight)
-    // }
-    //
-    // axios.put('/api/upload/crop',
-    //   { cropData, image },
-    //   { headers: { Authorization: `Bearer ${authToken}` } }
-    // )
-    //   .then((response) => {
-    //     const croppedFile = get(response, 'data.filename')
-    //     setCropping(false)
-    //     setCrop(null)
-    //     onImageChange(croppedFile)
-    //     setCropImageUri(getOrigUploadedImageUri(croppedFile))
-    //     setShowCropper(false)
-    //     toast.success('Image cropped')
-    //   })
-    //   .catch((error) => {
-    //     if (auth.loginRequired(error, navigate)) {
-    //       return
-    //     }
-    //     toast.error(get(error, 'response.data.errors[0].detail', 'Unknown error occurred while cropping image'), { autoClose: false })
-    //   })
+    setCropping(true)
+
+    Image.load(cropImageUri.url)
+      .then(image => {
+        if ((percentCrop === null) || (percentCrop.width === 0) || (percentCrop.height === 0) ||
+            (percentCrop.x === 0 && percentCrop.y === 0 && percentCrop.width === 1 && percentCrop.height === 1)) {
+          return image
+        }
+
+        const cropX = Math.min(Math.round(percentCrop.x * image.width / 100), image.width)
+        const cropY = Math.min(Math.round(percentCrop.y * image.height / 100), image.height)
+        const cropWidth = Math.min(Math.round(percentCrop.width * image.width / 100), image.width - cropX)
+        const cropHeight = Math.min(Math.round(percentCrop.height * image.height / 100), image.height - cropY)
+
+        if (cropWidth < 1 || cropHeight < 1) {
+          return image
+        }
+
+        return image.crop({
+          x: cropX,
+          y: cropY,
+          width: cropWidth,
+          height: cropHeight,
+        })
+      })
+      .then(async cropped => {
+        return await cropped.toBlob(cropped.alpha ? 'image.png' : 'image/jpeg', 0.8)
+      })
+      .then(async blob => {
+        console.log(percentCrop)
+        return await database.updateCroppedImage(image, blob, percentCrop)
+      })
+      .then(response => {
+        setCropping(false)
+
+        invalidateCropped(image)
+        onImageChange(response.data)
+        setShowCropper(false)
+        toast.success('Image cropped')
+      })
+      .catch(error => {
+        toast.error(get(error, 'message', 'Failed to crop image'), { autoClose: false })
+      })
   }
 
   /**
@@ -172,11 +184,11 @@ export default ({ imagePreview, onImageChange, image, aspect, dir = 'avatar' }) 
     return (
       <div>
         <ReactCrop
-          crop={crop}
+          crop={percentCrop}
           onChange={onCropChange}
           aspect={aspect}
         >
-          <img src={cropImageUri} onLoad={onImageLoaded} />
+          <img src={cropImageUri.url} />
         </ReactCrop>
         <div style={{ textAlign: 'center' }}>
           <button className='btn btn-default' onClick={cancelCrop}>Cancel Crop</button>

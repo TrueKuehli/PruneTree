@@ -12,7 +12,7 @@ import aspirationOptions from '../../../common/js/aspirations'
 import lifeStateOptions from '../../../common/js/lifeStates'
 import styles from './styles.scss'
 import defaultAvatar from '../../../common/images/default-avatar.png'
-import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/js/utils'
+import { getImageUri } from '../../../common/js/utils'
 import database from '../../../database/api'
 
 export default () => {
@@ -35,8 +35,6 @@ export default () => {
       database.getPerson(personId)
         .then((response) => {
           const { avatar, firstName, lastName, bio, traits, aspirations, lifeStates, custom } = response.data
-          setAvatar(avatar)
-          setAvatarUri(getUploadedImageUri(avatar, '200x200'))
           setFirstName(firstName)
           setLastName(lastName)
           setBio(bio)
@@ -44,18 +42,30 @@ export default () => {
           setAspirations(aspirations)
           setLifeStates(lifeStates)
           setCustom(custom)
-          setLoading(false)
+          if (avatar) {
+            getImageUri(avatar).then(uri => {
+              setAvatar(avatar)
+              setAvatarUri(uri)
+              setLoading(false)
+            })
+          } else {
+            setAvatar(null)
+            setLoading(false)
+          }
         })
         .catch((error) => {
           setLoading(false)
           toast.error('Failed to get person info', { autoClose: false })
         })
     }
-  }, [])
+  }, [personId])
 
   function updateAvatar (image) {
-    setAvatarUri(getOrigUploadedImageUri(image))
-    setAvatar(image)
+    const id = get(image, '_id')
+    getImageUri(id).then(uri => {
+      setAvatarUri(uri)
+      setAvatar(id)
+    })
   }
 
   /**
@@ -147,7 +157,7 @@ export default () => {
 
   let imagePreview
   if (avatar) {
-    const style = { backgroundImage: `url(${avatarUri})` }
+    const style = { backgroundImage: `url(${avatarUri.url})` }
     imagePreview = (<div className={styles.personAvatarImage} style={style} />)
   } else {
     const style = { backgroundImage: `url(${defaultAvatar})` }
