@@ -3,10 +3,10 @@ import { toast } from 'react-toastify'
 import get from 'lodash.get'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import styles from './styles.scss'
-import defaultAvatar from '../../../common/images/default-avatar.png'
 import Loading from '../../Loading'
-import { getUploadedImageUri } from '../../../common/scripts/utils'
 import database from "../../../database/api";
+import TreePerson from "./TreePerson";
+
 
 export default ({ loading: loadingProp }) => {
   const params = useParams()
@@ -128,37 +128,9 @@ export default ({ loading: loadingProp }) => {
           onChange={handleFilterPeople}
         />
       </div>
-      {filteredPeople.map((person) => {
-        const personEditLink = `/trees/${treeId}/people/${person._id}`
-        const personLinkLink = `/trees/${treeId}/people/${person._id}/link`
-
-        let backgroundImage
-        if (person.avatar) {
-          backgroundImage = `url(${getUploadedImageUri(person.avatar, '200x200')})`
-        } else {
-          backgroundImage = `url(${defaultAvatar})`
-        }
-
-        const inlineAvatarStyle = { backgroundImage }
-        let name
-        if (person.firstName || person.lastName) {
-          name = `${person.firstName} ${person.lastName}`.trim()
-        } else {
-          name = (<i>~ No Name ~</i>)
-        }
-
-        return (
-          <div key={person._id} className={`${styles.personTile} people-list-item`}>
-            <div className={styles.avatar} style={inlineAvatarStyle} />
-            <div>{name}</div>
-            <div className={styles.personMenu}>
-              <Link className='btn btn-small btn-default edit-person' to={personEditLink}>Edit</Link>
-              <Link className='btn btn-small btn-default link-person' to={personLinkLink}>Link</Link>
-              <button className='btn btn-small btn-danger delete-person' onClick={() => deletePerson(person._id)}>Delete</button>
-            </div>
-          </div>
-        )
-      })}
+      {filteredPeople.map((person) =>
+        <TreePerson key={person._id} treeId={treeId} person={person} deletePerson={deletePerson}/>
+      )}
     </div>
   )
 }

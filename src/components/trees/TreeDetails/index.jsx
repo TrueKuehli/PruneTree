@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import get from 'lodash.get'
-import { getOrigUploadedImageUri, getUploadedImageUri } from '../../../common/scripts/utils'
+import { getImageUri } from '../../../common/js/utils'
 import RichEditor from '../../RichEditor'
 import styles from './styles.scss'
 import Loading from '../../Loading'
@@ -26,20 +26,30 @@ export default ({ addTree, updateTree }) => {
           const { title, description, cover } = response.data
           setTitle(title)
           setDescription(description)
-          setCover(cover)
-          setCoverUri(getUploadedImageUri(cover, '600x320'))  // TODO: Rework cover images to use browser storage
-          setLoading(false)
+          if (cover) {
+            getImageUri(cover).then(uri => {
+              setCoverUri(uri)
+              setCover(cover)
+              setLoading(false)
+            })
+          } else {
+            setCover(null)
+            setLoading(false)
+          }
         })
         .catch((error) => {
           setLoading(false)
           toast.error(get(error, 'message', 'Failed to get tree info'), { autoClose: false })
         })
     }
-  }, [])
+  }, [treeId])
 
-  function updateCover (image) {
-    setCoverUri(getOrigUploadedImageUri(image))
-    setCover(image)
+  function updateCover(image) {
+    const id = get(image, '_id')
+    getImageUri(id).then(uri => {
+      setCoverUri(uri)
+      setCover(id)
+    })
   }
 
   function handleSubmit (event) {
@@ -92,8 +102,7 @@ export default ({ addTree, updateTree }) => {
 
   let imagePreview
   if (cover) {
-    console.log(cover)
-    const style = { backgroundImage: `url(${coverUri})` }
+    const style = { backgroundImage: `url(${coverUri.url})` }
     imagePreview = (<div className={styles.coverImage} style={style} />)
   } else {
     imagePreview = (<div className={styles.coverImage}>No cover image currently set.</div>)
@@ -108,6 +117,7 @@ export default ({ addTree, updateTree }) => {
         imagePreview={imagePreview}
         dir='cover'
         onImageChange={updateCover}
+        aspect={15 / 8}
       />
 
       <form onSubmit={handleSubmit}>

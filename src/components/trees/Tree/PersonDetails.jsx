@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.scss'
 import defaultAvatar from '../../../common/images/default-avatar.png'
 import RawHTML from '../../RawHTML'
-import { getUploadedImageUri } from '../../../common/scripts/utils'
+import { getImageUri } from '../../../common/js/utils'
+import ParentDetails from "./ParentDetails";
 
 export default ({
   personId,
@@ -24,17 +25,22 @@ export default ({
   bio
 }) => {
   const [linkDataVisible, setLinkDataVisible] = useState(false)
+  const [avatarURI, setAvatarURI] = useState(null)
+
+  useEffect(() => {
+    if (avatar) {
+      getImageUri(avatar).then(uri => {
+        setAvatarURI(uri)
+      })
+    }
+  }, [avatar])
 
   function handleToggleLinkData () {
     setLinkDataVisible(!linkDataVisible)
   }
 
-  const inlineAvatarStyle = {}
-  if (avatar) {
-    inlineAvatarStyle.backgroundImage = `url(${getUploadedImageUri(avatar, '200x200')})`
-  } else {
-    inlineAvatarStyle.backgroundImage = `url(${defaultAvatar})`
-  }
+  const backgroundImage = avatarURI ? `url(${avatarURI.url})` : `url(${defaultAvatar})`
+  const inlineAvatarStyle = {backgroundImage}
 
   return (
     <div className={styles.personDetails} style={style}>
@@ -58,15 +64,10 @@ export default ({
         <div>
           <h3 id='person-details-biological-parents-title'>Biological Parents <ParentType type={parentType} /></h3>
           <div>
-            {parents.map((parent, index) => {
-              const backgroundImage = parent.avatar ? `url(${getUploadedImageUri(parent.avatar, '200x200')})` : `url(${defaultAvatar})`
-              return (
-                <div className={styles.parentRow} key={index}>
-                  <div className={styles.parentAvatar} style={{ backgroundImage }} />
-                  <span className='person-details-biological-parent-name'>{parent.firstName} {parent.lastName}</span>
-                </div>
-              )
-            })}
+            {parents.map((parent, index) => <ParentDetails key={index}
+                                                           avatar={parent.avatar}
+                                                           firstName={parent.firstName}
+                                                           lastName={parent.lastName} />)}
           </div>
         </div>
       )}
@@ -75,15 +76,10 @@ export default ({
         <div>
           <h3>Adoptive Parents</h3>
           <div>
-            {adoptiveParents.map((parent, index) => {
-              const backgroundImage = parent.avatar ? `url(${getUploadedImageUri(parent.avatar, '200x200')})` : `url(${defaultAvatar})`
-              return (
-                <div className={styles.parentRow} key={index}>
-                  <div className={styles.parentAvatar} style={{ backgroundImage }} />
-                  <span>{parent.firstName} {parent.lastName}</span>
-                </div>
-              )
-            })}
+            {adoptiveParents.map((parent, index) => <ParentDetails key={index}
+                                                                   avatar={parent.avatar}
+                                                                   firstName={parent.firstName}
+                                                                   lastName={parent.lastName} />)}
           </div>
         </div>
       )}

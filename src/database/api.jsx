@@ -3,7 +3,7 @@
  */
 
 const DB_NAME = 'prunetree';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 
 const defaultTree = {
@@ -35,6 +35,18 @@ const defaultPerson = {
   custom: [],
 }
 
+const defaultImage = {
+    original: null,
+    cropped: null,
+    cropData: {
+      unit: '%',
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 100,
+    },
+}
+
 
 /**
  * Creates the database and populate with some test data, used as update handler for onupgradeneeded event
@@ -46,8 +58,6 @@ function upgradeDatabase(event) {
   if (!db.objectStoreNames.contains('trees')) {
     const treesStore = db.createObjectStore('trees', { keyPath: '_id', autoIncrement: true });
     treesStore.createIndex('title', 'title', { unique: false });
-    treesStore.createIndex('description', 'description', { unique: false });
-    treesStore.createIndex('cover', 'cover', { unique: false });
   }
 
   if (!db.objectStoreNames.contains('people')) {
@@ -55,6 +65,10 @@ function upgradeDatabase(event) {
     peopleStore.createIndex('treeId', 'treeId', { unique: false });
     peopleStore.createIndex('firstName', 'firstName', { unique: false });
     peopleStore.createIndex('lastName', 'lastName', { unique: false });
+  }
+
+  if (!db.objectStoreNames.contains('images')) {
+    const imageStore = db.createObjectStore('images', { keyPath: '_id', autoIncrement: true });
   }
 }
 
@@ -306,4 +320,41 @@ export default {
       }
     });
   },
+
+  /**
+   * Gets an image from the database by ID
+   * @param id {int|string} ID of the image to get
+   * @returns {Promise} Promise that resolves with image on success, rejects on database error
+   */
+  getImage: (id) => getElementFromDatabase('images', id),
+
+  /**
+   * Gets the crop data for an image from the database by ID
+   * @param id {int|string} ID of the image to get
+   * @returns {Promise} Promise that resolves with crop data on success, rejects on database error
+   */
+  getImageCrop: (id) => getElementFromDatabase('images', id).then(result => ({data: result.data.cropData})),
+
+  /**
+   * Creates a new database for a given image blob
+   * @param image {Blob|File} Image blob
+   * @returns {Promise} Promise that resolves with image on success, rejects on database error
+   */
+  createImage: (image) => insertIntoDatabase('images', {...defaultImage, original: image, cropped: image}),
+
+  /**
+   * Updates the cropped version of an image in the database
+   * @param id {int|string} ID of the image to update
+   * @param image {Blob|File} The new cropped image Blob
+   * @param cropData {Object} The new crop data
+   * @returns {Promise} Promise that resolves with image on success, rejects on database error
+   */
+  updateCroppedImage: (id, image, cropData) => updateInDatabase('images', id, {cropped: image, cropData: cropData}),
+
+  /**
+   * Deletes an image from the database
+   * @param id {int|string} ID of the image to delete
+   * @returns {Promise} Promise that resolves on success, rejects on database error
+   */
+  deleteImage: (id) => deleteFromDatabase('images', id),
 }

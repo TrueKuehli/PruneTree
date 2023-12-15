@@ -1,17 +1,28 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styles from './styles.scss'
 import RawHTML from '../../RawHTML'
-import { getUploadedImageUri } from '../../../common/scripts/utils'
+import { getImageUri } from '../../../common/js/utils'
+import {toast} from "react-toastify";
+import get from "lodash.get";
 
 export default ({ title, description, image, style, closeDetails }) => {
-  const inlineAvatarStyle = {}
-  if (image) {
-    inlineAvatarStyle.backgroundImage = `url(${getUploadedImageUri(image, '600x320')})`
-  }
+  const [imageUri, setImageUri] = useState(null)
+
+  useEffect(() => {
+    if (image) {
+      getImageUri(image).then(
+        (response) => {
+          setImageUri(response)
+        })
+        .catch((error) => {
+          toast.error(get(error, 'message', 'Unknown error occurred creating tree'), { autoClose: false })
+        })
+    }
+  }, [image])
 
   return (
     <div className={styles.treeDetails} style={style}>
-      {image && <div className={styles.treeImage} style={inlineAvatarStyle} />}
+      {image && <div className={styles.treeImage} style={{backgroundImage: imageUri ? `url(${imageUri.url})` : 'initial'}} />}
       <div className={styles.closeButton} onClick={() => closeDetails()}>
         <span>Close</span>
         <i className={styles.close} />

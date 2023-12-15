@@ -27,7 +27,7 @@ export default () => {
         setLoading(false)
         toast.error(get(error, 'message', 'Unknown error occurred'), { autoClose: false })
       })
-  }, [])
+  }, [personId])
 
   function handleSubmit (event) {
     event.preventDefault()

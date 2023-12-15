@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { v4 } from 'uuid'
 import PersonLinks from './PersonLinks'
 import styles from './styles.scss'
@@ -10,7 +10,8 @@ import {
   DEFAULT_AVATAR_PATTERN,
   DEFAULT_SMALL_AVATAR_PATTERN
 } from './constants'
-import { getUploadedImageUri } from '../../../common/scripts/utils'
+import { getImageUri } from '../../../common/js/utils'
+import {toast} from "react-toastify";
 
 const Person = (props) => {
   const {
@@ -23,6 +24,18 @@ const Person = (props) => {
     unhighlightParents
   } = props
 
+  const [avatarURI, setAvatarURI] = useState(null)
+
+  useEffect(() => {
+    if (personData && personData.avatar) {
+      getImageUri(personData.avatar).then((uri) => {
+        setAvatarURI(uri)
+      }).catch((error) => {
+        toast.error(get(error, 'message', 'Unknown error occurred'), { autoClose: false })
+      })
+    }
+  }, [personData])
+
   function handleMouseOver () {
     highlightParents && highlightParents()
   }
@@ -33,21 +46,20 @@ const Person = (props) => {
 
   const avatarRadius = small ? NODE_SMALL_AVATAR_RADIUS : NODE_AVATAR_RADIUS
   let fillId = small ? DEFAULT_SMALL_AVATAR_PATTERN : DEFAULT_AVATAR_PATTERN
-  const personAvatar = get(personData, 'avatar', false)
   let image, links
 
   if (!get(personData, '_id', false)) {
     return null // no person set
   }
 
-  if (personAvatar) {
+  if (avatarURI) {
     fillId = v4()
     image = (
       <image
         className='avatar-image'
         aria-hidden='true'
         xmlnsXlink='http://www.w3.org/1999/xlink'
-        xlinkHref={getUploadedImageUri(personData.avatar, '200x200')}
+        xlinkHref={avatarURI.url}
         x='0'
         y='0'
         width={avatarRadius * 2}
@@ -73,7 +85,7 @@ const Person = (props) => {
 
   return (
     <g className='person' transform={transform}>
-      {personAvatar && (
+      {avatarURI && (
         <defs>
           <pattern
             className='avatar-pattern'
