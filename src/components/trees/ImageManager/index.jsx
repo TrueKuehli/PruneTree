@@ -6,7 +6,7 @@ import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import Loading from '../../Loading'
 import {getImageUri, invalidateCropped} from '../../../common/js/utils'
-import database from '../../../database/api'
+import database from '../../../common/scripts/database'
 import Compressor from "compressorjs";
 import Image from "image-js";
 import styles from "../TreeEditor/styles.scss";

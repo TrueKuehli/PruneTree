@@ -6,7 +6,7 @@ import styles from './styles.scss'
 import Toolbar from './Toolbar'
 import NodeEdit from '../NodeEditor'
 import Tree from '../Tree'
-import database from '../../../database/api'
+import database from '../../../common/scripts/database'
 
 export default () => {
   const params = useParams()

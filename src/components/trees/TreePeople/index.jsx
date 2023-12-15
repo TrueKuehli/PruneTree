@@ -4,7 +4,7 @@ import get from 'lodash.get'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import styles from './styles.scss'
 import Loading from '../../Loading'
-import database from "../../../database/api";
+import database from "../../../common/scripts/database";
 import TreePerson from "./TreePerson";
 
 

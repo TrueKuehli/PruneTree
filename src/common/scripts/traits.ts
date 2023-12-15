@@ -1,4 +1,4 @@
-const traits: string[] = [
+const TRAITS = [
   'A Gift of Credits',
   'A True Master',
   'Active',
@@ -341,6 +341,12 @@ const traits: string[] = [
   'Wild',
   'World-Renowned Actor',
   'Worldly Knowledge',
-];
+] as const;
 
-module.exports = traits;
+type Trait = typeof TRAITS[number];
+
+
+export {
+  Trait,
+  TRAITS,
+};

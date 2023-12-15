@@ -1,4 +1,4 @@
-const lifeStates: string[] = [
+const LIFE_STATES = [
   'Alien',
   'Cat',
   'Dog',
@@ -10,6 +10,12 @@ const lifeStates: string[] = [
   'Skeleton',
   'Spellcaster',
   'Vampire',
-];
+] as const;
 
-module.exports = lifeStates;
+type LifeState = typeof LIFE_STATES[number];
+
+
+export {
+  LifeState,
+  LIFE_STATES,
+};

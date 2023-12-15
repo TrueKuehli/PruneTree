@@ -13,7 +13,7 @@ import lifeStateOptions from '../../../common/scripts/lifeStates'
 import styles from './styles.scss'
 import defaultAvatar from '../../../common/images/default-avatar.png'
 import { getImageUri } from '../../../common/js/utils'
-import database from '../../../database/api'
+import database from '../../../common/scripts/database'
 
 export default () => {
   const navigate = useNavigate()

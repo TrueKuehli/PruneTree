@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.scss'
-import database from "../../database/api";
+import database from "../../common/scripts/database";
 import {toast} from "react-toastify";
 import get from "lodash.get";
 

@@ -7,7 +7,7 @@ import RichEditor from '../../RichEditor'
 import styles from './styles.scss'
 import Loading from '../../Loading'
 import ImageManager from '../ImageManager'
-import database from '../../../database/api'
+import database from '../../../common/scripts/database'
 
 export default ({ addTree, updateTree }) => {
   const navigate = useNavigate()

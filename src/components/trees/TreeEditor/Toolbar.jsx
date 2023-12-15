@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import get from 'lodash.get'
 import styles from './styles.scss'
 import ToolbarDropdown from './ToolbarDropdown'
-import database from '../../../database/api'
+import database from '../../../common/scripts/database'
 
 export default ({ tree, setPreviewMode: onPreviewModeChange, saveTree: onSaveTree }) => {
   const [previewMode, setPreviewMode] = useState(false)

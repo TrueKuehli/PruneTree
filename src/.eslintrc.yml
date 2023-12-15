@@ -20,8 +20,13 @@ rules:
   semi:
     - error
     - always
-  'max-len':
-    - 'error'
+  max-len:
+    - error
     - code: 120
       tabWidth: 2
       ignoreUrls: true
+  valid-jsdoc:
+    - warn
+    - requireReturnType: false
+      requireParamType: false
+      requireReturn: false

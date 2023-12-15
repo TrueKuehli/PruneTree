@@ -1,4 +1,4 @@
-const aspirations: string[] = [
+const ASPIRATIONS = [
   'Academic',
   'Admired Icon',
   'Angling Ace',
@@ -80,6 +80,12 @@ const aspirations: string[] = [
   'Wildfang Renegade',
   'World-Famous Celebrity',
   'Zen Guru',
-];
+] as const;
 
-module.exports = aspirations;
+type Aspiration = typeof ASPIRATIONS[number];
+
+
+export {
+  Aspiration,
+  ASPIRATIONS,
+};
