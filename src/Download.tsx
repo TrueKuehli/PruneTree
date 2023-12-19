@@ -11,7 +11,9 @@ import './common/styles/app.scss';
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
     <Download
+      // @ts-expect-error - tree is a global variable contained in the downloaded ./data/tree.js file
       tree={window.tree}
+      // @ts-expect-error - people is a global variable contained in the downloaded ./data/people.js file
       people={window.people}
     />,
 );

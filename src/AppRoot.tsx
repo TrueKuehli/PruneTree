@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
 import {HashRouter, Routes, Route} from 'react-router-dom';
 import {ToastContainer, toast} from 'react-toastify';
 import 'regenerator-runtime/runtime';
 
-import pruneTreeApp from './redux/reducers';
+import {store} from './redux/store';
 import Layout from './components/Layout';
 
 import 'normalize.css';
@@ -14,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import './common/styles/app.scss';
 
 
-const store = createStore(pruneTreeApp);
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
     <HashRouter>
