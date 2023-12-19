@@ -1,6 +1,8 @@
 const webpack = require('webpack')
 const path = require('path')
 
+const PACKAGE = require('./package.json');
+
 // minifying for production
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
@@ -133,8 +135,9 @@ module.exports = {
       chunkFilename: '[fullhash].[id].css'
     }),
     new webpack.DefinePlugin({
-      COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
-      STACK: JSON.stringify(process.env.STACK)
+      COMMIT_HASH: JSON.stringify(gitRevisionPlugin.commithash()),
+      PACKAGE_VERSION: JSON.stringify(PACKAGE.version),
+      BUILD_DATE: JSON.stringify(new Date().toISOString()),
     }),
     new FaviconsWebpackPlugin({
       logo: './src/common/images/favicon.png',
