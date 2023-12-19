@@ -25,8 +25,9 @@ rules:
     - code: 120
       tabWidth: 2
       ignoreUrls: true
+  indent:
+    - off  # The IDE should take care of this and is more flexible (allowing visual indent)
   valid-jsdoc:
-    - warn
-    - requireReturnType: false
-      requireParamType: false
-      requireReturn: false
+    - off  # Especially for the components, specifying return values or props as jsdoc is redundant and too cluttered
+  react/no-unescaped-entities:
+      - off  # This makes JSX less natural to read and the problem it solves should also be solved by proper syntax highlighting in the IDE

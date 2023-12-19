@@ -6,6 +6,7 @@
       "ES2021.WeakRef",
       "dom"
     ],
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "sourceMap": true,
     "esModuleInterop": true,
     "jsx": "react"
