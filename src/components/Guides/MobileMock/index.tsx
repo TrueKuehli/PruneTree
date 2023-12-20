@@ -11,6 +11,7 @@ type Props = {
 
 /**
  * Reusable component that shows a mock mobile phone with a screen presenting the app usage.
+ * @param display The image to display on the phone screen.
  */
 export default function MobileMock({display}: Props) {
   return (
