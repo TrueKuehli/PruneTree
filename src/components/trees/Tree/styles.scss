@@ -1,12 +1,9 @@
-@import "../../../common/styles/vars";
-@import "../../../common/styles/pallete";
+@use "../../../common/styles/vars";
+@use "../../../common/styles/palette";
 
 .root {
   position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-image: url('../../../common/images/green-poly.jpg');
   background-size: cover;
   overflow: hidden;
@@ -42,54 +39,56 @@
   stroke: #333;
   stroke-width: 2px;
 }
+
 .abduction {
   fill: #333;
   stroke: none;
 }
+
 .marriage {
   fill: none;
   stroke: #333;
   stroke-width: 2px;
 }
 
-.personDetails {
+.person-details {
   position: absolute;
-  z-index: 1000;
   bottom: 0;
   right: 0;
   width: 300px;
   margin: 15px;
   padding: 15px;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
+  z-index: 1000;
 
   background: #f4f7f6;
-  border: $grey-light solid 1px;
-  border-radius: $default-border-radius;
-
+  border: palette.$grey-light solid 1px;
+  border-radius: vars.$default-border-radius;
+  box-shadow: 0 2px 3px 0 rgb(0 0 0 / 7.5%);
   overflow: auto;
 }
 
-.showTreeDetails {
+.show-tree-details {
+  display: flex;
   position: absolute;
   left: 0;
-  margin: 15px;
-  cursor: pointer;
   height: 40px;
-  border: $grey-light solid 1px;
-  background: #f4f7f6;
-  border-radius: 20px;
-  line-height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 15px;
   padding-left: 7px;
   padding-right: 12px;
+  line-height: 30px;
+  justify-content: center;
+  align-items: center;
+  border: palette.$grey-light solid 1px;
+  border-radius: 20px;
+  background: #f4f7f6;
+
+  cursor: pointer;
   transition: background 0.3s ease-in-out;
 
   >i {
+    height: 30px;
     color: #6F1E51;
     font-size: 30px;
-    height: 30px;
   }
 
   &:hover {
@@ -97,84 +96,86 @@
   }
 }
 
-.treeDetails {
+.tree-details {
   position: absolute;
-  top: 65px;
-  bottom: 0;
-  right: 15px;
-  left: 15px;
+  inset: 65px 15px 0;
   max-width: 300px;
   margin: 15px 0;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
-  z-index: 200;
+  border: palette.$grey-light solid 1px;
+  border-radius: vars.$default-border-radius;
+  box-shadow: 0 2px 3px 0 rgb(0 0 0 / 7.5%);
   background: #f4f7f6;
-  border: $grey-light solid 1px;
-  border-radius: $default-border-radius;
   overflow: auto;
+  z-index: 200;
 }
 
-.treeImage {
+.tree-image {
+  position: relative;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
   height: 160px;
   background-size: cover;
   background-position-x: center;
   background-position-y: center;
-  position: relative;
-  width: 100%;
-  left: 0;
-  top: 0;
-  right: 0;
 }
 
-.treeDetailsContent {
+.tree-details-content {
   padding: 15px;
 }
 
-.personDetailsTop {
+.person-details-top {
   text-align: center;
 }
 
-.personDetailsAvatar {
+.person-details-avatar {
+  display: block;
   width: 70px;
   height: 70px;
-  border-radius: 50%;
-  border: $color-white solid 4px;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
-  display: block;
   margin: 0 auto;
+  border: palette.$color-white solid 4px;
+  border-radius: 50%;
+  box-shadow: 0 2px 3px 0 rgb(0 0 0 / 7.5%);
   background-position: center center;
   background-size: cover;
 }
 
-.parentRow {
+.parent-row {
   display: flex;
   margin-bottom: 10px;
   justify-content: flex-start;
   align-items: center;
 }
 
-.parentAvatar {
+.parent-avatar {
+  display: block;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  border: $color-white solid 4px;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
-  display: block;
   margin-right: 10px;
+  border: palette.$color-white solid 4px;
+  border-radius: 50%;
+  box-shadow: 0 2px 3px 0 rgb(0 0 0 / 7.5%);
   background-position: center center;
   background-size: cover;
 }
 
-.editButton,
-.closeButton {
+.edit-button,
+.close-button {
   position: absolute;
-  text-decoration: none;
-  color: $font-color;
   top: 15px;
-  background: #f4f7f6;
   padding: 5px 15px;
-  cursor: pointer;
   line-height: 30px;
   border-radius: 5px;
+  color: palette.$font-color;
+  background: #f4f7f6;
+
+  &.close-button {
+    right: 15px;
+  }
+
+  text-decoration: none;
+  cursor: pointer;
   transition: background 0.3s ease-in-out;
 
   &:hover {
@@ -186,55 +187,52 @@
   }
 }
 
-.closeButton {
-  right: 15px;
-}
-
 .tag {
-  background: $blue1;
-  color: $color-white;
+  display: inline-block;
   padding: 3px 10px;
   margin-right: 7px;
   margin-bottom: 10px;
-  border-radius: $default-border-radius;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
-  text-shadow: 0 1px 2px rgba(0,0,0,.2);
-  display: inline-block;
+  border-radius: vars.$default-border-radius;
+  box-shadow: 0 2px 3px 0 rgb(0 0 0 / 7.5%);
+  color: palette.$color-white;
+  background: palette.$blue1;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 20%);
 }
 
-.linksIcon,
-.addChildIcon,
-.editNodeIcon {
+.links-icon,
+.add-child-icon,
+.edit-node-icon {
   cursor: pointer;
 }
 
-.linkList {
+.link-list {
   fill: #f4f7f6;
   stroke: #E6EAEA;
   stroke-width: 1;
 }
 
-.linkListItem {
-  fill:#f4f7f6;
+.link-list-item {
   cursor: pointer;
+  fill:#f4f7f6;
+
   &:hover {
     fill: #fff;
   }
 }
 
-.linkListText {
+.link-list-text {
   cursor: pointer;
-  fill: $font-color;
+  fill: palette.$font-color;
 }
 
-.linkDetailsToggle {
+.link-details-toggle {
+  display: inline;
+  color: palette.$blue1;
   font-size: smaller;
-  color: $blue1;
   text-decoration: underline;
   cursor: pointer;
-  display: inline;
 }
 
-.linkDetails {
+.link-details {
   font-size: smaller;
 }

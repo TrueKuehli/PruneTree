@@ -21,5 +21,5 @@
 ### :white_check_mark: Required Review Steps
 
 1. [ ] Check latest pipeline passes
-1. [ ] Code is well constructed (sensible implementation, location and documentation)
-1. [ ] Test coverage is acceptable
+2. [ ] Code is well constructed (sensible implementation, location and documentation)
+3. [ ] Test coverage is acceptable

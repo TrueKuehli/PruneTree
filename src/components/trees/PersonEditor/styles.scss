@@ -1,52 +1,51 @@
-@import "../../../common/styles/vars";
-@import "../../../common/styles/pallete";
+@use "../../../common/styles/vars";
+@use "../../../common/styles/palette";
 
-.personAvatarContainer {
+.person-avatar-container {
   text-align: center;
 }
 
-.personAvatarImage {
+.person-avatar-image {
+  display: block;
   width: 70px;
   height: 70px;
+  margin: 0 auto 10px;
   border-radius: 50%;
-  border: $color-white solid 4px;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
-  display: block;
-  margin: 0px auto;
-  margin-bottom: 10px;
+  border: palette.$color-white solid 4px;
+  box-shadow: 0 2px 3px 0 rgb(0 0 0 / 7.5%);
   background-position: center center;
   background-size: cover;
 }
 
-.avatarButtons {
-  margin: 0px 10px !important;
+.avatar-buttons {
+  margin: 0 10px !important;
 }
 
-.customInfo {
+.custom-info {
   display: flex;
   margin-bottom: 15px;
 
   button {
-    margin: 0px;
+    margin: 0;
 
     &:hover,
     &:focus{
-      transform: translateY(0px);
+      transform: translateY(0);
     }
   }
 
   * {
-    border-radius: 0px;
+    border-radius: 0;
   }
 
   :first-child {
-    border-top-left-radius: $input-border-radius;
-    border-bottom-left-radius: $input-border-radius;
+    border-top-left-radius: vars.$input-border-radius;
+    border-bottom-left-radius: vars.$input-border-radius;
     border-right: none;
   }
 
   :last-child {
-    border-top-right-radius: $input-border-radius;
-    border-bottom-right-radius: $input-border-radius;
+    border-top-right-radius: vars.$input-border-radius;
+    border-bottom-right-radius: vars.$input-border-radius;
   }
 }

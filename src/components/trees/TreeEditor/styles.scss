@@ -1,27 +1,35 @@
-@import "../../../common/styles/vars";
-@import "../../../common/styles/pallete";
+@use "../../../common/styles/vars";
+@use "../../../common/styles/palette";
 
-.toolbar, .toolbarMobile {
+.toolbar, .toolbar-mobile {
+  display: flex;
   position: relative;
   min-height: 50px;
-  background: $grey-lightest;
-  border: $grey-light solid 1px;
-  border-radius: $default-border-radius;
   margin: 15px;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
-  display: flex;
+  border: palette.$grey-light solid 1px;
+  border-radius: vars.$default-border-radius;
   align-items: center;
   justify-content: flex-end;
+  background: palette.$grey-lightest;
+  box-shadow: 0 2px 3px 0 rgba(0 0 0 / 7.5%);
+
+  &.toolbar-mobile {
+    cursor: pointer;
+
+    &:hover {
+      background: #f4f7f6;
+    }
+  }
 
   input[type="checkbox"] + label {
+    min-width: 100px;
+    height: 50px;
     padding: 0 15px;
     margin: 0;
-    cursor: pointer;
-    height: 50px;
-    line-height: 50px;
     border-left: #ccc solid 1px;
+    line-height: 50px;
+    cursor: pointer;
     font-weight: 300;
-    min-width: 100px;
 
     &:hover {
       background: #f4f7f6;
@@ -29,31 +37,23 @@
   }
 }
 
-.toolbarMobile {
-  cursor: pointer;
-
-  &:hover {
-    background: #f4f7f6;
-  }
-}
-
 .hamburger {
   display: inline-block;
-  padding-right: 15px;
   position: relative;
   top: 2px;
+  padding-right: 15px;
   transition: 0.1s ease-in-out;
 
   div {
     width: 14px;
     height: 1px;
-    background-color: $font-color;
     margin: 3px 0;
+    background-color: palette.$font-color;
     transition: 0.1s ease-in-out;
   }
 }
 
-.hamburgerActive {
+.hamburger-active {
   top: 4px;
 
   div {
@@ -61,54 +61,53 @@
   }
 }
 
-.toolbarDropdown {
+.toolbar-dropdown {
   position: relative;
 }
 
-.toolbarItem, .toolbarHelp {
+.toolbar-item, .toolbar-help {
+  min-width: 100px;
+  height: 50px;
   padding: 0 15px;
   margin: 0;
-  cursor: pointer;
-  height: 50px;
-  line-height: 50px;
   border-left: #ccc solid 1px;
+  line-height: 50px;
+  cursor: pointer;
   font-weight: 300;
-  min-width: 100px;
 
   &:hover {
     background: #f4f7f6;
   }
 }
 
-.downArrow {
-  border: solid $font-color;
+.down-arrow {
+  display: inline-block;
   padding: 3px;
   margin: 3px 3px 3px 10px;
+  border: solid palette.$font-color;
   border-width: 0 1px 1px 0;
-  display: inline-block;
   transform: rotate(45deg);
   transition: 0.2s ease-in-out;
 }
 
-.downArrowActive {
+.down-arrow-active {
   margin: 5px 3px 0 10px;
   transform: rotate(225deg);
 }
 
-.menu, .menuMobile {
-  background: #f4f7f6;
-  border: 1px solid #E6EAEA;
-  border-radius: $default-border-radius;
-  color: #333;
+.menu, .menu-mobile {
   position: absolute;
   top: 60px;
   right: 0;
   width: 230px;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
+  border: 1px solid #E6EAEA;
+  border-radius: vars.$default-border-radius;
+  color: #333;
+  background: #f4f7f6;
+  box-shadow: 0 2px 3px 0 rgb(0 0 0 / 7.5%);
   visibility: hidden;
   opacity: 0;
   z-index: 100;
-
   transition: 0.2s ease-in-out;
 
   ul {
@@ -117,14 +116,14 @@
     margin: 0;
 
     li {
-      cursor: pointer;
       display: block;
+      cursor: pointer;
       text-decoration: none;
 
       a, div {
         display: block;
-        padding: 15px 15px;
-        color: $font-color;
+        padding: 15px;
+        color: palette.$font-color;
         text-decoration: none;
         transition: background 0.2s ease-in-out;
 
@@ -136,28 +135,28 @@
   }
 }
 
-.menuActive, .menuMobileActive {
+.menu-active, .menu-mobile-active {
   visibility: visible;
   opacity: 1;
 }
 
-.menuMobile {
+.menu-mobile {
   position: relative;
-  margin: 15px;
   top: 0;
   width: initial;
+  margin: 15px;
 }
 
-.mobileMenuHeading {
-  font-size: 12px;
-  font-weight: 500;
+.mobile-menu-heading {
   padding: 3px 15px;
   color: #12CBC4;
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.toolbarTitle {
+.toolbar-title {
   flex: 1;
   padding: 0 15px;
+  color: palette.$grey-medium;
   font-weight: 500;
-  color: $grey-medium;
 }

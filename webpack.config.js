@@ -1,21 +1,23 @@
 const webpack = require('webpack')
 const path = require('path')
 
-// minifying for production
+const PACKAGE = require('./package.json');
+
+// Minifying for production
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
-// creates HTML page for application
+// Creates HTML page for application
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// allows us to add git hash into source to display a version
+// Allows us to add git hash into source to display a version
 const { GitRevisionPlugin } = require('git-revision-webpack-plugin')
-// adds favicon for us
+// Adds favicon for us
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const gitRevisionPlugin = new GitRevisionPlugin()
 
 module.exports = {
-  // clean up output to be less noisy
+  // Clean up output to be less noisy
   stats: {
     assets: true,
     children: false
@@ -27,17 +29,17 @@ module.exports = {
     // Max = 1.5 MiB
     maxEntrypointSize: 1573500,
     // We use GIFs in the guides as mini "videos" of how to do stuff and these
-    // can end up larger than our other assets so we ignore them in performance
-    // output as their larger size is expected.
+    //   can end up larger than our other assets, so we ignore them in performance
+    //   output as their larger size is expected.
     //
     // We also ignore the vendors bundle (node_modules) though should keep an
-    // eye on this from time to time as its pretty big too.
+    //   eye on this from time to time as it's pretty big too.
     assetFilter: function (assetFilename) {
       return !assetFilename.endsWith('.gif') && !assetFilename.endsWith('vendors~main.js')
     }
   },
   // main entry
-  entry: './src/AppRoot.jsx',
+  entry: './src/AppRoot.tsx',
   mode: process.env.NODE_ENV,
   // devtool: 'hidden-source-map',
   // webpack loaders
@@ -51,12 +53,12 @@ module.exports = {
         }
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /core-js/,
         use: {
           loader: 'babel-loader',
           options: {
-            babelrc: false,
+            babelrc: true,
             configFile: path.resolve(__dirname, 'babel.config.js'),
             compact: false,
             cacheDirectory: true,
@@ -89,7 +91,8 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[hash:8]'
+                localIdentName: '[hash:8]',
+                exportLocalsConvention: 'camelCaseOnly',
               }
             }
           },
@@ -103,7 +106,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
     // webpack 5 polyfilling (https://github.com/webpack/changelog-v5#automatic-nodejs-polyfills-removed)
     fallback: {}
   },
@@ -133,8 +136,9 @@ module.exports = {
       chunkFilename: '[fullhash].[id].css'
     }),
     new webpack.DefinePlugin({
-      COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
-      STACK: JSON.stringify(process.env.STACK)
+      COMMIT_HASH: JSON.stringify(gitRevisionPlugin.commithash()),
+      PACKAGE_VERSION: JSON.stringify(PACKAGE.version),
+      BUILD_DATE: JSON.stringify(new Date().toISOString()),
     }),
     new FaviconsWebpackPlugin({
       logo: './src/common/images/favicon.png',

@@ -1,15 +1,14 @@
 .root {
   position: relative;
-  height: 296px;
-  overflow: hidden;
-  margin: 0px auto;
   width: 200px;
-  margin-bottom: 15px;
+  height: 296px;
+  margin: 0 auto 15px;
+  overflow: hidden;
 }
 
 .display {
-  width: 170px;
   position: absolute;
-  left: 15px;
   top: 60px;
+  left: 15px;
+  width: 170px;
 }

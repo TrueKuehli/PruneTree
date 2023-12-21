@@ -9,6 +9,10 @@
   border: 0;
 }
 
+@mixin sr-only() {
+  @extend %sr-only;
+}
+
 .sr-only {
     @extend %sr-only;
 }

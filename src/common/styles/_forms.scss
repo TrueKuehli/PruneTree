@@ -1,53 +1,36 @@
+@use 'vars';
+@use 'palette';
+@use 'util';
+
 fieldset {
+  margin: 0;
+  padding: 0;
   border: none;
-  padding: 0px;
-  margin: 0px;
 }
 
 label {
-  font-weight: 700;
   display: block;
   margin-bottom: 5px;
-}
-
-.form-group {
-  position: relative;
-  margin-bottom: 20px;
-
-  &.has-error {
-    .form-control {
-      border: 1px solid $danger1;
-    }
-    .helper-text {
-      color: $danger1;
-    }
-  }
-
-  .helper-text {
-    display: block;
-    margin-top: 5px;
-    font-style: italic;
-    color: $grey-medium;
-  }
+  font-weight: 700;
 }
 
 .form-control {
-  font: inherit;
-  border: 1px solid $grey-light;
-  color: $grey-dark;
   width: 100%;
   padding: 8px 12px;
-  border-radius: $input-border-radius;
-  box-shadow: none;
+  border: 1px solid palette.$grey-light;
+  border-radius: vars.$input-border-radius;
   box-sizing : border-box;
+  box-shadow: none;
+  color: palette.$grey-dark;
+  font: inherit;
   transition:
-    border $transition-speed linear,
-    color $transition-speed linear,
-    background-color $transition-speed linear;
+    border vars.$transition-speed linear,
+    color vars.$transition-speed linear,
+    background-color vars.$transition-speed linear;
 
   &:hover,
   &:focus{
-    border-color: $color1;
+    border-color: palette.$color1;
     outline: 0;
     box-shadow: none;
   }
@@ -56,13 +39,31 @@ label {
   &:disabled,
   &:read-only:not(.draft-editor) {
     cursor: not-allowed;
-    border-color: $grey-lightest;
-    color: $grey-medium;
+    border-color: palette.$grey-lightest;
+    color: palette.$grey-medium;
   }
 }
 
-.public-DraftEditor-content {
-  min-height: 120px;
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+
+  .helper-text {
+    display: block;
+    margin-top: 5px;
+    color: palette.$grey-medium;
+    font-style: italic;
+  }
+
+  &.has-error {
+    .form-control {
+      border: 1px solid palette.$danger1;
+    }
+
+    .helper-text {
+      color: palette.$danger1;
+    }
+  }
 }
 
 .input-group {
@@ -70,6 +71,7 @@ label {
   width: 100%;
   margin-bottom: 15px;
 
+  /* stylelint-disable-next-line no-descending-specificity */
   .form-group,
   .form-control {
     flex-basis: 100%;
@@ -78,137 +80,137 @@ label {
   .btn,
   .form-group {
     margin-right: 5px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 
     &:last-child {
-      margin-right: 0px;
+      margin-right: 0;
     }
   }
 }
 
-input[type="checkbox"][disabled],
-input[type="radio"][disabled] {
-    &+ label {
-        color: $grey-light;
-    }
+.public-DraftEditor-content { /* stylelint-disable-line selector-class-pattern */
+  min-height: 120px;
 }
 
-input[type="checkbox"] {
-  @extend %sr-only;
+input[type="radio"] {
+  @include util.sr-only;
 
   &+ label {
-    font-weight: 700;
     margin-bottom: 20px;
     cursor: pointer;
+    font-weight: 700;
 
     span {
-      background-color: $color-white;
-      border-color: $grey-lightest;
-      box-shadow: $grey-lightest 0px 0px 0px 0px inset;
-      transition: border 0.4s, box-shadow 0.4s;
-
-      border: 1px solid $grey-light;
-      border-radius: 20px;
-      cursor: pointer;
       display: inline-block;
-      height: 30px;
       position: relative;
+      height: 30px;
+      width: 30px;
+      margin: 0 10px 0 0;
       vertical-align: middle;
-      width: 50px;
+      border: 1px solid palette.$grey-lightest;
+      border-radius: 20px;
+      box-sizing: content-box;
+      background-color: palette.$color-white;
+      background-clip: content-box;
+
       -moz-user-select: none;
       -khtml-user-select: none;
       -webkit-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      box-sizing: content-box;
-      background-clip: content-box;
+      cursor: pointer;
+      transition: border 0.4s, box-shadow 0.4s;
 
-      margin: 0px;
-      margin-right: 10px;
-
-      &:after {
+      &::after {
         content: '';
 
-        left: 0px;
-        transition: background-color 0.4s, left 0.2s;
-        background: $color-white;
-        border-radius: 100%;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-        height: 30px;
         position: absolute;
-        top: 0;
-        width: 30px;
+        top: 5px;
+        left: 5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 40%);
+        background: palette.$color-white;
+
+        transition: background-color 0.4s, left 0.2s;
       }
     }
   }
 
   &:checked + label {
     span {
-      background-color: $green1;
-      border-color: $green1;
-      box-shadow: $green1 0px 0px 0px 16px inset;
+      background-color: palette.$green1;
+      border-color: palette.$green1;
+      box-shadow: palette.$green1 0 0 0 16px inset;
+    }
+  }
+}
 
-      &:after {
+input[type="checkbox"] {
+  @include util.sr-only;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  &+ label {
+    margin-bottom: 20px;
+    font-weight: 700;
+    cursor: pointer;
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    span {
+      display: inline-block;
+      position: relative;
+      width: 50px;
+      height: 30px;
+      margin: 0 10px 0 0;
+      vertical-align: middle;
+      background-color: palette.$color-white;
+      background-clip: content-box;
+      border: 1px solid palette.$grey-lightest;
+      border-radius: 20px;
+      box-sizing: content-box;
+      box-shadow: palette.$grey-lightest 0 0 0 0 inset;
+
+      cursor: pointer;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: border 0.4s, box-shadow 0.4s;
+
+      &::after {
+        content: '';
+
+        position: absolute;
+        width: 30px;
+        top: 0;
+        left: 0;
+        height: 30px;
+        border-radius: 100%;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 40%);
+        background: palette.$color-white;
+        transition: background-color 0.4s, left 0.2s;
+      }
+    }
+  }
+
+  &:checked + label {
+    span {
+      background-color: palette.$green1;
+      border-color: palette.$green1;
+      box-shadow: palette.$green1 0 0 0 16px inset;
+
+      &::after {
         left: 20px;
       }
     }
   }
 }
 
-input[type="radio"] {
-  @extend %sr-only;
-
+input[type="checkbox"][disabled],
+input[type="radio"][disabled] {
   &+ label {
-    font-weight: 700;
-    margin-bottom: 20px;
-    cursor: pointer;
-
-    span {
-      background-color: $color-white;
-      border-color: $grey-lightest;
-      transition: border 0.4s, box-shadow 0.4s;
-
-      border: 1px solid $grey-light;
-      border-radius: 20px;
-      cursor: pointer;
-      display: inline-block;
-      height: 30px;
-      position: relative;
-      vertical-align: middle;
-      width: 30px;
-      -moz-user-select: none;
-      -khtml-user-select: none;
-      -webkit-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      box-sizing: content-box;
-      background-clip: content-box;
-
-      margin: 0px;
-      margin-right: 10px;
-
-      &:after {
-        content: '';
-
-        left: 0px;
-        transition: background-color 0.4s, left 0.2s;
-        background: $color-white;
-        border-radius: 100%;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        width: 20px;
-        height: 20px;
-      }
-    }
-  }
-
-  &:checked + label {
-    span {
-      background-color: $green1;
-      border-color: $green1;
-      box-shadow: $green1 0px 0px 0px 16px inset;
-    }
+    color: palette.$grey-light;
   }
 }

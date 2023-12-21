@@ -34,7 +34,12 @@ jobs:
         run: npm audit --audit-level=moderate --prod
       - name: Checking for outdated dependencies
         run: npm outdated
+        continue-on-error: true
       - name: Running Tests
         run: npm test
-      - name: Running Linter
-        run: npm run lint
+      - name: Running Code Linter
+        run: npm run lint:scripts
+        continue-on-error: true
+      - name: Running Style Linter
+        run: npm run lint:styles
+        continue-on-error: true

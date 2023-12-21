@@ -1,20 +1,19 @@
-@import "../../../common/styles/vars";
-@import "../../../common/styles/pallete";
+@use "../../../common/styles/vars";
 
-.formBtn {
+.form-btn {
   margin-right: 10px;
 }
 
-.coverImage {
-  background-position: center center;
-  background-size: cover;
-  height: 160px;
-  width: 300px;
-  margin: 0 auto;
-  color: #CCC;
+.cover-image {
   display: flex;
+  width: 300px;
+  height: 160px;
+  margin: 0 auto;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
-  border-radius: $default-border-radius;
+  border-radius: vars.$default-border-radius;
+  background-position: center center;
+  background-size: cover;
+  box-shadow: 0 2px 3px 0 rgb(0 0 0 / 7.5%);
+  color: #ccc;
 }
