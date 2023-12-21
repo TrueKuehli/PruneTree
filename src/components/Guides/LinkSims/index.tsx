@@ -22,7 +22,7 @@ export default function LinkSims() {
         linking up those trees.
       </p>
 
-      <h2>Preperations</h2>
+      <h2>Preparations</h2>
       <p>
         Before you link two trees the first thing you'll have to do is make sure both trees are public.
         You can only link public trees since if someone is linked to a tree that isn't published and they don't own it

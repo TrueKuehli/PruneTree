@@ -1,21 +1,21 @@
 const {assert} = require('chai');
-const traits = require('../../../src/common/scripts/traits');
+const {TRAITS} = require('../../../src/common/scripts/traits');
 
 describe('traits', () => {
   it('should be an array', () => {
-    assert.isTrue(Array.isArray(traits));
+    assert.isTrue(Array.isArray(TRAITS));
   });
   it('should have no duplicate values', () => {
     const findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) !== index);
-    const duplicateElements = findDuplicates(traits);
+    const duplicateElements = findDuplicates(TRAITS);
     console.log('Duplicate elements: ' + duplicateElements.join(', '));
 
-    assert.equal((new Set(traits)).size, traits.length);
+    assert.equal((new Set(TRAITS)).size, TRAITS.length);
   });
   it('should only contain strings', () => {
-    assert.isTrue(traits.every((trait) => typeof trait === 'string'));
+    assert.isTrue(TRAITS.every((trait) => typeof trait === 'string'));
   });
   it('should have no empty strings', () => {
-    assert.isFalse(traits.some((trait) => trait === ''));
+    assert.isFalse(TRAITS.some((trait) => trait === ''));
   });
 });

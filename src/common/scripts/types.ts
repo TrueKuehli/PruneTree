@@ -1,3 +1,5 @@
+import {PercentCrop} from 'react-image-crop';
+
 import {LifeState} from './lifeStates';
 import {Aspiration} from './aspirations';
 import {Trait} from './traits';
@@ -5,22 +7,11 @@ import {CONCEPTION_TYPES, ConceptionType} from './conceptionTypes';
 import {PartnerType} from './partnerType';
 
 
-type Crop = {
-  unit: string,
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-}
-
-type ImagePercentCrop = {unit: '%'} & Crop
-type ImagePixelCrop = {unit: 'px'} & Crop
-
 type Image = {
   _id?: IDBValidKey,
   original: Blob | File,
   cropped: Blob | File,
-  cropData: ImagePercentCrop,
+  cropData: PercentCrop,
 }
 
 type PersonLink = {
@@ -140,8 +131,6 @@ const DEFAULTS = {
 
 
 export {
-  ImagePercentCrop,
-  ImagePixelCrop,
   Image,
   PersonLink,
   PersonCustomData,

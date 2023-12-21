@@ -3,21 +3,21 @@ const path = require('path')
 
 const PACKAGE = require('./package.json');
 
-// minifying for production
+// Minifying for production
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
-// creates HTML page for application
+// Creates HTML page for application
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// allows us to add git hash into source to display a version
+// Allows us to add git hash into source to display a version
 const { GitRevisionPlugin } = require('git-revision-webpack-plugin')
-// adds favicon for us
+// Adds favicon for us
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const gitRevisionPlugin = new GitRevisionPlugin()
 
 module.exports = {
-  // clean up output to be less noisy
+  // Clean up output to be less noisy
   stats: {
     assets: true,
     children: false
@@ -29,11 +29,11 @@ module.exports = {
     // Max = 1.5 MiB
     maxEntrypointSize: 1573500,
     // We use GIFs in the guides as mini "videos" of how to do stuff and these
-    // can end up larger than our other assets so we ignore them in performance
-    // output as their larger size is expected.
+    //   can end up larger than our other assets, so we ignore them in performance
+    //   output as their larger size is expected.
     //
     // We also ignore the vendors bundle (node_modules) though should keep an
-    // eye on this from time to time as its pretty big too.
+    //   eye on this from time to time as it's pretty big too.
     assetFilter: function (assetFilename) {
       return !assetFilename.endsWith('.gif') && !assetFilename.endsWith('vendors~main.js')
     }

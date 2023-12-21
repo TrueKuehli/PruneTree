@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import get from 'lodash.get';
 
 import database from '../../common/scripts/database';
 import {selectTrees, useAppDispatch, useAppSelector} from '../../redux/hooks';

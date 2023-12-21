@@ -4,7 +4,6 @@
  */
 
 import {toast} from 'react-toastify';
-import get from 'lodash.get';
 
 import {parseID} from './utils';
 import database from './database';

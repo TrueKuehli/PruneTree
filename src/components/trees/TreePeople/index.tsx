@@ -10,19 +10,13 @@ import TreePerson from './TreePerson';
 import styles from './styles.scss';
 
 
-type Props = {
-  loading: boolean
-}
-
-
 /**
- * The tree editor component.
- * @param loadingProp Whether or not the tree is loading.
+ * The people editor page.
  */
-export default function TreePeople({loading: loadingProp}: Props) {
+export default function TreePeople() {
   const params = useParams();
   const {treeId} = params;
-  const [loading, setLoading] = useState(loadingProp);
+  const [loading, setLoading] = useState(true);
   const [people, setPeople] = useState<Person[]>([]);
   const [tree, setTree] = useState<Tree>(null);
   const [filter, setFilter] = useState('');

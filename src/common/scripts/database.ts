@@ -3,8 +3,10 @@
  *   tree, people and image data
  */
 
+import {PercentCrop} from 'react-image-crop';
+
 import {parseID} from './utils';
-import {Image, Person, Tree, DEFAULTS, ImagePercentCrop} from './types';
+import {Image, Person, Tree, DEFAULTS} from './types';
 
 
 const DB_NAME = 'prunetree';
@@ -296,7 +298,7 @@ export default {
    * @param cropData The updated crop data
    * @returns Promise that resolves with updated image entry on success, rejects on database error
    */
-  updateCroppedImage: (imageId: number|string, image: Blob|File, cropData: ImagePercentCrop) =>
+  updateCroppedImage: (imageId: number|string, image: Blob|File, cropData: PercentCrop) =>
     updateInDatabase('images', imageId, {cropped: image, cropData: cropData}),
 
   /**

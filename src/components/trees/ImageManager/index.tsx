@@ -4,7 +4,6 @@ import {toast} from 'react-toastify';
 import Image from 'image-js';
 import Compressor from 'compressorjs';
 
-import {ImagePercentCrop} from '../../../common/scripts/types';
 import database from '../../../common/scripts/database';
 import {getImageUri, ImageURL, invalidateCropped} from '../../../common/scripts/dataUrl';
 import Loading from '../../Loading';
@@ -55,7 +54,7 @@ export default function ImageManager({imagePreview, onImageChange, image, aspect
   const [uploading, setUploading] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
   const [cropping, setCropping] = useState(false);
-  const [percentCrop, setPercentCrop] = useState<ImagePercentCrop>(null);
+  const [percentCrop, setPercentCrop] = useState<PercentCrop>(null);
   const [cropImageUri, setCropImageUri] = useState<ImageURL>(null);
 
   useEffect(() => {
