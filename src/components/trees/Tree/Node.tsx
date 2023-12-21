@@ -1,7 +1,7 @@
 import React from 'react';
 import {HierarchyPointNode} from 'd3';
 
-import {TreePersonNode} from '../../../common/scripts/types';
+import {TreePersonNode, Person as PersonType} from '../../../common/scripts/types';
 import {ConceptionType} from '../../../common/scripts/conceptionTypes';
 import {
   NODE_HEIGHT,
@@ -27,7 +27,7 @@ type Props = {
     parentIds: number[],
     adoptiveParentIds: number[],
   ) => void,
-  people: Person[],
+  people: PersonType[],
   readonly?: boolean,
   editNode: (node: HierarchyPointNode<TreePersonNode>) => void,
   addNode: (node: HierarchyPointNode<TreePersonNode>) => void,
@@ -59,7 +59,7 @@ export default function Node({
    * Highlight the parents of this node.
    */
   function doHighlightParents() {
-    const nodeParentIds: number[] = (nodeData?.data?.parents || []).map((parent: Person) => parent._id as number);
+    const nodeParentIds: number[] = (nodeData?.data?.parents || []).map((parent: PersonType) => parent._id as number);
 
     if (nodeData?.parent && highlightParents) {
       highlightParents(nodeData.parent, nodeParentIds);

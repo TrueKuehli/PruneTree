@@ -3,7 +3,7 @@ import {HierarchyPointNode} from 'd3';
 import {toast} from 'react-toastify';
 import {v4} from 'uuid';
 
-import {Person as PersonType, TreePersonNode} from '../../../common/scripts/types';
+import {Person as PersonType, PersonLink as PersonLinkType, TreePersonNode} from '../../../common/scripts/types';
 import {CONCEPTION_TYPES, ConceptionType} from '../../../common/scripts/conceptionTypes';
 import {getImageUri, ImageURL} from '../../../common/scripts/dataUrl';
 import {
@@ -85,9 +85,9 @@ export default function Person({
   const avatarRadius = small ? NODE_SMALL_AVATAR_RADIUS : NODE_AVATAR_RADIUS;
   let fillId: string = small ? DEFAULT_SMALL_AVATAR_PATTERN : DEFAULT_AVATAR_PATTERN;
   let image: ReactElement<SVGImageElement> | null = null;
-  let links: ReactElement<PersonLinks> | null = null;
+  let links: ReactElement<PersonLinkType> | null = null;
 
-  if (personData?._id) {
+  if (!personData?._id) {
     return null; // No person set
   }
 
