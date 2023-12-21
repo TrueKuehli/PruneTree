@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {HierarchyPointNode} from 'd3';
 
-import {Person, TreePersonNode} from '../../../../common/scripts/types';
+import {Person as PersonType, TreePersonNode} from '../../../../common/scripts/types';
 import {getImageUri, ImageURL} from '../../../../common/scripts/dataUrl';
 import PersonSelect from '../PersonSelect';
 
@@ -11,7 +11,7 @@ import defaultAvatar from '../../../../common/images/default-avatar.png';
 
 type Props = {
   node: HierarchyPointNode<TreePersonNode>,
-  people: Person[],
+  people: PersonType[],
   onSave: (data: Partial<TreePersonNode>) => void,
   close: () => void,
 }
