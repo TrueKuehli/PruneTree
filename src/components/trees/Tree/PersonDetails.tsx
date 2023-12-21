@@ -207,7 +207,7 @@ const ParentType = ({type}: ParentTypeProps) => {
   if (type === 'Cloning') {
     return (<span className='label label-blue'>Clone</span>);
   } else if (type === 'Alien Abduction') {
-    return (<span className='label label-green'>Alien Abduction</span>);
+    return (<span className='label label-green'>Alien&nbsp;Abduction</span>);
   } else {
     return null;
   }
