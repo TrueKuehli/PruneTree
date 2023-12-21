@@ -1,10 +1,9 @@
-h1, h2, h3, h4, h5, h6 {
-  color: $grey-darkest;
-  line-height: 150%;
-  margin: 15px 0px;
-}
+@use 'palette';
 
 h1, h2, h3, h4, h5, h6 {
+  margin: 15px 0;
+  line-height: 150%;
+  color: palette.$grey-darkest;
   font-weight: 300;
 }
 
@@ -13,13 +12,13 @@ h3, h4, h5, h6 {
 }
 
 a {
-  color: $blue1;
+  color: palette.$blue1;
 }
 
 body {
-  font-family: Google Sans,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
-  color: $font-color;
   line-height: 170%;
+  color: palette.$font-color;
+  font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
   font-size: 16px;
   font-weight: 300;
 }
@@ -31,8 +30,8 @@ b, strong {
 hr {
   border-style: solid;
   border-bottom: none;
-  color: $grey-medium;
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+  color: palette.$grey-medium;
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 10%);
 }
 
 .small {
@@ -50,17 +49,19 @@ dl {
 }
 
 code {
-  background-color: rgb(251, 229, 225);
+  display: inline;
+  width: auto;
+  margin-top: 0;
+  padding: 2px 4px;
   border-radius: 4px;
   box-sizing: border-box;
-  color: rgb(192, 52, 29);
-  display: inline;
-  font-family: Menlo, "DejaVu Sans Mono", "Liberation Mono", Consolas, "Ubuntu Mono", "Courier New", "andale mono", "lucida console", monospace;
-  font-size: 90%;
-  margin-top: 0px;
+  color: rgb(192 52 29);
+  background-color: rgb(251 229 225);
+
   overflow-wrap: normal;
-  padding: 2px 4px;
-  white-space: pre-wrap;
-  width: auto;
+  font-family: Menlo, "DejaVu Sans Mono", "Liberation Mono", Consolas, "Ubuntu Mono", "Courier New", "andale mono",
+               "lucida console", monospace;
+  font-size: 90%;
   word-break: keep-all;
+  white-space: pre-wrap;
 }

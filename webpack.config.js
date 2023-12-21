@@ -91,7 +91,8 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[hash:8]'
+                localIdentName: '[hash:8]',
+                exportLocalsConvention: 'camelCaseOnly',
               }
             }
           },

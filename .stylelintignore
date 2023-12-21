@@ -1,3 +1,1 @@
-bootstrap/**/*
-_*.scss
-_*.css
+**/bootstrap/**/*

@@ -1,11 +1,11 @@
-@import "../../../common/styles/vars";
-@import "../../../common/styles/pallete";
+@use "../../../common/styles/vars";
+@use "../../../common/styles/palette";
 
 .loading {
   text-align: center;
 }
 
-.navButtons {
+.nav-buttons {
   > * {
     margin-right: 10px;
   }
@@ -13,23 +13,23 @@
   text-align: center;
 }
 
-.personTile {
-  border: 1px solid $grey-lightest;
-  border-bottom-width: 2px;
-  border-radius: $default-border-radius;
-  transition: border $transition-speed linear;
-  margin: 15px 0;
-  color: $font-color;
-  text-decoration: none;
+.person-tile {
   display: flex;
-  align-items: center;
   position: relative;
+  margin: 15px 0;
+  border: 1px solid palette.$grey-lightest;
+  border-bottom-width: 2px;
+  border-radius: vars.$default-border-radius;
+  align-items: center;
+  color: palette.$font-color;
+  text-decoration: none;
+  transition: border vars.$transition-speed linear;
 
   &:hover {
-    border-bottom-color: $color1;
+    border-bottom-color: palette.$color1;
 
-    .tileArrow {
-      color: $color1;
+    .tile-arrow {
+      color: palette.$color1;
     }
   }
 }
@@ -42,10 +42,10 @@
   background-size: cover;
   background-position-x: center;
   background-position-y: center;
-  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 8%);
 }
 
-.personMenu {
+.person-menu {
   position: absolute;
   top: 5px;
   right: 5px;

@@ -1,21 +1,21 @@
-@import "../../common/styles/pallete";
+@use "../../common/styles/palette";
 
-.navList {
+.nav-list {
   list-style: none;
   padding: 0;
   margin: 0;
   font-size: 17px;
 
   li {
-    border-bottom: 1px solid #E6EAEA;
     padding: 0;
+    border-bottom: 1px solid #E6EAEA;
 
     a {
       display: block;
-      text-decoration: none;
       padding: 24px 36px;
-      color: $font-color;
+      color: palette.$font-color;
       font-weight: bold;
+      text-decoration: none;
       transition: background 0.2s ease-in-out;
 
       &:hover {
@@ -24,21 +24,21 @@
     }
   }
 
-  &.lastNav {
+  &.last-nav {
     margin-bottom: 60px;
   }
 }
 
-.navTreesHeader {
+.nav-trees-header {
   padding: 24px 36px;
-  font-size: 17px;
-  color: #12CBC4;
   border-bottom: 1px solid #E6EAEA;
+  color: #12CBC4;
+  font-size: 17px;
   font-weight: 400;
 }
 
-.menuLoginMessage {
-  margin: 0;
+.menu-login-message {
   padding: 20px;
+  margin: 0;
   text-align: center;
 }

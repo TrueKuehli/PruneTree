@@ -1,15 +1,13 @@
-@import "../../../../common/styles/vars";
-@import "../../../../common/styles/pallete";
+@use "../../../../common/styles/palette";
 
-.personDetailsAvatar {
+.person-details-avatar {
+  display: block;
   width: 70px;
   height: 70px;
+  margin: 0 auto 15px;
+  border: palette.$color-white solid 4px;
   border-radius: 50%;
-  border: $color-white solid 4px;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.075);
-  display: block;
-  margin: 0 auto;
   background-position: center center;
   background-size: cover;
-  margin-bottom: 15px;
+  box-shadow: 0 2px 3px 0 rgba(0 0 0 / 7.5%);
 }

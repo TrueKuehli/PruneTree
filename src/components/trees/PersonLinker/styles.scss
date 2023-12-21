@@ -1,34 +1,34 @@
-@import "../../../common/styles/vars";
-@import "../../../common/styles/pallete";
+@use "../../../common/styles/vars";
+@use "../../../common/styles/palette";
 
-.formBtn {
+.form-btn {
   margin-right: 10px;
 }
 
-.linkTile {
-  border: 1px solid $grey-lightest;
-  border-bottom-width: 2px;
-  border-radius: $default-border-radius;
-  transition: border $transition-speed linear;
-  margin: 15px 0;
-  color: $font-color;
-  text-decoration: none;
+.link-tile {
   position: relative;
+  margin: 15px 0;
+  border: 1px solid palette.$grey-lightest;
+  border-bottom-width: 2px;
+  border-radius: vars.$default-border-radius;
+  color: palette.$font-color;
+  text-decoration: none;
+  transition: border vars.$transition-speed linear;
 
   &:hover {
-    border-bottom-color: $color1;
+    border-bottom-color: palette.$color1;
 
-    .tileArrow {
-      color: $color1;
+    .tile-arrow {
+      color: palette.$color1;
     }
   }
 }
 
-.linkDetails {
+.link-details {
   padding: 10px 15px;
 }
 
-.linkMenu {
+.link-menu {
   position: absolute;
   top: 5px;
   right: 5px;

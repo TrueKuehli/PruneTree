@@ -1,21 +1,21 @@
-@import "../../common/styles/pallete";
+@use "../../common/styles/palette";
 
 .alert {
   display: block;
   color: #fff;
   background-color: #ff7f48;
   padding: 15px;
-  margin: 0px -40px;
+  margin: 0 -40px;
   margin-top: -20px;
 }
 
-.homeBannerImage {
-  background: url(./tree.png) center center no-repeat;
+.home-banner-image {
+  background: url("./tree.png") center center no-repeat;
   background-size: cover;
   height: 250px;
 }
 
-.homeBannerMask {
+.home-banner-mask {
   position: absolute;
   left: 0;
   top: 0;
@@ -23,32 +23,32 @@
   height: 250px;
 }
 
-.introPanel {
+.intro-panel {
   margin: -90px auto 20px;
   width: 80%;
   max-width: 600px;
   padding: 20px 40px;
   background: #fff;
   border-radius: 5px;
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 10%);
   overflow: hidden;
 }
 
-.featureImage {
+.feature-image {
   display: block;
   margin: 0 auto;
 }
 
-.guidesImage {
+.guides-image {
   display: block;
-  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  box-shadow: 0 0 10px rgb(0 0 0 / 50%);
   border: 7px solid #fff;
   background-size: cover;
   background-position: 50%;
   height: 200px;
-  background-image: url(./read.jpg);
+  background-image: url("./read.jpg");
 }
 
-.guideVideo {
+.guide-video {
   text-align: center;
 }

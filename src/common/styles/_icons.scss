@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 @font-face {
-  font-family: "plum-tree-icons";
+  font-family: plum-tree-icons;
   src:url("fonts/plum-tree-icons.eot");
   src:url("fonts/plum-tree-icons.eot?#iefix") format("embedded-opentype"),
     url("fonts/plum-tree-icons.woff") format("woff"),
@@ -12,8 +12,8 @@
 
 }
 
-[data-icon]:before {
-  font-family: "plum-tree-icons" !important;
+[data-icon]::before {
+  font-family: plum-tree-icons !important; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -25,9 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-  font-family: "plum-tree-icons" !important;
+[class^="icon-"]::before,
+[class*=" icon-"]::before {
+  font-family: plum-tree-icons !important; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -38,45 +38,58 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-list:before {
+.icon-list::before {
   content: "\61";
 }
-.icon-chevron-left:before {
+
+.icon-chevron-left::before {
   content: "\62";
 }
-.icon-chevron-right:before {
+
+.icon-chevron-right::before {
   content: "\63";
 }
-.icon-loading:before {
+
+.icon-loading::before {
   content: "\64";
 }
-.icon-list-ul:before {
+
+.icon-list-ul::before {
   content: "\65";
 }
-.icon-list-ol:before {
+
+.icon-list-ol::before {
   content: "\66";
 }
-.icon-bold:before {
+
+.icon-bold::before {
   content: "\67";
 }
-.icon-italic:before {
+
+.icon-italic::before {
   content: "\68";
 }
-.icon-underline:before {
+
+.icon-underline::before {
   content: "\69";
 }
-.icon-strikethrough:before {
+
+.icon-strikethrough::before {
   content: "\6a";
 }
-.icon-plus:before {
+
+.icon-plus::before {
   content: "\6b";
 }
-.icon-trash:before {
+
+.icon-trash::before {
   content: "\6c";
 }
-.icon-link:before {
+
+.icon-link::before {
   content: "\6d";
 }
-.icon-info:before {
+
+.icon-info::before {
   content: "\6e";
 }
