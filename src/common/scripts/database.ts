@@ -236,7 +236,7 @@ export default {
           throw Error('Invalid tree ID!');
         }
 
-        return result.filter((person) => person.treeId === treeId);
+        return result.filter((person) => person.treeId === parsedId);
       }),
 
   /**

@@ -3,6 +3,7 @@ import {Link, useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
 
 import {Person, Tree, TreePersonNode} from '../../../common/scripts/types';
+import {parseID} from '../../../common/scripts/utils';
 import database from '../../../common/scripts/database';
 import Loading from '../../Loading';
 import TreePerson from './TreePerson';
@@ -155,7 +156,7 @@ export default function TreePeople() {
         />
       </div>
       {filteredPeople.map((person) =>
-        <TreePerson key={person._id} treeId={treeId} person={person} deletePerson={deletePerson}/>,
+        <TreePerson key={person._id as number} treeId={parseID(treeId)} person={person} deletePerson={deletePerson}/>,
       )}
     </div>
   );
