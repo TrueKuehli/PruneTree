@@ -1,16 +1,20 @@
 import {LifeState} from './lifeStates';
 import {Aspiration} from './aspirations';
 import {Trait} from './traits';
-import {ConceptionType} from './conceptionTypes';
+import {CONCEPTION_TYPES, ConceptionType} from './conceptionTypes';
+import {PartnerType} from './partnerType';
 
 
-type ImagePercentCrop = {
-  unit: '%',
+type Crop = {
+  unit: string,
   x: number,
   y: number,
   width: number,
   height: number,
 }
+
+type ImagePercentCrop = {unit: '%'} & Crop
+type ImagePixelCrop = {unit: 'px'} & Crop
 
 type Image = {
   _id?: IDBValidKey,
@@ -47,11 +51,16 @@ type Person = {
   custom: PersonCustomData[],
 }
 
+type PartnerData = {
+  type: PartnerType,
+  people: Person[],
+}
+
 type TreePersonNode = {
   parents: Person[],
   parentType: ConceptionType,
   adoptiveParents: Person[],
-  partners: Person[],
+  partners: PartnerData[],
   person: Person,
   children: TreePersonNode[],
 }
@@ -66,58 +75,80 @@ type Tree = {
 }
 
 
-const defaultImage: Image = {
-  original: null,
-  cropped: null,
-  cropData: {
-    unit: '%',
-    x: 0,
-    y: 0,
-    width: 100,
-    height: 100,
+/**
+ * Helper object to create default values for types
+ */
+const DEFAULTS = {
+  get IMAGE(): Image {
+    return {
+      original: null,
+      cropped: null,
+      cropData: {
+        unit: '%',
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 100,
+      },
+    };
   },
-};
 
-const defaultPerson: Person = {
-  treeId: -1,
-  firstName: '',
-  lastName: '',
-  avatar: null,
-  bio: '',
+  get PERSON(): Person {
+    return {
+      treeId: -1,
+      firstName: '',
+      lastName: '',
+      avatar: null,
+      bio: '',
 
-  traits: [],
-  aspirations: [],
-  lifeStates: [],
+      traits: [],
+      aspirations: [],
+      lifeStates: [],
 
-  custom: [],
-  links: [],
-};
+      custom: [],
+      links: [],
+    };
+  },
 
-const defaultTree: Tree = {
-  title: 'New Tree',
-  description: '',
-  cover: null,
-  data: {
-    parents: [],
-    parentType: null,
-    adoptiveParents: [],
-    partners: [],
-    person: null,
-    children: [],
+  get TREE_PERSON_NODE(): TreePersonNode {
+    return {
+      parents: [],
+      parentType: CONCEPTION_TYPES[0],
+      adoptiveParents: [],
+      partners: [],
+      person: null,
+      children: [],
+    };
+  },
+
+  get TREE(): Tree {
+    return {
+      title: 'New Tree',
+      description: '',
+      cover: null,
+      data: {
+        parents: [],
+        parentType: null,
+        adoptiveParents: [],
+        partners: [],
+        person: null,
+        children: [],
+      },
+    };
   },
 };
 
 
 export {
   ImagePercentCrop,
+  ImagePixelCrop,
   Image,
   PersonLink,
   PersonCustomData,
   Person,
+  PartnerData,
   TreePersonNode,
   Tree,
 
-  defaultImage,
-  defaultPerson,
-  defaultTree,
+  DEFAULTS,
 };

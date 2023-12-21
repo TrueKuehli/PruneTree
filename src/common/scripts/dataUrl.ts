@@ -3,8 +3,8 @@
  *   revoked when no longer in use
  */
 
-import get from 'lodash.get';
 import {toast} from 'react-toastify';
+import get from 'lodash.get';
 
 import {parseID} from './utils';
 import database from './database';
@@ -58,7 +58,7 @@ function getImageUri(image: number|string, cropped: boolean = true): Promise<Ima
 
         return generatedURL;
       }).catch((err: Error) => {
-        toast.error(get(err, 'message', 'Failed to load image'));
+        toast.error(err?.message || 'Failed to load image');
         return {url: ''};
       }));
 }
@@ -75,6 +75,7 @@ function invalidateCropped(image: number|string) {
 
 
 export {
+  ImageURL,
   getImageUri,
   invalidateCropped,
 };

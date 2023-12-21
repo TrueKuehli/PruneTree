@@ -29,8 +29,8 @@ export default function SideNav({onItemClick}: Props) {
       .then((response) => {
         dispatch(loadUsersTree(response));
       })
-      .catch((error) => {
-        toast.error(get(error, 'message', 'Oops, we failed fetch your trees. Refresh the page to try again.'),
+      .catch((err) => {
+        toast.error(err?.message || 'Oops, we failed fetch your trees. Refresh the page to try again.',
           {autoClose: false});
       });
   }, [dispatch]);

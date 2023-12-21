@@ -1,8 +1,8 @@
 const CONCEPTION_TYPES = [
-  'WooHoo',
+  'WooHoo', // DEFAULT
   'Alien Abduction',
   'Cloning',
-];
+] as const;
 
 type ConceptionType = typeof CONCEPTION_TYPES[number];
 

@@ -3,7 +3,7 @@ import {Route, Link, Routes} from 'react-router-dom';
 
 import Home from '../Home';
 import Guides from '../Guides';
-import TreeDetails from '../../containers/TreeDetails';
+import TreeDetails from '../trees/TreeDetails';
 import TreeDownload from '../trees/TreeDownload';
 import TreeEditor from '../trees/TreeEditor';
 import TreePeople from '../trees/TreePeople';

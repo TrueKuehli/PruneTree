@@ -4,7 +4,7 @@
  */
 
 import {parseID} from './utils';
-import {Image, Person, Tree, defaultImage, defaultPerson, defaultTree, ImagePercentCrop} from './types';
+import {Image, Person, Tree, DEFAULTS, ImagePercentCrop} from './types';
 
 
 const DB_NAME = 'prunetree';
@@ -205,7 +205,7 @@ export default {
    * @param tree Tree object to insert into the database
    * @returns Promise that resolves with tree on success, rejects on database error
    */
-  createTree: (tree: Partial<Tree>) => insertIntoDatabase('trees', {...defaultTree, ...tree}),
+  createTree: (tree: Partial<Tree>) => insertIntoDatabase('trees', {...DEFAULTS.TREE, ...tree}),
 
   /**
    * Updates a tree in the database with the given data
@@ -249,7 +249,7 @@ export default {
    * @param person Person object to insert into the database (can be incomplete)
    * @returns Promise that resolves with the inserted person on success, rejects on database error
    */
-  createPerson: (person: Person) => insertIntoDatabase('people', {...defaultPerson, ...person}),
+  createPerson: (person: Partial<Person>) => insertIntoDatabase('people', {...DEFAULTS.PERSON, ...person}),
 
   /**
    * Updates a person in the database with the given data
@@ -257,7 +257,7 @@ export default {
    * @param person Person object (can be incomplete)
    * @returns Promise that resolves with updated person on success, rejects on database error
    */
-  updatePerson: (personId: number|string, person: Person) => updateInDatabase('people', personId, person),
+  updatePerson: (personId: number|string, person: Partial<Person>) => updateInDatabase('people', personId, person),
 
   /**
    * Deletes a person from the database
@@ -287,7 +287,7 @@ export default {
    * @returns Promise that resolves with image entry on success, rejects on database error
    */
   createImage: (image: Blob|File) => insertIntoDatabase('images',
-      {...defaultImage, original: image, cropped: image}),
+      {...DEFAULTS.IMAGE, original: image, cropped: image}),
 
   /**
    * Updates the cropped version of an image in the database
