@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import {PARTNER_TYPES, PartnerType} from '../../../../common/scripts/partnerType';
+import {PARTNER_TYPES, PartnerType} from '../../../../common/scripts/partnerTypes';
 import PeopleSelect from '../PeopleSelect';
 
 import styles from './styles.scss';

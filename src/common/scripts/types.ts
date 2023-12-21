@@ -4,7 +4,7 @@ import {LifeState} from './lifeStates';
 import {Aspiration} from './aspirations';
 import {Trait} from './traits';
 import {CONCEPTION_TYPES, ConceptionType} from './conceptionTypes';
-import {PartnerType} from './partnerType';
+import {PartnerType} from './partnerTypes';
 
 
 type Image = {

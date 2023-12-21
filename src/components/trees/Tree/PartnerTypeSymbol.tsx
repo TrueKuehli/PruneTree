@@ -10,7 +10,7 @@ import {
   PARTNER_ABDUCTION_BASE_HEIGHT,
 } from './constants';
 
-import {PartnerType} from '../../../common/scripts/partnerType';
+import {PartnerType} from '../../../common/scripts/partnerTypes';
 
 import styles from './styles.scss';
 

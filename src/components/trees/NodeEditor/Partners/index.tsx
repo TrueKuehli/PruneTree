@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {HierarchyPointNode} from 'd3';
 
 import {Person, TreePersonNode} from '../../../../common/scripts/types';
-import {PARTNER_TYPES, PartnerType} from '../../../../common/scripts/partnerType';
+import {PARTNER_TYPES, PartnerType} from '../../../../common/scripts/partnerTypes';
 import PartnerRow from './PartnerRow';
 
 
