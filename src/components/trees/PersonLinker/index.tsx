@@ -130,7 +130,7 @@ export default function PersonLinker() {
             </div>
             <div className={styles.linkDetails}>
               <a id={`link-info-title-${index}`} href='/'>
-                {linkData.title} <i className='icon-link' />
+                {linkData.title || 'Unnamed Link'} <i className='icon-link' />
               </a>
               <div id={`link-info-tree-${index}`}><strong>Tree Id:</strong> {linkData.treeId}</div>
               <div id={`link-info-person-${index}`}><strong>Person Id:</strong> {linkData.personId}</div>

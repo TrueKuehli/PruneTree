@@ -27,12 +27,16 @@ export default function Parents({node, people, onSave, close}: Props) {
     useState(node?.data?.parentType || CONCEPTION_TYPES[0]);
   const [parents, setParents] =
     useState((node?.data?.parents || [])
-      .map((person) =>
-        ({label: `${person.firstName} ${person.lastName}`, value: person._id as number})));
+      .map((person) => {
+        const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
+        return {label: name, value: person._id as number};
+      }));
   const [adoptiveParents, setAdoptiveParents] =
     useState((node?.data?.adoptiveParents || [])
-      .map((person) =>
-        ({label: `${person.firstName} ${person.lastName}`, value: person._id as number})));
+      .map((person) => {
+        const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
+        return {label: name, value: person._id as number};
+      }));
 
   /**
    * Handle the change of the conception type.
@@ -59,7 +63,8 @@ export default function Parents({node, people, onSave, close}: Props) {
   }
 
   const peopleOptions = people.map((person) => {
-    return {label: `${person.firstName} ${person.lastName}`, value: person._id as number};
+    const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
+    return {label: name, value: person._id as number};
   });
 
   return (

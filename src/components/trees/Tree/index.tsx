@@ -280,7 +280,7 @@ export default function Tree({tree, people = [], loading, readonly, onChange, on
           parents={parents}
           adoptiveParents={adoptiveParents}
           custom={personDetails.custom}
-          personId={personDetails._id}
+          personId={personDetails._id as number}
           treeId={treeId}
           readonly={readonly}
         />

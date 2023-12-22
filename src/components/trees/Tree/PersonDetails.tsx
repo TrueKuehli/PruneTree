@@ -89,6 +89,7 @@ export default function PersonDetails({
     setLinkDataVisible(!linkDataVisible);
   }
 
+  const name = [firstName, lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
   const backgroundImage = avatarURI ? `url(${avatarURI.url})` : `url(${defaultAvatar})`;
   const inlineAvatarStyle = {backgroundImage};
 
@@ -104,7 +105,7 @@ export default function PersonDetails({
       </div>
       <div className={styles.personDetailsTop}>
         <div className={styles.personDetailsAvatar} style={inlineAvatarStyle} />
-        <h2 id='person-details-name'>{firstName} {lastName}</h2>
+        <h2 id='person-details-name'>{name}</h2>
       </div>
       <div>
         <RawHTML html={bio} />
@@ -175,8 +176,8 @@ export default function PersonDetails({
               {custom.map((item, index) => {
                 return (
                   <tr key={index}>
-                    <th scope='row'>{item.title}</th>
-                    <td>{item.value}</td>
+                    <th scope='row'>{item.title || '<no title>'}</th>
+                    <td>{item.value || '<no value>'}</td>
                   </tr>
                 );
               })}

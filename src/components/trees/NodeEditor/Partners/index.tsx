@@ -75,7 +75,8 @@ export default function Partners({node, people, onSave, close}: Props) {
   }
 
   const peopleOptions = people.map((person) => {
-    return {label: `${person.firstName} ${person.lastName}`, value: person._id as number};
+    const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
+    return {label: name, value: person._id as number};
   });
 
   return (

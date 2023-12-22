@@ -30,12 +30,13 @@ export default function ParentDetails({avatar, firstName, lastName}: Props) {
     }
   }, [avatar]);
 
+  const name = [firstName, lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
   const backgroundImage = avatarURI ? `url(${avatarURI.url})` : `url(${defaultAvatar})`;
 
   return (
     <div className={styles.parentRow}>
       <div className={styles.parentAvatar} style={{backgroundImage}} />
-      <span className='person-details-biological-parent-name'>{firstName} {lastName}</span>
+      <span className='person-details-biological-parent-name'>{name}</span>
     </div>
   );
 }

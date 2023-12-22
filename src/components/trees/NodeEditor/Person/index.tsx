@@ -55,10 +55,12 @@ export default function Person({node, people, onSave, close}: Props) {
 
   const backgroundImage = avatarURI ? `url(${avatarURI.url})` : `url(${defaultAvatar})`;
   const peopleOptions = people.map((person) => {
-    return {label: `${person.firstName} ${person.lastName}`, value: person._id as number};
+    const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
+    return {label: name, value: person._id as number};
   });
+  const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
   const defaultValue = person ?
-    {label: `${person.firstName} ${person.lastName}`, value: person._id as number} :
+    {label: name, value: person._id as number} :
     null;
 
   return (

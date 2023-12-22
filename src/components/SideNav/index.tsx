@@ -7,6 +7,7 @@ import {selectTrees, useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {loadUsersTree} from '../../redux/treeReducer';
 
 import styles from './styles.scss';
+import treeImg from '../../common/images/favicon.png';
 
 
 type Props = {
@@ -48,7 +49,10 @@ export default function SideNav({onItemClick}: Props) {
           <li><Link to='/trees/create' onClick={onItemClick}> Create New </Link></li>
           {trees.map((tree) => {
             const url = `/trees/${tree._id}`;
-            return <li key={tree._id as number}><Link to={url} onClick={onItemClick}> {tree.title} </Link></li>;
+            return <li key={tree._id as number}><Link to={url} onClick={onItemClick}>
+              <img src={treeImg} className={styles.headerLogo} alt={'Tree Logo'}/>
+              {tree.title || 'Untitled Tree'}
+            </Link></li>;
           })}
         </ul>
       }

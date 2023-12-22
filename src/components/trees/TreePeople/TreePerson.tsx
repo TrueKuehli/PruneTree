@@ -39,7 +39,7 @@ export default function TreePerson({treeId, person, deletePerson}: Props) {
   const backgroundImage = avatarURI ? `url(${avatarURI.url})` : `url(${defaultAvatar})`;
   const inlineAvatarStyle = {backgroundImage};
 
-  const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ');
+  const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
 
   return (
     <div className={`${styles.personTile} people-list-item`}>
