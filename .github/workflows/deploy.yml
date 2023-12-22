@@ -16,6 +16,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - uses: actions/checkout@v4
       - name: Automated Version Bump
         uses: phips28/gh-action-bump-version@v10.1.1
         with:
