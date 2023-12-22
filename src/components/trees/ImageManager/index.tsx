@@ -214,11 +214,18 @@ export default function ImageManager({imagePreview, onImageChange, image, aspect
   return (
     <div style={{textAlign: 'center'}}>
       {imagePreview}
-      <button className='btn btn-link' style={{margin: 10}} onClick={selectImage}>Upload Image</button>
+      <button className='btn btn-link' style={{margin: 10}} onClick={selectImage}>
+        Upload Image
+      </button>
       <button className='btn btn-link' style={{margin: 10}} disabled={!image}
               onClick={() => setShowCropper(true)}>
         Crop Image
       </button>
+      <button className='btn btn-link' style={{margin: 10}} disabled={!image}
+              onClick={() => onImageChange(null)}>
+        Delete Image
+      </button>
+
       <input name='file' type='file' id='file' accept='.png,.jpg,.jpeg,image/png,image/jpeg' onChange={fileSelected}
              ref={fileRef} style={{display: 'none'}}/>
     </div>

@@ -88,10 +88,15 @@ export default function TreeDetails() {
       createdCovers.current = [...createdCovers.current, imageId];
     }
 
-    getImageUri(imageId).then((uri) => {
-      setCoverUri(uri);
-      setCover(imageId);
-    });
+    if (imageId === null) {
+      setCover(null);
+      setCoverUri(null);
+    } else {
+      getImageUri(imageId).then((uri) => {
+        setCoverUri(uri);
+        setCover(imageId);
+      });
+    }
   }
 
   /**

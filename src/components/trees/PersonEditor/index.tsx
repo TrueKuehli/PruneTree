@@ -109,10 +109,15 @@ export default function PersonEditor() {
       createdAvatars.current = ([...createdAvatars.current, imageId]);
     }
 
-    getImageUri(imageId).then((uri) => {
-      setAvatarUri(uri);
-      setAvatar(imageId);
-    });
+    if (imageId === null) {
+      setAvatar(null);
+      setAvatarUri(null);
+    } else {
+      getImageUri(imageId).then((uri) => {
+        setAvatarUri(uri);
+        setAvatar(imageId);
+      });
+    }
   }
 
   /**
