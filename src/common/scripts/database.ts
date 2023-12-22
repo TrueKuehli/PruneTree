@@ -365,7 +365,20 @@ export default {
    * @param personId Database ID of the person to delete
    * @returns Promise that resolves on success, rejects on database error
    */
-  deletePerson: (personId: number|string) => deleteFromDatabase('people', personId),
+  deletePerson: async (personId: number|string) => {
+    const person = await getElementFromDatabase('people', personId);
+
+    // Delete the person's avatar image if it exists
+    if (person.avatar) {
+      try {
+        await deleteFromDatabase('images', person.avatar);
+      } catch (err) {
+        /* Ignore promise rejection, avatar most likely does not exist */
+      }
+    }
+
+    return await deleteFromDatabase('people', personId);
+  },
 
   /**
    * Gets an image from the database by ID
