@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import React, {useState, useEffect, useRef} from 'react';
+import {Link, useBeforeUnload, useNavigate, useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import Select from 'react-select/creatable';
 
@@ -28,6 +28,7 @@ export default function PersonEditor() {
 
   const [avatar, setAvatar] = useState<number>(null);
   const [avatarUri, setAvatarUri] = useState<ImageURL>(null);
+  const [orpahnedAvatars, setOrphanedAvatars] = useState<number[]>([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [bio, setBio] = useState('');
@@ -36,6 +37,9 @@ export default function PersonEditor() {
   const [lifeStates, setLifeStates] = useState<LifeState[]>([]);
   const [custom, setCustom] = useState<PersonCustomData[]>([]);
   const [loading, setLoading] = useState(!!personId);
+
+  // Ref is available in cleanup, state is not
+  const createdAvatars = useRef<number[]>([]);
 
   useEffect(() => {
     if (personId) {
@@ -76,15 +80,51 @@ export default function PersonEditor() {
     }
   }, [personId]);
 
+  // Delete all created images when navigating away from the page
+  useBeforeUnload(
+    React.useCallback(() => {
+      deleteCreatedImages();
+    }, []),
+  );
+
+  // Delete all created images when unmounting the component
+  useEffect(() => {
+    return () => {
+      deleteCreatedImages();
+    };
+  }, []);
+
   /**
    * Callback to update the current avatar.
    * @param imageId The image to set as the avatar.
    */
   function updateAvatar(imageId: number) {
+    // Set previous avatar as orphaned, such that it can be deleted on submit
+    if (avatar && !orpahnedAvatars.includes(avatar)) {
+      setOrphanedAvatars([...orpahnedAvatars, avatar]);
+    }
+
+    // Add new avatar to created avatars, such that it can be deleted on cancel
+    if (imageId && !createdAvatars.current.includes(imageId)) {
+      createdAvatars.current = ([...createdAvatars.current, imageId]);
+    }
+
     getImageUri(imageId).then((uri) => {
       setAvatarUri(uri);
       setAvatar(imageId);
     });
+  }
+
+  /**
+   * Deletes all created images on cancel.
+   */
+  function deleteCreatedImages() {
+    if (createdAvatars.current.length) {
+      database.deleteImages(createdAvatars.current)
+        .catch((err) => {
+          toast.error(err?.message || 'Failed to delete created images', {autoClose: false});
+        });
+    }
   }
 
   /**
@@ -106,6 +146,8 @@ export default function PersonEditor() {
       custom,
     };
 
+    createdAvatars.current = []; // Clear created covers, as orphanedCovers handles cleanup
+
     if (personId) {
       _updatePerson(person);
     } else {
@@ -119,7 +161,11 @@ export default function PersonEditor() {
    */
   function _createPerson(person: Partial<Person>) {
     database.createPerson(person)
-      .then(() => {
+      .then(async () => {
+        if (orpahnedAvatars.length) {
+          await database.deleteImages(orpahnedAvatars);
+        }
+
         toast.success('Person created');
         navigate(`/trees/${treeId}/people`);
       })
@@ -134,7 +180,11 @@ export default function PersonEditor() {
    */
   function _updatePerson(person: Partial<Person>) {
     database.updatePerson(personId, person)
-      .then(() => {
+      .then(async () => {
+        if (orpahnedAvatars.length) {
+          await database.deleteImages(orpahnedAvatars);
+        }
+
         toast.success('Person updated');
         navigate(-1);
       })

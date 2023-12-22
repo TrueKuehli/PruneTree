@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import React, {useState, useEffect, useRef} from 'react';
+import {Link, useBeforeUnload, useNavigate, useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
 
 import database from '../../../common/scripts/database';
-import {getImageUri} from '../../../common/scripts/dataUrl';
+import {getImageUri, ImageURL} from '../../../common/scripts/dataUrl';
 import Loading from '../../Loading';
 import RichEditor from '../../RichEditor';
 import ImageManager from '../ImageManager';
@@ -26,10 +26,13 @@ export default function TreeDetails() {
   const {treeId} = params;
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [cover, setCover] = useState(null);
-  const [coverUri, setCoverUri] = useState(null);
+  const [cover, setCover] = useState<number>(null);
+  const [coverUri, setCoverUri] = useState<ImageURL>(null);
+  const [orphanedCovers, setOrphanedCovers] = useState<number[]>([]);
   const [loading, setLoading] = useState(!!treeId);
 
+  // Ref is available in cleanup, state is not
+  const createdCovers = useRef<number[]>([]);
 
   useEffect(() => {
     if (treeId) {
@@ -56,15 +59,51 @@ export default function TreeDetails() {
     }
   }, [treeId]);
 
+  // Delete all created images when navigating away from the page
+  useBeforeUnload(
+    React.useCallback(() => {
+      deleteCreatedImages();
+    }, []),
+  );
+
+  // Delete all created images when unmounting the component
+  useEffect(() => {
+    return () => {
+      deleteCreatedImages();
+    };
+  }, []);
+
   /**
    * Updates the cover image of the current tree.
    * @param imageId The new image ID to set as the cover image.
    */
   function updateCover(imageId: number) {
+    // Set previous cover as orphaned, such that it can be deleted on submit
+    if (cover && !orphanedCovers.includes(cover)) {
+      setOrphanedCovers([...orphanedCovers, cover]);
+    }
+
+    // Add new cover to created covers, such that it can be deleted on cancel
+    if (imageId && !createdCovers.current.includes(imageId)) {
+      createdCovers.current = [...createdCovers.current, imageId];
+    }
+
     getImageUri(imageId).then((uri) => {
       setCoverUri(uri);
       setCover(imageId);
     });
+  }
+
+  /**
+   * Deletes all created images on cancel.
+   */
+  function deleteCreatedImages() {
+    if (createdCovers.current.length) {
+      database.deleteImages(createdCovers.current)
+        .catch((err) => {
+          toast.error(err?.message || 'Failed to delete created images', {autoClose: false});
+        });
+    }
   }
 
   /**
@@ -75,6 +114,7 @@ export default function TreeDetails() {
     event.preventDefault();
 
     const tree = {title, description, cover};
+    createdCovers.current = []; // Clear created covers, as orphanedCovers handles cleanup
 
     if (treeId) {
       _updateTree(treeId, tree);
@@ -89,7 +129,11 @@ export default function TreeDetails() {
    */
   function _createTree(tree: Partial<Tree>) {
     database.createTree(tree)
-      .then((response) => {
+      .then(async (response) => {
+        if (orphanedCovers.length) {
+          await database.deleteImages(orphanedCovers);
+        }
+
         const tree = response;
         const treeId = response._id as number;
         toast.success('Tree created');
@@ -110,9 +154,14 @@ export default function TreeDetails() {
   function _updateTree(treeId: number | string, tree: Partial<Tree>) {
     const parsedTreeId = parseID(treeId);
     database.updateTree(treeId, tree)
-      .then((tree) => {
+      .then(async (tree) => {
+        if (orphanedCovers.length) {
+          await database.deleteImages(orphanedCovers);
+        }
+
         toast.success('Tree details updated');
         navigate(`/trees/${treeId}`);
+
         // Update the side nav
         dispatch(updateTree(Object.assign(tree, {_id: parsedTreeId})));
       })

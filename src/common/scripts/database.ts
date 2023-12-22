@@ -419,4 +419,11 @@ export default {
    * @returns Promise that resolves on success, rejects on database error
    */
   deleteImage: (imageId: number|string) => deleteFromDatabase('images', imageId),
+
+  /**
+   * Deletes multiple images from the database
+   * @param imageIds Database IDs of the images to delete
+   * @returns Promise that resolves on success, rejects on database error
+   */
+  deleteImages: (imageIds: (number|string)[]) => deleteMultipleFromDatabase('images', imageIds),
 };
