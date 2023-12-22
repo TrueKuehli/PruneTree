@@ -13,16 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Automated Version Bump
         uses: phips28/gh-action-bump-version@v10.1.1
         with:
           bump-policy: 'last-commit'
           commit-message: 'CI: New release uploaded to GitHub pages: Version {{version}} [skip ci]'
           version-type: ${{ github.event.inputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
     runs-on: ubuntu-latest
