@@ -33,4 +33,9 @@ rules:
   valid-jsdoc:
     - off  # Especially for the components, specifying return values or props as jsdoc is redundant and too cluttered
   react/no-unescaped-entities:
-      - off  # This makes JSX less natural to read and the problem it solves should also be solved by proper syntax highlighting in the IDE
+    - off  # This makes JSX less natural to read and the problem it solves should also be solved by proper
+           #   syntax highlighting in the IDE
+  brace-style:
+    - off  # When type annotations get really long, it can improve readability to put braces on a new line, otherwise
+           #   they should be on the same line; this use case is not supported by this rule however
+

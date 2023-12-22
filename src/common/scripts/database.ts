@@ -49,7 +49,7 @@ function upgradeDatabase(event: IDBVersionChangeEvent): void {
 
 
 /**
- * Helper function to performs a generic database request on any defined store
+ * Helper function to perform a generic database request on any defined store
  * @param storeName Name of the object store to perform the action on
  * @param mode Mode to open the object store in
  * @param action Action to perform on the object store
@@ -83,6 +83,57 @@ function performDatabaseRequest<Store extends DBStoreName, ActionReturnType>(
       request.onsuccess = (event) => {
         resolve((event.target as IDBRequest<ActionReturnType>).result);
       };
+    };
+  });
+}
+
+/**
+ * Helper function to perform a database request with multiple actions on any defined store
+ * @param storeName Name of the object store to perform the action on
+ * @param mode Mode to open the object store in
+ * @param actions Actions to perform on the object store
+ * @returns A promise that resolves with the result of the action on success, rejects on database error
+ */
+function performDatabaseMultiRequest<Store extends DBStoreName, ActionReturnType>(
+  storeName: Store,
+  mode: 'readwrite' | 'readonly',
+  actions: (s: IDBObjectStore) => IDBRequest<ActionReturnType>[],
+): Promise<ActionReturnType[]> {
+  return new Promise<ActionReturnType[]>((resolve, reject) => {
+    const request = window.indexedDB.open(DB_NAME, DB_VERSION);
+
+    request.onupgradeneeded = upgradeDatabase;
+
+    request.onerror = (event) => {
+      reject(event);
+    };
+
+    request.onsuccess = (event) => {
+      const db = (event.target as IDBOpenDBRequest).result;
+      const transaction = db.transaction([storeName], mode);
+      const objectStore = transaction.objectStore(storeName);
+
+      const requests = actions(objectStore);
+
+       const promises = requests.map((r) => {
+        return new Promise<ActionReturnType>((resolve, reject) => {
+          r.onerror = (event) => {
+            reject(event);
+          };
+
+          r.onsuccess = (event) => {
+            resolve((event.target as IDBRequest<ActionReturnType>).result);
+          };
+        });
+      });
+
+      Promise.all(promises)
+        .then((results) => {
+          resolve(results);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     };
   });
 }
@@ -188,6 +239,26 @@ async function deleteFromDatabase<Store extends DBStoreName>(storeName: Store, i
 }
 
 
+/**
+ * Helper function to delete multiple elements from the specified database store
+ * @param storeName Name of the object store to delete the element from
+ * @param ids ID of the objects to delete
+ * @returns Promise that resolves on success, rejects on database error
+ */
+async function deleteMultipleFromDatabase<Store extends DBStoreName>(storeName: Store, ids: (number|string)[]) {
+  const parsedIds = ids.map(parseID).filter((id) => id !== null);
+  if (parsedIds.length === 0) {
+    return Promise.resolve<undefined>(undefined);
+  }
+
+  return (await performDatabaseMultiRequest(
+    storeName,
+    'readwrite',
+    (objectStore): IDBRequest<undefined>[] => parsedIds.map((id) => objectStore.delete(id)),
+  ))[0];
+}
+
+
 export default {
   /**
    * Gets all trees from the database
@@ -218,11 +289,39 @@ export default {
   updateTree: (treeId: number|string, tree: Partial<Tree>) => updateInDatabase('trees', treeId, tree),
 
   /**
-   * Deletes a tree from the database
+   * Deletes a tree from the database, this also removes all associated people and images
    * @param treeId Database ID of the tree to delete
    * @returns Promise that resolves on success, rejects on database error
    */
-  deleteTree: (treeId: number|string) => deleteFromDatabase('trees', treeId),
+  deleteTree: async (treeId: number | string) => {
+    const treeRequest = getElementFromDatabase('trees', treeId);
+    const peopleRequest = getAllFromDatabase('people');
+    const imagesRequest = getAllFromDatabase('images');
+
+    const [tree, people, images] = await Promise.all([treeRequest, peopleRequest, imagesRequest]);
+
+    // Find people belonging to the tree
+    const treePeople = people.filter((person) =>
+      person.treeId === treeId,
+    );
+    const treePeopleIds = treePeople.map((person) => person._id as number);
+
+    // Find images belonging to the tree or the people inside
+    const treeImageIds = images.filter((image) =>
+      tree.cover === image._id ||
+      treePeople.some((person) => person.avatar === image._id),
+    ).map((image) => image._id as number);
+
+    // Perform deletions
+    const treeDeletion = deleteFromDatabase('trees', treeId);
+    const peopleDeletion = deleteMultipleFromDatabase('people', treePeopleIds);
+    const imagesDeletion = deleteMultipleFromDatabase('images', treeImageIds);
+    return Promise.all([
+      treeDeletion,
+      peopleDeletion,
+      imagesDeletion,
+    ]);
+  },
 
   /**
    * Gets all people corresponding to a given tree from the database

@@ -70,7 +70,8 @@ export default function Toolbar({tree, setPreviewMode: onPreviewModeChange, save
   function deleteTree() {
     closeMenus();
 
-    const deleteConfirmed = confirm('Are you sure you want to delete this tree?');
+    const deleteConfirmed = confirm('Are you sure you want to delete this tree? ' +
+                                            'This will also delete all people and images in the tree!');
 
     if (deleteConfirmed) {
       database.deleteTree(tree?._id as number)
