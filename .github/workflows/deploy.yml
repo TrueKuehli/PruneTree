@@ -21,7 +21,7 @@ jobs:
         with:
           bump-policy: 'last-commit'
           commit-message: 'CI: New release uploaded to GitHub pages: Version {{version}} [skip ci]'
-          version: ${{ github.event.inputs.version }}
+          version-type: ${{ github.event.inputs.version }}
 
   build:
     runs-on: ubuntu-latest
