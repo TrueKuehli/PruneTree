@@ -2,6 +2,8 @@
 
 [![Open App Link Shield](https://img.shields.io/badge/Open%20Application-prunetree.app-purple?labelColor=blue)][prunetree]
 [![GitHub License Shield](https://img.shields.io/github/license/TrueKuehli/PruneTree?label=License)](LICENCE)
+[![Deployment Workflow Shield](https://img.shields.io/github/actions/workflow/status/TrueKuehli/PruneTree/deploy.yml?label=Deployment)][deploy]
+[![Validation Workflow Shield](https://img.shields.io/github/actions/workflow/status/TrueKuehli/PruneTree/validation.yml?label=Validation)][validation]
 
 ```diff
 - THIS PROJECT IS CURRENTLY IN VERY EARLY DEVELOPMENT AND IS NOT READY FOR USE OUTSIDE OF TESTING.
@@ -25,8 +27,6 @@ Trees are rendered using [D3][d3], specifically the [tree hierarchy][d3tree].
 
 [![GitHub Issues Shield](https://img.shields.io/github/issues/TrueKuehli/PruneTree?label=Open%20Issues)][issues]
 [![GitHub Pull Requests Shield](https://img.shields.io/github/issues-pr/TrueKuehli/PruneTree?label=Pull%20Requests)][pulls]
-[![Deployment Workflow Shield](https://img.shields.io/github/actions/workflow/status/TrueKuehli/PruneTree/deploy.yml?label=Deployment)][deploy]
-[![Validation Workflow Shield](https://img.shields.io/github/actions/workflow/status/TrueKuehli/PruneTree/validation.yml?label=Validation)][validation]
 
 Any contributions to the project are welcome, including issues, pull requests, and forks.
 If you have any questions, feel free to open an issue.
