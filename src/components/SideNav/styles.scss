@@ -1,13 +1,15 @@
 @use "../../common/styles/palette";
 
 .nav-wrapper {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
 }
 
 .nav-list {
-  list-style: none;
   padding: 0;
   margin: 0;
+  list-style: none;
   font-size: 17px;
 
   li {
@@ -35,6 +37,7 @@
   }
 
   &.last-nav {
+    flex-grow: 1;
     margin-bottom: 60px;
   }
 }
@@ -54,8 +57,6 @@
 }
 
 .nav-footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   margin-bottom: 2em;
   text-align: center;
