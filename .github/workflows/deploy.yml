@@ -9,8 +9,8 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # ???
-      pull-requests: read
+      contents: write
+      pull-requests: write
     steps:
       - name: Updating release pull request
         uses: google-github-actions/release-please-action@v4
