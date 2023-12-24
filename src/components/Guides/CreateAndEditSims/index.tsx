@@ -41,8 +41,8 @@ export default function CreateAndEditSims() {
         From the tree editor in the toolbar click <strong>Edit</strong> and select <strong>People in Tree</strong>.
       </p>
       <p>
-        You'll be shown the people manager. Find the Sim you want to edit in the list and click the
-        <strong>Edit</strong> button toward the top right of that row.
+        You'll be shown the people manager. Find the Sim you want to edit in the list and click
+        the <strong>Edit</strong> button toward the top right of that row.
       </p>
       <p>
         Fill out the details about your Sim and hit <strong>Update Person</strong> at the bottom of the page.

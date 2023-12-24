@@ -46,8 +46,8 @@ export default function LinkSims() {
 
       <h2>Linking Sims</h2>
       <p>
-        In the tree you want to link from - in the editor toolbar under <strong>Edit</strong> click
-        <strong>People in Tree</strong>.
+        In the tree you want to link from - in the editor toolbar
+        under <strong>Edit</strong> click <strong>People in Tree</strong>.
       </p>
       <p>
         Find the Sim you want to link from in the list of Sims and click the <strong>Link</strong> button in that row.
@@ -76,8 +76,8 @@ export default function LinkSims() {
 
       <h2>Removing Links</h2>
       <p>
-        In the tree you want to remove a link from - in the editor toolbar under <strong>Edit</strong>
-        click <strong>People in Tree</strong>.
+        In the tree you want to remove a link from - in the editor toolbar
+        under <strong>Edit</strong> click <strong>People in Tree</strong>.
       </p>
       <p>
         Find the Sim you want to remove a link from in the list of Sims and click the <strong>Link</strong> button

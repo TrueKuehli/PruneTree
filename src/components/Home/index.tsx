@@ -18,14 +18,14 @@ export default function Home() {
         <div className={styles.introPanel}>
           <p className={styles.alert}>
             This fork is still in its very early stages. There may still be bugs and not all features may work
-            as expected. If you notice any issues, feel free to open up an issue on the
-            <Link to={'TODO'}>GitHub</Link> page for this project.
+            as expected. If you notice any issues, feel free to open up an issue on
+            the <Link to={'TODO'}>GitHub</Link> page for this project.
           </p>
           <p>Welcome to the Prune Tree app!</p>
           <p>Create dynamic family trees for your sims legacies.</p>
           <p>
-            A <Link to='https://en.wikipedia.org/wiki/Fork_(software_development)'>fork</Link> of the
-            <Link to='https://gitlab.com/plum-tree'>Plum Tree</Link> app, based on the original source code and
+            A <Link to='https://en.wikipedia.org/wiki/Fork_(software_development)'>fork</Link> of
+            the <Link to='https://gitlab.com/plum-tree'>Plum Tree</Link> app, based on the original source code and
             available on <Link to='https://github.com/TrueKuehli/PruneTree'>GitHub</Link>.
           </p>
           <p>
@@ -38,8 +38,8 @@ export default function Home() {
             This will be somewhat improved by better download options in a future version.
           </p>
           <p>
-            If you have any feedback or suggestions, feel free to use the
-            <Link to='https://github.com/TrueKuehli/PruneTree/issues'>GitHub Issue Tracker</Link>!
+            If you have any feedback or suggestions, feel free to use
+            the <Link to='https://github.com/TrueKuehli/PruneTree/issues'>GitHub Issue Tracker</Link>!
           </p>
         </div>
 
@@ -69,10 +69,10 @@ export default function Home() {
           <div className='col-12'>
             <h2>Using The Prune Tree</h2>
             <p>
-              If our guides don't do it for you, check out
-              <a href='https://www.youtube.com/channel/UCYorr-o7j29k9vF8xGiiCmA' target='_blank'
-                 rel='noopener noreferrer'>The SimTwins</a>
-              video instead. We thank them for this brilliant guide they put together on how to build the
+              If our guides don't do it for you, check
+              out <a href='https://www.youtube.com/channel/UCYorr-o7j29k9vF8xGiiCmA' target='_blank'
+                     rel='noopener noreferrer'>The SimTwins</a> video
+              instead. We thank them for this brilliant guide they put together on how to build the
               perfect Sims 4 family tree.
             </p>
             <p>

@@ -22,8 +22,8 @@ export default function CreateTree() {
 
       <h2>Go To Create a New Tree View</h2>
       <p>
-        You can get to the create tree view by opening the side navigation, Scroll to the
-        <strong>Your Trees</strong> header and <strong>Create New</strong> will always be at the top of this list.
+        You can get to the create tree view by opening the side navigation, Scroll to
+        the <strong>Your Trees</strong> header and <strong>Create New</strong> will always be at the top of this list.
       </p>
       <MobileMock display={createTreeGif} />
 
@@ -43,8 +43,8 @@ export default function CreateTree() {
 
       <h2>Update The Tree Details</h2>
       <p>
-        You can update the details you set when creating your tree by finding <strong>Tree Details</strong>
-        under the <strong>Edit</strong> menu in the tree editor toolbar.
+        You can update the details you set when creating your tree by finding <strong>Tree Details</strong> under
+        the <strong>Edit</strong> menu in the tree editor toolbar.
       </p>
       <MobileMock display={editTreeGif} />
 

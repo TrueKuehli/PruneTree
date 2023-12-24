@@ -67,7 +67,7 @@ export default function PlacingSims() {
         On the new node click the <strong>Wrench Icon</strong> and set the Node person as described above.
       </p>
       <p>
-        When you're in the Node edit main screen go down and click <strong>Set This Nodes Parent Details </strong>.
+        When you're in the Node edit main screen go down and click <strong>Set This Nodes Parent Details</strong>.
       </p>
       <p>
         When you set the nodes parents this information will be in that Sims info panel. This is useful if

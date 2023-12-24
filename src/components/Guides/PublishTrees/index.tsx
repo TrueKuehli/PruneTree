@@ -47,8 +47,8 @@ export default function PublishTrees() {
         Publishing a tree to the gallery means it more likely people will find your tree and peruse it.
       </p>
       <p>
-        In the tree editor toolbar go to <strong>Actions</strong> and select <strong>Publish Tree</strong>
-        to open the publish tree view.
+        In the tree editor toolbar go to <strong>Actions</strong> and select <strong>Publish Tree</strong> to
+        open the publish tree view.
       </p>
       <p>
         Enable the switch for <strong>Is Public</strong>.
