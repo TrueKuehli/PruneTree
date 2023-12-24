@@ -42,6 +42,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: gh release upload ${{ steps.release.outputs.tag_name }} ./dist.zip
       - name: Uploading to GitHub Pages
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/upload-pages-artifact@v2
         with:
           path: ./dist
