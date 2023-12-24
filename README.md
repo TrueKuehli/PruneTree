@@ -25,11 +25,19 @@ Trees are rendered using [D3][d3], specifically the [tree hierarchy][d3tree].
 
 ## Contributing
 
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](conventional-commits)
 [![GitHub Issues Shield](https://img.shields.io/github/issues/TrueKuehli/PruneTree?label=Open%20Issues)][issues]
 [![GitHub Pull Requests Shield](https://img.shields.io/github/issues-pr/TrueKuehli/PruneTree?label=Pull%20Requests)][pulls]
 
 Any contributions to the project are welcome, including issues, pull requests, and forks.
 If you have any questions, feel free to open an issue.
+
+The deployment scripts expects commits to use the [conventional commits](conventional-commits) style to auto-generate
+the changelog. This does not affect pull requests, which use the available tags for determining the type of change.
+However, if you're working with a fork of the project and want to directly commit your changes, you may consider using
+[commitlint](commitlint) or similar tools to ensure your commits are formatted correctly for the
+automatic changelog generation.
+
 
 ## Running Your Own Instance
 
@@ -68,3 +76,5 @@ and for making the source code available for anyone to use.
 [pulls]: https://github.com/TrueKuehli/PruneTree/pulls
 [deploy]: https://github.com/TrueKuehli/PruneTree/actions/workflows/deploy.yml
 [validation]: https://github.com/TrueKuehli/PruneTree/actions/workflows/validation.yml
+[conventional-commits]: https://www.conventionalcommits.org/en/v1.0.0/
+[commitlint]: https://commitlint.js.org/#/
