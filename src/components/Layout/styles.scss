@@ -154,6 +154,8 @@
   width: 320px;
   background: #f4f7f6;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-mask {

@@ -24,3 +24,4 @@ declare module '*.scss';
 declare const PACKAGE_VERSION: string;
 declare const COMMIT_HASH: string;
 declare const BUILD_DATE: string;
+declare const GIT_REPO_URL: string;

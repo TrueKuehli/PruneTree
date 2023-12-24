@@ -35,8 +35,17 @@ export default function SideNav({onItemClick}: Props) {
       });
   }, [dispatch]);
 
+  // Transform the git repo url to a url that can be used to open the repo in the browser.
+  const repoUrl = (GIT_REPO_URL.startsWith('git@') ?
+    GIT_REPO_URL.replace(':', '/').replace('git@', 'https://') :
+    GIT_REPO_URL
+  ).replace('.git', '');
+
+  const commitUrl = `${repoUrl}/commit/${COMMIT_HASH}`;
+  const shortCommitHash = COMMIT_HASH.substring(0, 7);
+
   return (
-    <div>
+    <div className={styles.navWrapper}>
       <ul className={styles.navList}>
         <li><Link to='/' onClick={onItemClick}> Home </Link></li>
         <li><Link to='/guides' onClick={onItemClick}> Guides </Link></li>
@@ -56,6 +65,12 @@ export default function SideNav({onItemClick}: Props) {
           })}
         </ul>
       }
+
+      <div className={styles.navFooter}>
+        Version <Link to={'/Version'}>{PACKAGE_VERSION}</Link> (
+          <Link to={commitUrl} target='_blank' rel='noopener noreferrer'>{shortCommitHash}</Link>
+        )
+      </div>
     </div>
   );
 }

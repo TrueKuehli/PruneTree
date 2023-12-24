@@ -138,6 +138,7 @@ module.exports = {
     new webpack.DefinePlugin({
       COMMIT_HASH: JSON.stringify(gitRevisionPlugin.commithash()),
       PACKAGE_VERSION: JSON.stringify(PACKAGE.version),
+      GIT_REPO_URL: JSON.stringify(PACKAGE.repository.url),
       BUILD_DATE: JSON.stringify(new Date().toISOString()),
     }),
     new FaviconsWebpackPlugin({
