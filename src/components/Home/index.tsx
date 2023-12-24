@@ -73,7 +73,7 @@ export default function Home() {
               out <a href='https://www.youtube.com/channel/UCYorr-o7j29k9vF8xGiiCmA' target='_blank'
                      rel='noopener noreferrer'>The SimTwins</a> video
               instead. We thank them for this brilliant guide they put together on how to build the
-              perfect Sims 4 family tree.
+              perfect Sims&nbsp;4 family tree.
             </p>
             <p>
               Since the guide was created for the Plum Tree app, some features shown in the video may be missing.
