@@ -1,36 +1,43 @@
-name: Deployment to GitHub Pages
+name: Release Generation and Deployment to GitHub Pages
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'SemVer version component to bump for release (patch, minor, major)'
-        required: true
-        default: 'patch'
-
+  push:
+    branches:
+      - master
 jobs:
-  bump-version-and-build:
+  release-please:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
+      - name: Updating release pull request
+        uses: google-github-actions/release-please-action@v4
+        id: release
+        with:
+          release-type: node
+          target-branch: ${{ github.ref_name }}
+
+      # The following will only be run if a release pull request is merged
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Automated Version Bump
-        uses: phips28/gh-action-bump-version@v10.1.1
-        with:
-          bump-policy: 'last-commit'
-          commit-message: 'CI: New release uploaded to GitHub pages: Version {{version}} [skip ci]'
-          version-type: ${{ github.event.inputs.version }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Setting up environment
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Setting up build environment
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/setup-node@v3
       - name: Installing dependencies
+        if: ${{ steps.release.outputs.release_created }}
         run: npm ci
       - name: Building the application
+        if: ${{ steps.release.outputs.release_created }}
         run: npm run build
+      - name: Compressing release artifact
+        if: ${{ steps.release.outputs.release_created }}
+        run: zip -r dist.zip ./dist
+      - name: Uploading Release Artifact
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.release.outputs.release_created }}
+        run: gh release upload ${{ steps.release.outputs.tag_name }} ./dist.zip
       - name: Uploading to GitHub Pages
         uses: actions/upload-pages-artifact@v2
         with:
@@ -40,8 +47,9 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    needs: release-please
+    if: ${{ steps.release.outputs.release_created }}
     runs-on: ubuntu-latest
-    needs: bump-version-and-build
     permissions:
       pages: write
       id-token: write
