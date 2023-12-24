@@ -3,18 +3,27 @@
   padding: 10px 15px;
   background: #f5f5f5;
   border-radius: 4px;
-  width: 250px;
+  width: 24em;
+  max-width: 80%;
 
   table {
-    table-layout: fixed ;
-    width: 100% ;
+    table-layout: fixed;
+    width: 100%;
   }
 
   td, th {
-    width: 50% ;
+    width: 50%;
   }
 
   th {
-    text-align:left;
+    text-align: left;
+  }
+
+  tr {
+    &:not(:last-child) {
+      td, th {
+        padding-bottom: 1em;
+      }
+    }
   }
 }
