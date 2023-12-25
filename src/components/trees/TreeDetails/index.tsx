@@ -79,12 +79,12 @@ export default function TreeDetails() {
    */
   function updateCover(imageId: number) {
     // Set previous cover as orphaned, such that it can be deleted on submit
-    if (cover && !orphanedCovers.includes(cover)) {
+    if (cover && !orphanedCovers.includes(cover) && imageId !== cover) {
       setOrphanedCovers([...orphanedCovers, cover]);
     }
 
     // Add new cover to created covers, such that it can be deleted on cancel
-    if (imageId && !createdCovers.current.includes(imageId)) {
+    if (imageId && !createdCovers.current.includes(imageId) && imageId !== cover) {
       createdCovers.current = [...createdCovers.current, imageId];
     }
 

@@ -100,12 +100,12 @@ export default function PersonEditor() {
    */
   function updateAvatar(imageId: number) {
     // Set previous avatar as orphaned, such that it can be deleted on submit
-    if (avatar && !orpahnedAvatars.includes(avatar)) {
+    if (avatar && !orpahnedAvatars.includes(avatar) && imageId !== avatar) {
       setOrphanedAvatars([...orpahnedAvatars, avatar]);
     }
 
     // Add new avatar to created avatars, such that it can be deleted on cancel
-    if (imageId && !createdAvatars.current.includes(imageId)) {
+    if (imageId && !createdAvatars.current.includes(imageId) && imageId !== avatar) {
       createdAvatars.current = ([...createdAvatars.current, imageId]);
     }
 
