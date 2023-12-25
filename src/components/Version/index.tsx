@@ -1,7 +1,8 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import Markdown from 'react-markdown';
 
 import styles from './styles.scss';
-import {Link} from 'react-router-dom';
 
 
 /**
@@ -19,23 +20,30 @@ export default function Version() {
   const shortCommitHash = COMMIT_HASH.substring(0, 7);
 
   return (
+    <>
     <div className={styles.panel}>
       <table>
         <tbody>
-          <tr>
-            <th>App Version</th>
-            <td><Link to={versionUrl} target='_blank' rel='noopener noreferrer'>{PACKAGE_VERSION}</Link></td>
-          </tr>
-          <tr>
-            <th>Last Commit</th>
-            <td><Link to={commitUrl} target='_blank' rel='noopener noreferrer'>{shortCommitHash}</Link></td>
-          </tr>
-          <tr>
-            <th>Build Date</th>
-            <td>{(new Date(BUILD_DATE)).toLocaleString()}</td>
-          </tr>
+        <tr>
+          <th>App Version</th>
+          <td><Link to={versionUrl} target='_blank' rel='noopener noreferrer'>{PACKAGE_VERSION}</Link></td>
+        </tr>
+        <tr>
+          <th>Last Commit</th>
+          <td><Link to={commitUrl} target='_blank' rel='noopener noreferrer'>{shortCommitHash}</Link></td>
+        </tr>
+        <tr>
+          <th>Build Date</th>
+          <td>{(new Date(BUILD_DATE)).toLocaleString()}</td>
+        </tr>
         </tbody>
       </table>
     </div>
-  );
+
+    <div className={styles.changelogPanel}>
+      <Markdown>{CHANGELOG}</Markdown>
+    </div>
+    </>
+)
+  ;
 }

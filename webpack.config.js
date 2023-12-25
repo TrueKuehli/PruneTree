@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const path = require('path')
 
 const PACKAGE = require('./package.json');
+const CHANGELOG = require('fs').readFileSync('./CHANGELOG.md').toString();
 
 // Minifying for production
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -140,6 +141,7 @@ module.exports = {
       PACKAGE_VERSION: JSON.stringify(PACKAGE.version),
       GIT_REPO_URL: JSON.stringify(PACKAGE.repository.url),
       BUILD_DATE: JSON.stringify(new Date().toISOString()),
+      CHANGELOG: JSON.stringify(CHANGELOG),
     }),
     new FaviconsWebpackPlugin({
       logo: './src/common/images/favicon.png',

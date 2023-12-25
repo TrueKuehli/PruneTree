@@ -9,6 +9,7 @@
 
 ## 1.2.1
 
+
 ### Features
 
 * Added a Delete button to the image manager, allowing users to remove the current image without uploading a new one
@@ -19,6 +20,7 @@
 
 
 ## 1.1.0
+
 
 ### Bug Fixes
 
@@ -34,15 +36,15 @@ previous version number being shown in the app
 * Changed dependency versioning to use `^` instead of `~` or no modifier to allow for minor version updates
 * Updated dependencies
 
-
 ## 1.0.1
+
 
 ### Bug Fixes
 
 * Fixed deploy script regression introduced in last version
 
-
 ## 1.0.0
+
 
 ### BREAKING CHANGES
 
@@ -63,8 +65,8 @@ the new icons)
 
 * Updated deploy script
 
-
 ## 0.0.2
+
 
 ### Bug Fixes
 * Fixed package.json containing an extraneous comma
@@ -75,7 +77,6 @@ the new icons)
 * Changed wording referring to the previous project
 * Removed unused dependencies
 * Updated dependencies
-
 
 ## 0.0.1
 
