@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/TrueKuehli/PruneTree/compare/v1.2.1...v1.2.2) (2023-12-25)
+
+
+### Bug Fixes
+
+* **image-manager:** Fixed bug where submitting a new crop would count as replacing the image, thus marking the image for deletion ([192841c](https://github.com/TrueKuehli/PruneTree/commit/192841cb094bf772c65d8625392c4629a9f60c09))
+
 ## 1.2.1
 
 ### Features
