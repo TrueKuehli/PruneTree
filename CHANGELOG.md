@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/TrueKuehli/PruneTree/compare/v1.2.2...v1.3.0) (2023-12-25)
+
+
+### Features
+
+* **version:** Version page now contains a changelog ([bfc29a3](https://github.com/TrueKuehli/PruneTree/commit/bfc29a3462128495d69a6584f3e1e2eb6f0c8623))
+
 ## [1.2.2](https://github.com/TrueKuehli/PruneTree/compare/v1.2.1...v1.2.2) (2023-12-25)
 
 
