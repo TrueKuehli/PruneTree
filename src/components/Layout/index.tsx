@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route, Link, Routes} from 'react-router-dom';
 
 import Home from '../Home';
@@ -15,6 +15,7 @@ import NotFound from '../NotFound';
 
 import styles from './styles.scss';
 import logo from '../../common/images/logo.png';
+import {persistStorage} from '../../common/scripts/utils';
 
 
 /**
@@ -22,6 +23,9 @@ import logo from '../../common/images/logo.png';
  */
 export default function AppRoutes() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Try to persist browser storage
+  useEffect(persistStorage, []);
 
   return (
     <div className={styles.root}>
