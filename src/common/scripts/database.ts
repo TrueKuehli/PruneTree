@@ -5,7 +5,7 @@
 
 import {PercentCrop} from 'react-image-crop';
 
-import {parseID} from './utils';
+import {isQuotaExceededError, parseID} from './utils';
 import {Image, Person, Tree, DEFAULTS} from './types';
 
 
@@ -49,43 +49,74 @@ function upgradeDatabase(event: IDBVersionChangeEvent): void {
 
 
 /**
+ * Event handler for database errors
+ * @param event The event object passed by the event handler
+ * @param reject The reject function of the promise that should be rejected
+ */
+function onDatabaseError(event: Event, reject: (reason?: Error) => void) {
+  if (isQuotaExceededError((event.target as IDBRequest).error)) {
+    reject(new Error('Your browser\'s storage quota has been exceeded!'));
+    return;
+  }
+  reject((event.target as IDBRequest).error);
+}
+
+
+/**
+ * Helper function to open the database
+ * @returns Promise that resolves with the database on success, rejects on database error
+ */
+function openDatabase(): Promise<IDBDatabase> {
+  return new Promise<IDBDatabase>((resolve, reject) => {
+    const request = window.indexedDB.open(DB_NAME, DB_VERSION);
+
+    request.onupgradeneeded = upgradeDatabase;
+    request.onerror = (event) => onDatabaseError(event, reject);
+
+    request.onsuccess = (event) => {
+      resolve((event.target as IDBOpenDBRequest).result);
+    };
+  });
+}
+
+
+/**
  * Helper function to perform a generic database request on any defined store
  * @param storeName Name of the object store to perform the action on
  * @param mode Mode to open the object store in
  * @param action Action to perform on the object store
  * @returns A promise that resolves with the result of the action on success, rejects on database error
  */
-function performDatabaseRequest<Store extends DBStoreName, ActionReturnType>(
-    storeName: Store,
-    mode: 'readwrite' | 'readonly',
-    action: (s: IDBObjectStore) => IDBRequest<ActionReturnType>,
+async function performDatabaseRequest<Store extends DBStoreName, ActionReturnType>(
+  storeName: Store,
+  mode: 'readwrite' | 'readonly',
+  action: (s: IDBObjectStore) => IDBRequest<ActionReturnType>,
 ): Promise<ActionReturnType> {
-  return new Promise<ActionReturnType>((resolve, reject) => {
-    const request = window.indexedDB.open(DB_NAME, DB_VERSION);
+  const db = await openDatabase();
+  return await new Promise<ActionReturnType>((resolve, reject) => {
+    const transaction = db.transaction([storeName], mode);
+    const objectStore = transaction.objectStore(storeName);
 
-    request.onupgradeneeded = upgradeDatabase;
+    // Instead of returning in request onsuccess, we need to store the result in a variable
+    //   so that we can wait if the transaction was successful
+    let transactionResult: ActionReturnType = null;
 
-    request.onerror = (event) => {
-      reject(event);
+    // Handle transaction issues
+    transaction.onerror = (event) => onDatabaseError(event, reject);
+    transaction.onabort = (event) => onDatabaseError(event, reject);
+    transaction.oncomplete = () => {
+      resolve(transactionResult);
     };
 
+    const request = action(objectStore);
+
+    request.onerror = (event) => onDatabaseError(event, reject);
     request.onsuccess = (event) => {
-      const db = (event.target as IDBOpenDBRequest).result;
-      const transaction = db.transaction([storeName], mode);
-      const objectStore = transaction.objectStore(storeName);
-
-      const request = action(objectStore);
-
-      request.onerror = (event) => {
-        reject(event);
-      };
-
-      request.onsuccess = (event) => {
-        resolve((event.target as IDBRequest<ActionReturnType>).result);
-      };
+      transactionResult = (event.target as IDBRequest<ActionReturnType>).result;
     };
   });
 }
+
 
 /**
  * Helper function to perform a database request with multiple actions on any defined store
@@ -94,47 +125,35 @@ function performDatabaseRequest<Store extends DBStoreName, ActionReturnType>(
  * @param actions Actions to perform on the object store
  * @returns A promise that resolves with the result of the action on success, rejects on database error
  */
-function performDatabaseMultiRequest<Store extends DBStoreName, ActionReturnType>(
+async function performDatabaseMultiRequest<Store extends DBStoreName, ActionReturnType>(
   storeName: Store,
   mode: 'readwrite' | 'readonly',
   actions: (s: IDBObjectStore) => IDBRequest<ActionReturnType>[],
 ): Promise<ActionReturnType[]> {
+  const db = await openDatabase();
   return new Promise<ActionReturnType[]>((resolve, reject) => {
-    const request = window.indexedDB.open(DB_NAME, DB_VERSION);
+    const transaction = db.transaction([storeName], mode);
+    const objectStore = transaction.objectStore(storeName);
 
-    request.onupgradeneeded = upgradeDatabase;
+    // Instead of returning in request onsuccess, we need to store the result in a variable
+    //   so that we can wait if the transaction was successful
+    const transactionResults: ActionReturnType[] = [];
 
-    request.onerror = (event) => {
-      reject(event);
+    // Handle transaction issues
+    transaction.onerror = (event) => onDatabaseError(event, reject);
+    transaction.onabort = (event) => onDatabaseError(event, reject);
+    transaction.oncomplete = () => {
+      resolve(transactionResults);
     };
 
-    request.onsuccess = (event) => {
-      const db = (event.target as IDBOpenDBRequest).result;
-      const transaction = db.transaction([storeName], mode);
-      const objectStore = transaction.objectStore(storeName);
+    const requests = actions(objectStore);
 
-      const requests = actions(objectStore);
-
-       const promises = requests.map((r) => {
-        return new Promise<ActionReturnType>((resolve, reject) => {
-          r.onerror = (event) => {
-            reject(event);
-          };
-
-          r.onsuccess = (event) => {
-            resolve((event.target as IDBRequest<ActionReturnType>).result);
-          };
-        });
-      });
-
-      Promise.all(promises)
-        .then((results) => {
-          resolve(results);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    };
+    requests.map((r) => {
+      r.onerror = (event) => onDatabaseError(event, reject);
+      r.onsuccess = (event) => {
+        transactionResults.push((event.target as IDBRequest<ActionReturnType>).result);
+      };
+    });
   });
 }
 
@@ -162,7 +181,7 @@ function getAllFromDatabase<Store extends DBStoreName>(storeName: Store) {
 async function getElementFromDatabase<Store extends DBStoreName>(storeName: Store, id: number|string) {
   const parsedId = parseID(id);
   if (parsedId === null) {
-    throw Error(`Invalid ${storeName} ID!`);
+    throw new Error(`Invalid ${storeName} ID!`);
   }
 
   const result = await performDatabaseRequest(
@@ -172,7 +191,7 @@ async function getElementFromDatabase<Store extends DBStoreName>(storeName: Stor
   );
 
   if (result === undefined) {
-    throw Error(`ID ${parsedId.toString()} not found in ${storeName}!`);
+    throw new Error(`ID ${parsedId.toString()} not found in ${storeName}!`);
   }
   return result;
 }
@@ -228,7 +247,7 @@ async function updateInDatabase<Store extends DBStoreName>(
 async function deleteFromDatabase<Store extends DBStoreName>(storeName: Store, id: number|string) {
   const parsedId = parseID(id);
   if (parsedId === null) {
-    throw Error(`Invalid ${storeName} ID!`);
+    throw new Error(`Invalid ${storeName} ID!`);
   }
 
   return await performDatabaseRequest(

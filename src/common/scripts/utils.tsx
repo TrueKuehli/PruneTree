@@ -75,7 +75,21 @@ function persistStorage() {
 }
 
 
+/**
+ *
+ */
+function isQuotaExceededError(e: object): boolean {
+  return e instanceof DOMException &&
+    (e.code === 22 || // Everything except Firefox
+      e.code === 1014 || // Firefox
+      // Test name field too, since code is deprecated
+      e.name === 'QuotaExceededError' || // Everything except Firefox
+      e.name === 'NS_ERROR_DOM_QUOTA_REACHED'); // Firefox
+}
+
+
 export {
   parseID,
   persistStorage,
+  isQuotaExceededError,
 };
