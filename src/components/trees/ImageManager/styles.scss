@@ -1,0 +1,57 @@
+@use "sass:color" as sass-color;
+
+@use "../../../common/styles/palette";
+
+
+.quota-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 0.4em;
+}
+
+.quota-bar {
+  width: 80%;
+  height: 16px;
+  margin-bottom: 0;
+
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+
+  span {
+    position: relative;
+    top: -22px;
+    font-size: 14px;
+  }
+
+  .quota-bar-progress {
+    position: relative;
+    height: 100%;
+    width: max(5%, var(--percentage));
+    background-color: #4caf50;
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease-in-out;
+
+    $from-color: palette.$green2;
+    $to-color: palette.$red1;
+
+    --percentage: 50%;
+
+    // Try mixing in perceptual color space
+    @supports (background-color: color-mix(in oklab, $from-color, $to-color var(--percentage))) {
+      background-color: color-mix(in oklab, $from-color, $to-color var(--percentage));
+    }
+
+    // Fallback to HSL if color-mix is not supported
+    @supports not (background-color: color-mix(in oklab, $from-color, $to-color var(--percentage))) {
+      background-color: hsl(
+          calc(sass-color.hue($from-color) * (1 - var(--percentage)) + sass-color.hue($to-color) * var(--percentage))
+          calc(sass-color.saturation($from-color) * (1 - var(--percentage)) + sass-color.saturation($to-color) * var(--percentage))
+          calc(sass-color.lightness($from-color) * (1 - var(--percentage)) + sass-color.lightness($to-color) * var(--percentage))
+      )
+    }
+  }
+}

@@ -7,6 +7,7 @@ import Compressor from 'compressorjs';
 import database from '../../../common/scripts/database';
 import {getImageUri, ImageURL, invalidateCropped} from '../../../common/scripts/dataUrl';
 import Loading from '../../Loading';
+import StorageQuotaBar from './StorageQuotaBar';
 
 import 'react-image-crop/dist/ReactCrop.css';
 
@@ -56,6 +57,20 @@ export default function ImageManager({imagePreview, onImageChange, image, aspect
   const [cropping, setCropping] = useState(false);
   const [percentCrop, setPercentCrop] = useState<PercentCrop>(null);
   const [cropImageUri, setCropImageUri] = useState<ImageURL>(null);
+
+  // Handle storage quota here since we want to update it each time we change the image
+  const [storageQuota, setStorageQuota] = useState<number>(null);
+  const [storageUsage, setStorageUsage] = useState<number>(null);
+
+  useEffect(() => {
+    const estimatePromise = navigator?.storage?.estimate();
+    if (estimatePromise) {
+      estimatePromise.then((estimate) => {
+        setStorageQuota(estimate.quota);
+        setStorageUsage(estimate.usage);
+      });
+    }
+  }, [image]);
 
   useEffect(() => {
     if (image) {
@@ -209,6 +224,7 @@ export default function ImageManager({imagePreview, onImageChange, image, aspect
           <button className='btn btn-default' onClick={cancelCrop}>Cancel Crop</button>
           <button className='btn btn-primary' onClick={cropImage}>Crop Image</button>
         </div>
+        <StorageQuotaBar storageQuota={storageQuota} storageUsage={storageUsage} />
       </div>
     );
   }
@@ -216,6 +232,7 @@ export default function ImageManager({imagePreview, onImageChange, image, aspect
   return (
     <div style={{textAlign: 'center'}}>
       {imagePreview}
+      <StorageQuotaBar storageQuota={storageQuota} storageUsage={storageUsage} />
       <button className='btn btn-link' style={{margin: 10}} onClick={selectImage}>
         Upload Image
       </button>
