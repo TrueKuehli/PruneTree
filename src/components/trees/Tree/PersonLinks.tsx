@@ -81,7 +81,9 @@ export default function PersonLinks({small, links}: Props) {
                 onClick={() => goToTree(treeId, personId)}
               >
                 <rect width='198' height='48' rx='3' ry='3' />
-                <text className={styles.linkListText} transform='translate(10,30)'>{linkData.title || 'Unnamed Link'}</text>
+                <text className={styles.linkListText} transform='translate(10,30)'>
+                  {linkData.title || 'Unnamed Link'}
+                </text>
               </g>
             );
           })}

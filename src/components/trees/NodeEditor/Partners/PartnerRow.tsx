@@ -37,7 +37,7 @@ export default function PartnerRow({index, partner, people, onChange, onRemove}:
     useState((partner?.people || [])
       .map((p) => {
         const name = [p?.firstName, p?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
-        return {label: name, value: p._id as number}
+        return {label: name, value: p._id as number};
       }));
 
   useEffect(() => {
