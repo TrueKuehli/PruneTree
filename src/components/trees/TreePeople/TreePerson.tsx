@@ -32,7 +32,8 @@ export default function TreePerson({treeId, person, deletePerson}: Props) {
     getImageUri(person.avatar).then((uri) => {
       setAvatarURI(uri);
     }).catch((err) => {
-      toast.error(err?.message || 'Unknown error occurred', {autoClose: false});
+      toast.error(err?.message || 'Unknown error occurred',
+        {autoClose: false, toastId: `image-load-fail-${person.avatar}`});
     });
   }
 

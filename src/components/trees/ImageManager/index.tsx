@@ -62,13 +62,15 @@ export default function ImageManager({imagePreview, onImageChange, image, aspect
       database.getImageCrop(image)
         .then(setPercentCrop)
         .catch((err) => {
-          toast.error(err?.message || 'Failed to get image crop data', {autoClose: false});
+          toast.error(err?.message || 'Failed to get image crop data',
+            {autoClose: false, toastId: `image-load-fail-${image}`});
         });
 
       getImageUri(image, false)
         .then(setCropImageUri)
         .catch((err) => {
-          toast.error(err?.message || 'Failed to generate image URI', {autoClose: false});
+          toast.error(err?.message || 'Failed to generate image URI',
+            {autoClose: false, toastId: `image-load-fail-${image}`});
         });
     }
   }, [image]);

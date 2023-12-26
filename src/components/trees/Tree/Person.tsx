@@ -63,7 +63,8 @@ export default function Person({
       getImageUri(personData.avatar).then((uri) => {
         setAvatarURI(uri);
       }).catch((err) => {
-        toast.error(err?.message || 'Unknown error occurred', {autoClose: false});
+        toast.error(err?.message || 'Unknown error occurred',
+          {autoClose: false, toastId: `image-load-fail-${personData.avatar}`});
       });
     }
   }, [personData]);

@@ -75,7 +75,8 @@ export default function PersonEditor() {
         })
         .catch((err) => {
           setLoading(false);
-          toast.error(err?.message || 'Failed to get person info', {autoClose: false});
+          toast.error(err?.message || 'Failed to get person info',
+            {autoClose: false, toastId: `person-load-fail-${personId}`});
         });
     }
   }, [personId]);

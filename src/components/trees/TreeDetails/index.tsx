@@ -54,7 +54,10 @@ export default function TreeDetails() {
         })
         .catch((err) => {
           setLoading(false);
-          toast.error(err?.message || 'Failed to get tree info', {autoClose: false});
+          toast.error(
+            err?.message || 'Failed to get tree info',
+            {autoClose: false, toastId: `tree-load-fail-${treeId}`},
+          );
         });
     }
   }, [treeId]);

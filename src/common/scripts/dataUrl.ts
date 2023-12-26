@@ -57,7 +57,7 @@ function getImageUri(image: number|string, cropped: boolean = true): Promise<Ima
 
         return generatedURL;
       }).catch((err: Error) => {
-        toast.error(err?.message || 'Failed to load image');
+        toast.error(err?.message || 'Failed to load image', {toastId: `image-load-fail-${id}`});
         return {url: ''};
       }));
 }

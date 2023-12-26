@@ -31,7 +31,7 @@ export default function SideNav({onItemClick}: Props) {
       })
       .catch((err) => {
         toast.error(err?.message || 'Oops, we failed fetch your trees. Refresh the page to try again.',
-          {autoClose: false});
+          {autoClose: false, toastId: 'fetchTrees'});
       });
   }, [dispatch]);
 

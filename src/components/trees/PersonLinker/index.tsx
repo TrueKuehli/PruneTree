@@ -31,7 +31,8 @@ export default function PersonLinker() {
       })
       .catch((err) => {
         setLoading(false);
-        toast.error(err?.message || 'Unknown error occurred', {autoClose: false});
+        toast.error(err?.message || 'Unknown error occurred',
+          {autoClose: false, toastId: `person-load-fail-${personId}`});
       });
   }, [personId]);
 
