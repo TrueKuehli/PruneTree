@@ -6,7 +6,6 @@ import remarkDirectiveRehype from 'remark-directive-rehype';
 import {remarkDefinitionList, defListHastHandlers} from 'remark-definition-list';
 
 import GuideNavLinks, {GuideLinkData} from './GuideNavLinks';
-import GuideIndexLink from './GuideIndexLink';
 import MobileMock from './MobileMock';
 
 
@@ -32,7 +31,11 @@ export default function GuidePage({markdown, resources, isIndex = false, navLink
   return (
     <div>
       {!isIndex &&
-        <GuideIndexLink />
+        <div style={{paddingTop: 15}}>
+          <Link to="/guides" className="btn btn-default">
+            <i className="icon-list"/> Guides Index
+          </Link>
+        </div>
       }
 
       <Markdown

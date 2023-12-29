@@ -5,7 +5,7 @@ import tragicClown from '../common/images/tragic-clown.jpg';
 
 
 /**
- * NotFound component, shown on any routes not defined in src/Layout/index.tsx
+ * NotFound component, shown on any routes not defined in src/Layout/GuideNavLinks.tsx
  */
 export default function NotFound() {
   return (
