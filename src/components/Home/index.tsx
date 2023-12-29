@@ -17,9 +17,10 @@ export default function Home() {
       <div className='container'>
         <div className={styles.introPanel}>
           <p className={styles.alert}>
-            This fork is still in its very early stages. There may still be bugs and not all features may work
-            as expected. If you notice any issues, feel free to open up an issue on
-            the <Link to={'TODO'}>GitHub</Link> page for this project.
+            This project is currently in development. There may be bugs or broken features. If you notice any issues,
+            feel free to open up an issue on
+            the <Link to={'https://github.com/TrueKuehli/PruneTree/issues/new/choose'}>GitHub</Link> page for this
+            project.
           </p>
           <p>Welcome to the Prune Tree app!</p>
           <p>Create dynamic family trees for your sims legacies.</p>

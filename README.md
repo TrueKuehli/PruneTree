@@ -6,7 +6,9 @@
 [![Validation Workflow Shield](https://img.shields.io/github/actions/workflow/status/TrueKuehli/PruneTree/validation.yml?label=Validation)][validation]
 
 ```diff
-- THIS PROJECT IS CURRENTLY IN VERY EARLY DEVELOPMENT AND IS NOT READY FOR USE OUTSIDE OF TESTING.
+- THIS PROJECT IS CURRENTLY UNDER DEVELOPMENT AND 
+- MAY EXHIBIT BUGS THAT CAN CAUSE DATA LOSS. 
+- USE WITH CAUTION.
 ```
 
 Fork of the [Plum Tree][plumtree] app _pruning_ API calls from the [front-end][frontend] code

@@ -33,16 +33,16 @@ I want to host my own version of the Prune Tree app!
 
 I want to help with the development of the Prune Tree app!
 :   That's great! Any pull requests improving the app are highly appreciated! If you want to add a new feature, it's
-    best to first open an issue on [GitHub](https://github.com/TrueKuehli/PruneTree/issues/new) or check if there is
-    already an issue for it. This way, we can discuss the feature and make sure it fits the app. If you want to fix a
-    bug, you can also open an issue or directly create a pull request. If you want to help with the development of the
-    app, but don't know where to start, you can also check out the 
+    best to first open an issue on [GitHub](https://github.com/TrueKuehli/PruneTree/issues/new/choose) or check if 
+    there is already an issue for it. This way, we can discuss the feature and make sure it fits the app. If you want 
+    to fix a bug, you can also open an issue or directly create a pull request. If you want to help with the 
+    development of the app, but don't know where to start, you can also check out the 
     [GitHub issues](https://github.com/TrueKuehli/PruneTree/issues) page for issues marked with the `help wanted` label.
     For other details on contributing, see the 
     [CONTRIBUTING.md](https://github.com/TrueKuehli/PruneTree/blob/main/CONTRIBUTING.md) file on GitHub.
 
 I have a question that is not answered here!
-:   Feel free to ask your question on [GitHub](https://github.com/TrueKuehli/PruneTree/issues/new)!
+:   Feel free to ask your question on [GitHub](https://github.com/TrueKuehli/PruneTree/issues/new/choose)!
 
 ## Contact
 
