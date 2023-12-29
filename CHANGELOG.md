@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/TrueKuehli/PruneTree/compare/v1.4.0...v1.5.0) (2023-12-29)
+
+
+### Features
+
+* **support:** Added a support page including an FAQ and contact information ([dc06696](https://github.com/TrueKuehli/PruneTree/commit/dc06696c7b66fef926144d98be18766f7d29730f))
+
 ## [1.4.0](https://github.com/TrueKuehli/PruneTree/compare/v1.3.0...v1.4.0) (2023-12-29)
 
 
