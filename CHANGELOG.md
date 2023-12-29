@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.4.0](https://github.com/TrueKuehli/PruneTree/compare/v1.3.0...v1.4.0) (2023-12-29)
+
+
+### Features
+
+* **guides:** Reworked Guides ([971ad77](https://github.com/TrueKuehli/PruneTree/commit/971ad778a841f06b4c1d096338d4adc5f846b7c7))
+* **storage:** Added storage quota display in the image manager interface ([cce18df](https://github.com/TrueKuehli/PruneTree/commit/cce18df06fa27e122926d4f18f00209ea700d85b))
+
+
+### Bug Fixes
+
+* **errors:** Fixed handling of storage quota exceeded errors ([b4578d4](https://github.com/TrueKuehli/PruneTree/commit/b4578d4a5f3ef57af8d451f9426de5eb80ff8076))
+* **errors:** Fixed multiple error reports when fetching data from multiple components at once ([5bed988](https://github.com/TrueKuehli/PruneTree/commit/5bed988a08ed50b30c08eb04790a7e01d6994786))
+* **storage:** The app now request storage persistence from the browser ([aa69d04](https://github.com/TrueKuehli/PruneTree/commit/aa69d04a45b00ea0d9c658c07131e1507ee34727))
+
 ## [1.3.0](https://github.com/TrueKuehli/PruneTree/compare/v1.2.2...v1.3.0) (2023-12-25)
 
 
