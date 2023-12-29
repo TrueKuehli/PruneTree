@@ -10,6 +10,7 @@ import TreePeople from '../trees/TreePeople';
 import PersonEditor from '../trees/PersonEditor';
 import PersonLinker from '../trees/PersonLinker';
 import SideNav from '../SideNav';
+import Support from '../Support';
 import Version from '../Version';
 import NotFound from '../NotFound';
 
@@ -58,6 +59,7 @@ export default function AppRoutes() {
             <Route path='/trees/:treeId/people/add' element={<PersonEditor />} />
             <Route path='/trees/:treeId/people/:personId' element={<PersonEditor />} />
             <Route path='/trees/:treeId/people/:personId/link' element={<PersonLinker />} />
+            <Route path='/support' element={<Support />} />
             <Route path='/version' element={<Version />} />
             <Route path='/*' element={<NotFound />} />
           </Routes>

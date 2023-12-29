@@ -47,8 +47,9 @@ export default function SideNav({onItemClick}: Props) {
   return (
     <div className={styles.navWrapper}>
       <ul className={styles.navList}>
-        <li><Link to='/' onClick={onItemClick}> Home </Link></li>
-        <li><Link to='/guides' onClick={onItemClick}> Guides </Link></li>
+        <li><Link to="/" onClick={onItemClick}> Home </Link></li>
+        <li><Link to="/guides" onClick={onItemClick}> Guides </Link></li>
+        <li><Link to="/support" onClick={onItemClick}> Support </Link></li>
       </ul>
 
       <div className={styles.navTreesHeader}>Your Trees</div>
