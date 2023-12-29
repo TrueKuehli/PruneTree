@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 
-type Props = {
+type GuideLinkData = {
   prevLink?: string;
   prevText?: string;
   nextLink?: string;
@@ -17,21 +17,23 @@ type Props = {
  * @param nextLink The link to the next guide, can be empty on the last guide.
  * @param nextText The text to display for the next guide, can be empty on the last guide.
  */
-export default function GuideNavLinks({prevLink, prevText, nextLink, nextText}: Props) {
+export default function GuideNavLinks({prevLink, prevText, nextLink, nextText}: GuideLinkData) {
   return (
     <div style={{textAlign: 'center'}}>
       {
         prevLink &&
-          <Link to={prevLink} className='btn btn-default'>
+          <Link to={`/guides/${prevLink}`} className='btn btn-default'>
             <i className='icon-chevron-left' /> {prevText}
           </Link>
       }
       {
         nextLink &&
-          <Link to={nextLink} className='btn btn-default'>
+          <Link to={`/guides/${nextLink}`} className='btn btn-default'>
             {nextText} <i className='icon-chevron-right' />
           </Link>
       }
     </div>
   );
 }
+
+export type {GuideLinkData};

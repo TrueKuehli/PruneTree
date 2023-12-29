@@ -64,3 +64,19 @@
     margin-bottom: 0;
   }
 }
+
+.warning-note {
+  border-left: palette.$orange1 4px solid;
+  padding: 10px;
+  margin: 1em 10px;
+  color: palette.$orange2;
+  word-wrap: break-word;
+
+  :first-child {
+    margin-top: 0;
+  }
+
+  :last-child {
+    margin-bottom: 0;
+  }
+}

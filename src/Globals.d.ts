@@ -18,6 +18,11 @@ declare module '*.svg' {
   export default path;
 }
 
+declare module '*.md' {
+  const content: string;
+  export default content;
+}
+
 declare module '*.css';
 declare module '*.scss';
 

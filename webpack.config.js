@@ -103,6 +103,10 @@ module.exports = {
       {
         test: /\.(ttf|eot|png|jpe?g|gif|svg|woff?2)$/i,
         type: 'asset'
+      },
+      {
+        test: /\.md$/,
+        type: 'asset/source'
       }
     ]
   },
