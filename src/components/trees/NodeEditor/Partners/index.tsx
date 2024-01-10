@@ -70,7 +70,14 @@ export default function Partners({node, people, onSave, close}: Props) {
    * Save the node partners.
    */
   function handleSaveNodePartners() {
-    onSave({partners});
+    const partnerData = partners.map((partner) => ({
+      type: partner.type,
+      people: partner.people.map((person) => ({
+        _id: person._id,
+      })),
+    }));
+
+    onSave({partners: partnerData});
     close();
   }
 

@@ -27,13 +27,15 @@ export default function Parents({node, people, onSave, close}: Props) {
     useState(node?.data?.parentType || CONCEPTION_TYPES[0]);
   const [parents, setParents] =
     useState((node?.data?.parents || [])
-      .map((person) => {
+      .map((personRef) => {
+        const person = people.find((person) => person._id === personRef._id);
         const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
         return {label: name, value: person._id as number};
       }));
   const [adoptiveParents, setAdoptiveParents] =
     useState((node?.data?.adoptiveParents || [])
-      .map((person) => {
+      .map((personRef) => {
+        const person = people.find((person) => person._id === personRef._id);
         const name = [person?.firstName, person?.lastName].filter(Boolean).join(' ') || 'Unnamed Sim';
         return {label: name, value: person._id as number};
       }));
@@ -50,12 +52,10 @@ export default function Parents({node, people, onSave, close}: Props) {
    * Handle the saving of the node parents.
    */
   function handleSaveNodeParents() {
-    const findPerson = ({value}: {label: string, value: number}) =>
-      people.find((person) => person._id === value);
     const newNodeData = {
       parentType: conception,
-      parents: parents.map(findPerson),
-      adoptiveParents: adoptiveParents.map(findPerson),
+      parents: parents.map((parent) => ({_id: parent.value})),
+      adoptiveParents: adoptiveParents.map((parent) => ({_id: parent.value})),
     };
 
     onSave(newNodeData);

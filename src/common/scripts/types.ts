@@ -25,13 +25,17 @@ type PersonCustomData = {
   value: string,
 }
 
+type PersonReference = {
+  _id?: IDBValidKey,
+}
+
 type Person = {
   _id?: IDBValidKey,
   treeId: number,
 
   firstName: string,
   lastName: string,
-  avatar: number,
+  avatar: number | null,
   bio: string,
 
   lifeStates: LifeState[],
@@ -44,15 +48,15 @@ type Person = {
 
 type PartnerData = {
   type: PartnerType,
-  people: Person[],
+  people: PersonReference[],
 }
 
 type TreePersonNode = {
-  parents: Person[],
+  parents: PersonReference[],
   parentType: ConceptionType,
-  adoptiveParents: Person[],
+  adoptiveParents: PersonReference[],
   partners: PartnerData[],
-  person: Person,
+  person: PersonReference | null,
   children: TreePersonNode[],
 }
 

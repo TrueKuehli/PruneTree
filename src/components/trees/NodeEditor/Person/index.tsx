@@ -49,7 +49,7 @@ export default function Person({node, people, onSave, close}: Props) {
    * Handle saving the node person.
    */
   function handleSaveNodePerson() {
-    onSave({person});
+    onSave({person: {_id: person._id}});
     close();
   }
 
