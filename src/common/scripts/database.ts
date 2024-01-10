@@ -171,6 +171,18 @@ function getAllFromDatabase<Store extends DBStoreName>(storeName: Store) {
   );
 }
 
+/**
+ * Helper function to get all IDs from a specified database store without loading the actual data
+ * @param storeName
+ */
+function getAllIdsFromDatabase<Store extends DBStoreName>(storeName: Store) {
+  return performDatabaseRequest(
+      storeName,
+      'readonly',
+      (objectStore): IDBRequest<IDBValidKey[]> => objectStore.getAllKeys(),
+  );
+}
+
 
 /**
  * Helper function to get a specific element from the specified database store by ID
@@ -315,7 +327,7 @@ export default {
   deleteTree: async (treeId: number | string) => {
     const treeRequest = getElementFromDatabase('trees', treeId);
     const peopleRequest = getAllFromDatabase('people');
-    const imagesRequest = getAllFromDatabase('images');
+    const imagesRequest = getAllIdsFromDatabase('images');
 
     const [tree, people, images] = await Promise.all([treeRequest, peopleRequest, imagesRequest]);
 
@@ -327,9 +339,9 @@ export default {
 
     // Find images belonging to the tree or the people inside
     const treeImageIds = images.filter((image) =>
-      tree.cover === image._id ||
-      treePeople.some((person) => person.avatar === image._id),
-    ).map((image) => image._id as number);
+      tree.cover === image ||
+      treePeople.some((person) => person.avatar === image),
+    ) as (string|number)[];
 
     // Perform deletions
     const treeDeletion = deleteFromDatabase('trees', treeId);
