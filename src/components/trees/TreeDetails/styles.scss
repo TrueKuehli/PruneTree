@@ -23,7 +23,7 @@
   justify-content: space-between;
   align-items: baseline;
 
-  @media (max-width: 520px) {
+  @media (width <= 520px) {
     flex-direction: column;
   }
 }
