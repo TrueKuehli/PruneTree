@@ -51,10 +51,10 @@ export default function AppRoutes() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/guides/*' element={<Guides />} />
-            <Route path='/trees/create' element={<TreeDetails />} />
+            <Route path='/trees/create' element={<TreeDetails key={'create'} />} />
             <Route path='/trees/:treeId' element={<TreeEditor />} />
             <Route path='/trees/:treeId/download' element={<TreeDownload />} />
-            <Route path='/trees/:treeId/details' element={<TreeDetails />} />
+            <Route path='/trees/:treeId/details' element={<TreeDetails key={'edit'} />} />
             <Route path='/trees/:treeId/people' element={<TreePeople />} />
             <Route path='/trees/:treeId/people/add' element={<PersonEditor />} />
             <Route path='/trees/:treeId/people/:personId' element={<PersonEditor />} />
