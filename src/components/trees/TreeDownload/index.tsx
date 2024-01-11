@@ -45,10 +45,15 @@ export default function TreeDownload() {
         // Close the zip
         const zipFileBlob = await zipWriter.close();
 
+        const filename = (bundle.tree.title || 'Untitled Tree')
+          .slice(0, 32)
+          .replace(/[^a-z0-9\-_]+/gi, '_')
+          .toLowerCase() + '.zip';
+
         // Create "a" HTML element with href to file & click
         const link = document.createElement('a');
         link.href = URL.createObjectURL(zipFileBlob);
-        link.setAttribute('download', 'tree.zip');
+        link.setAttribute('download', filename);
         document.body.appendChild(link);
         link.click();
 
