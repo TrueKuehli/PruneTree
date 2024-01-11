@@ -6,6 +6,9 @@ import {Link} from 'react-router-dom';
 import content from './content.md';
 
 
+/**
+ * Renders the support page from markdown.
+ */
 export default function Support() {
   return (
     <div className='container'>
