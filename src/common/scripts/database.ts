@@ -5,8 +5,8 @@
 
 import {PercentCrop} from 'react-image-crop';
 
-import {isQuotaExceededError, parseID} from './utils';
-import {Image, Person, Tree, DEFAULTS} from './types';
+import {isQuotaExceededError, parseID, omitId} from './utils';
+import {Image, Person, Tree, DEFAULTS, BundledTree} from './types';
 
 
 const DB_NAME = 'prunetree';
@@ -171,6 +171,7 @@ function getAllFromDatabase<Store extends DBStoreName>(storeName: Store) {
   );
 }
 
+
 /**
  * Helper function to get all IDs from a specified database store without loading the actual data
  * @param storeName
@@ -206,6 +207,25 @@ async function getElementFromDatabase<Store extends DBStoreName>(storeName: Stor
     throw new Error(`ID ${parsedId.toString()} not found in ${storeName}!`);
   }
   return result;
+}
+
+
+/**
+ * Helper function to get multiple specific elements from the specified database store by ID.
+ * Does not handle invalid IDs!
+ * @param storeName Name of the object store to obtain the element from
+ * @param ids IDs of the objects to obtain
+ * @returns Promise that resolves with the element on success, rejects on database error
+ */
+async function getElementsFromDatabase<Store extends DBStoreName>(storeName: Store, ids: (number|string)[]) {
+  const parsedIds = ids.map((id) => parseID(id));
+
+  return await performDatabaseMultiRequest(
+    storeName,
+    'readonly',
+    (objectStore): IDBRequest<DB_STORE_TYPES[Store]>[] =>
+      parsedIds.map((id) => objectStore.get(id)),
+  );
 }
 
 
@@ -457,4 +477,102 @@ export default {
    * @returns Promise that resolves on success, rejects on database error
    */
   deleteImages: (imageIds: (number|string)[]) => deleteMultipleFromDatabase('images', imageIds),
+
+  /**
+   * Gets all data associated with a tree from the database
+   * @param treeId Database ID of the tree to get data for
+   * @returns Promise that resolves with bundled {tree, people, images} on success, rejects on database error
+   */
+  getTreeBundled: async (treeId: number|string) => {
+    const parsedId = parseID(treeId);
+    const tree = await getElementFromDatabase('trees', treeId);
+    const people = await getAllFromDatabase('people');
+
+    const treePeople = people.filter((person) =>
+      person.treeId === parsedId,
+    );
+
+    const allImages = await getAllIdsFromDatabase('images');
+    const imageIds = allImages.filter((image) =>
+      treePeople.some((person) => person.avatar === image) ||
+      tree.cover === image,
+    ) as (string|number)[];
+
+    const images = await getElementsFromDatabase('images', imageIds);
+
+    return {
+      tree: tree,
+      people: treePeople,
+      images: images,
+    } as BundledTree;
+  },
+
+  /**
+   * Imports a bundled tree into the database
+   * @param tree Tree data to import, typically passed as part of a BundledTree object
+   * @param people People data to import, typically passed as part of a BundledTree object
+   * @param images Image data to import, typically passed as part of a BundledTree object
+   * @returns Promise that resolves with the updated tree on success, rejects on database error
+   */
+  importBundledTree: async ({tree, people, images}: BundledTree) => {
+    const newTree = await insertIntoDatabase('trees', DEFAULTS.TREE);
+
+    // Insert images and create a map of old IDs to new IDs
+    const newImages = await Promise.all(images.map(async (image) => ({
+      oldId: image._id as number,
+      newElement: await insertIntoDatabase('images', {
+        ...omitId(image),
+      }),
+    })));
+    const imageIdMap = newImages.reduce((acc, cur) => {
+      acc[cur.oldId] = cur.newElement._id;
+      return acc;
+    }, {} as Map<number, number>);
+
+    // Insert people, updating their image IDs and tree ID
+    const newPeople = await Promise.all(people.map(async (person) => ({
+      oldId: person._id as number,
+      newElement: await insertIntoDatabase('people', {
+        ...omitId(person),
+        treeId: newTree._id as number,
+        avatar: person.avatar !== null ? imageIdMap[person.avatar] : null,
+      }),
+    })));
+    const peopleIdMap = newPeople.reduce((acc, cur) => {
+      acc[cur.oldId] = cur.newElement._id;
+      return acc;
+    }, {} as Map<number, number>);
+
+    // Update tree with new IDs
+    tree._id = newTree._id;
+    tree.cover = tree.cover !== null ? imageIdMap[tree.cover] : null;
+
+    // Recursively update tree data with new IDs
+    const nodesToUpdate = [tree.data];
+    while (nodesToUpdate.length > 0) {
+      const node = nodesToUpdate.pop();
+      node.parents = node.parents.map((parent) => ({
+        _id: peopleIdMap[parent._id as number],
+      }));
+      node.adoptiveParents = node.adoptiveParents.map((parent) => ({
+        _id: peopleIdMap[parent._id as number],
+      }));
+      node.partners = node.partners.map((partnerData) => ({
+        ...partnerData,
+        people: partnerData.people.map((partner) => ({
+          _id: peopleIdMap[partner._id as number],
+        })),
+      }));
+      node.person = {
+        _id: !node.person?._id ? null : peopleIdMap[node.person._id as number],
+      };
+
+      nodesToUpdate.push(...node.children);
+    }
+
+    // Update tree in database
+    await updateInDatabase('trees', tree._id as number, omitId(tree));
+
+    return tree;
+  },
 };

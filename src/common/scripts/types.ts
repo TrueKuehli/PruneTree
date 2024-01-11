@@ -69,6 +69,12 @@ type Tree = {
   data: TreePersonNode,
 }
 
+type BundledTree = {
+  tree: Tree,
+  people: Person[],
+  images: Image[],
+}
+
 
 /**
  * Helper object to create default values for types
@@ -142,6 +148,7 @@ export {
   PartnerData,
   TreePersonNode,
   Tree,
+  BundledTree,
 
   DEFAULTS,
 };

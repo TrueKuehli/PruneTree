@@ -17,3 +17,13 @@
   box-shadow: 0 2px 3px 0 rgb(0 0 0 / 7.5%);
   color: #ccc;
 }
+
+.create-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  @media (max-width: 520px) {
+    flex-direction: column;
+  }
+}

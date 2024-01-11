@@ -88,9 +88,42 @@ function isQuotaExceededError(e: object): boolean {
       e.name === 'NS_ERROR_DOM_QUOTA_REACHED'); // Firefox
 }
 
+/**
+ * Infer the MIME type of a file based on its extension.
+ * Supported types: image/jpeg, image/png
+ * @param filename The filename to infer the type of.
+ * @returns The MIME type of the file or null if unknown.
+ */
+function inferImageMimeType(filename: string): string {
+  const ext = filename.split('.').pop().toLowerCase();
+  switch (ext) {
+    case 'jpg':
+    case 'jpeg':
+      return 'image/jpeg';
+    case 'png':
+      return 'image/png';
+    default:
+      return null;
+  }
+}
+
+/**
+ * Removes the _id property from an object.
+ * @param obj The object to remove the _id property from.
+ * @returns The object without the _id property.
+ */
+function omitId<T extends {_id?: IDBValidKey}>(obj: T): Omit<T, '_id'> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {_id, ...rest} = obj;
+
+  return rest;
+}
+
 
 export {
   parseID,
   persistStorage,
   isQuotaExceededError,
+  inferImageMimeType,
+  omitId,
 };
