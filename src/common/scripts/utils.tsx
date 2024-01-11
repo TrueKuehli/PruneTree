@@ -76,7 +76,8 @@ function persistStorage() {
 
 
 /**
- *
+ * Checks if an error is a QuotaExceededError.
+ * @param e The error to check.
  */
 function isQuotaExceededError(e: object): boolean {
   return e instanceof DOMException &&
