@@ -200,6 +200,7 @@ export default function TreeDetails() {
     const jsonEntry = entries.find((entry) => entry.filename === 'bundle.json');
     if (!jsonEntry) {
       toast.error('Backup ZIP archive is missing tree.json file', {autoClose: false});
+      setLoading(false);
       return;
     }
 
