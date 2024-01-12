@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.5.0](https://github.com/TrueKuehli/PruneTree/compare/v1.4.0...v1.5.0) (2024-01-12)
+
+
+### Features
+
+* **download:** Added the ability to download a tree as a zip archive to create backups ([8d0bce9](https://github.com/TrueKuehli/PruneTree/commit/8d0bce93fb65c63943d67c31fe8eed73f9fcc3e9))
+* **support:** Added a support page including an FAQ and contact information ([dc06696](https://github.com/TrueKuehli/PruneTree/commit/dc06696c7b66fef926144d98be18766f7d29730f))
+
+
+### Bug Fixes
+
+* **database:** Tree nodes no longer include all person data ([a17b368](https://github.com/TrueKuehli/PruneTree/commit/a17b368ec455150de724a398e0f9835d8ab407a1))
+* **download:** Tree backup filename is now determined from tree title ([763e5d8](https://github.com/TrueKuehli/PruneTree/commit/763e5d8c2b7d8c31e567cdd3f35843ecf1ea3be8))
+* **router:** Moving directly from a TreeDetails page to the "Create a Tree" page now refreshes the component ([2e31efd](https://github.com/TrueKuehli/PruneTree/commit/2e31efdfdd8c6b72d41f8c6482228de4ce1144ce))
+
+
+### Performance Improvements
+
+* **database:** The database no longer queries the entire image database when deleting a tree ([dae12fe](https://github.com/TrueKuehli/PruneTree/commit/dae12fe930e3d4b585e64539d9c370402024266d))
+
 ## [1.4.0](https://github.com/TrueKuehli/PruneTree/compare/v1.3.0...v1.4.0) (2023-12-29)
 
 
