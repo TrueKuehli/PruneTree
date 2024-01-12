@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/TrueKuehli/PruneTree/compare/v1.5.0...v1.5.1) (2024-01-12)
+
+
+### Bug Fixes
+
+* **import:** The import page no longer gets stuck on the loading screen when selecting an invalid backup zip file ([3f1b141](https://github.com/TrueKuehli/PruneTree/commit/3f1b141a14149e699e7014155bc97a0046c5f100))
+
 ## [1.5.0](https://github.com/TrueKuehli/PruneTree/compare/v1.4.0...v1.5.0) (2024-01-12)
 
 
