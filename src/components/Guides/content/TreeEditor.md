@@ -19,6 +19,12 @@ certain everything is saved. A success message will appear to confirm the save.
 If you no longer want a tree you can delete it. You'll be asked to confirm if you want to delete a tree in case you 
 click this option accidentally.
 
+### Actions - Download Tree
+
+You can download a tree as a zip file to create a backup. This will contain all the data for the tree including all 
+the Sims and images you've added to it. For more information, see the guide on
+[Downloading Your Tree](/guides/download-and-backup).
+
 ### Edit - Tree Details
 
 Under **Edit** you can update the tree details you entered when you first created your tree.
@@ -56,7 +62,7 @@ Think of a **Node** as a point in a tree where you'll add a Sim and their partne
 
 **Nodes** below this one signify the children of the Sim and their partner(s) above.
 
-Each **Nodes** has two buttons. The one to the left showing the wrench lets you add details to the **Node** such as the 
+Each **Node** has two buttons. The one to the left showing the wrench lets you add details to the **Node** such as the 
 Sim, their partners, and details about how the sim of the **Node** was conceived by their parents (i.e. were they 
 adopted, cloned, or the result of an alien abduction 👽).
 

@@ -5,7 +5,7 @@ In this guide you can find out how to create your first tree or remind yourself 
 ## Go To Create a New Tree View
 
 You can get to the create tree view by opening the side navigation, Scroll to the **Your Trees** header and 
-**Create New** will always be at the top of this list.
+**Create New** will always be at the top of this list. This page is also where you can import your backups.
 
 ::mobile-mock[Demonstration of how to create a tree]{#createTree}
 

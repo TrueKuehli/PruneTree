@@ -101,8 +101,8 @@ module.exports = {
         ]
       },
       {
-        test: /\.(ttf|eot|png|jpe?g|gif|svg|woff?2)$/i,
-        type: 'asset'
+        test: /\.(ttf|eot|png|jpe?g|gif|webp|mp4|svg|woff?2)$/i,
+        type: 'asset/resource'
       },
       {
         test: /\.md$/,

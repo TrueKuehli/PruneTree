@@ -1,12 +1,14 @@
 import React from 'react';
 
+import {Asset} from '../assets';
+
 import styles from './styles.scss';
 import phone from './phone-mock.svg';
 
 
 type Props = {
-  display: string;
-  alt?: string;
+  display: Asset;
+  alt: string;
 };
 
 
@@ -19,7 +21,18 @@ export default function MobileMock({display, alt}: Props) {
   return (
     <div className={styles.root}>
       <img src={phone} aria-hidden={true} alt='Mock phone frame' width='200' />
-      <img src={display} alt={alt || 'Usage demonstration on a mobile phone'} className={styles.display} />
+
+      {
+        display.mp4 ?
+          <video src={display.mp4} autoPlay={true} loop={true} muted={true} className={styles.display}
+                 aria-description={alt} width={170}/> :
+
+          display.jpg &&
+          <picture>
+            {display.webp && <source srcSet={display.webp} type="image/webp"/>}
+            <img alt={alt} src={display.jpg} className={styles.display} width={170}/>
+          </picture>
+      }
     </div>
   );
 }
