@@ -521,6 +521,7 @@ export default {
     const newImages = await Promise.all(images.map(async (image) => ({
       oldId: image._id as number,
       newElement: await insertIntoDatabase('images', {
+        ...DEFAULTS.IMAGE,
         ...omitId(image),
       }),
     })));
@@ -533,6 +534,7 @@ export default {
     const newPeople = await Promise.all(people.map(async (person) => ({
       oldId: person._id as number,
       newElement: await insertIntoDatabase('people', {
+        ...DEFAULTS.PERSON,
         ...omitId(person),
         treeId: newTree._id as number,
         avatar: person.avatar !== null ? imageIdMap[person.avatar] : null,
@@ -551,18 +553,18 @@ export default {
     const nodesToUpdate = [tree.data];
     while (nodesToUpdate.length > 0) {
       const node = nodesToUpdate.pop();
-      node.parents = node.parents.map((parent) => ({
+      node.parents = node.parents?.map((parent) => ({
         _id: peopleIdMap[parent._id as number],
-      }));
-      node.adoptiveParents = node.adoptiveParents.map((parent) => ({
+      })) || [];
+      node.adoptiveParents = node.adoptiveParents?.map((parent) => ({
         _id: peopleIdMap[parent._id as number],
-      }));
-      node.partners = node.partners.map((partnerData) => ({
+      })) || [];
+      node.partners = node.partners?.map((partnerData) => ({
         ...partnerData,
-        people: partnerData.people.map((partner) => ({
+        people: partnerData.people?.map((partner) => ({
           _id: peopleIdMap[partner._id as number],
-        })),
-      }));
+        })) || [],
+      })) || [];
       node.person = {
         _id: !node.person?._id ? null : peopleIdMap[node.person._id as number],
       };
