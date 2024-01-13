@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.2](https://github.com/TrueKuehli/PruneTree/compare/v1.5.1...v1.5.2) (2024-01-13)
+
+
+### Bug Fixes
+
+* **navigation:** Fixed version link not closing the sidebar ([1667a89](https://github.com/TrueKuehli/PruneTree/commit/1667a8903fcf356484fee232af6f0e39fc9a7aec))
+* **storage-estimate:** In some cases, Safari seems to try to call the (undefined) navigator?.storage?.estimate() function, causing pages containing the image manager to not render ([2271425](https://github.com/TrueKuehli/PruneTree/commit/227142584c64b4ac180adcb683332dc90d0a8794))
+
 ## [1.5.1](https://github.com/TrueKuehli/PruneTree/compare/v1.5.0...v1.5.1) (2024-01-12)
 
 
