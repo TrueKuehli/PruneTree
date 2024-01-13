@@ -68,7 +68,7 @@ export default function SideNav({onItemClick}: Props) {
       }
 
       <div className={styles.navFooter}>
-        Version <Link to={'/Version'}>{PACKAGE_VERSION}</Link> (
+        Version <Link to={'/Version'} onClick={onItemClick}>{PACKAGE_VERSION}</Link> (
           <Link to={commitUrl} target='_blank' rel='noopener noreferrer'>{shortCommitHash}</Link>
         )
       </div>
