@@ -63,6 +63,8 @@ export default function ImageManager({imagePreview, onImageChange, image, aspect
   const [storageUsage, setStorageUsage] = useState<number>(null);
 
   useEffect(() => {
+    if (!(navigator?.storage?.estimate)) return;
+
     const estimatePromise = navigator?.storage?.estimate();
     if (estimatePromise) {
       estimatePromise.then((estimate) => {
