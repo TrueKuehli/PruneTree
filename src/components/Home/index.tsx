@@ -26,11 +26,12 @@ export default function Home() {
             project.
           </p>
           <p>Welcome to the Prune Tree app!</p>
-          <p>Create dynamic family trees for your sims legacies.</p>
+          <p>Create dynamic family trees for your Sims legacies.</p>
           <p>
             A <Link to='https://en.wikipedia.org/wiki/Fork_(software_development)'>fork</Link> of
-            the <Link to='https://gitlab.com/plum-tree'>Plum Tree</Link> app, based on the original source code and
-            available on <Link to='https://github.com/TrueKuehli/PruneTree'>GitHub</Link>.
+            the <Link to='https://gitlab.com/plum-tree' target='_blank' rel='noopener noreferrer'>Plum Tree</Link> app,
+            based on the original source code and hosted
+            on <Link to='https://github.com/TrueKuehli/PruneTree' target='_blank' rel='noopener noreferrer'>GitHub</Link>.
           </p>
           <p>
             This fork was created after the shutdown of the website hosting the original app. The goal of this fork
@@ -38,8 +39,12 @@ export default function Home() {
             yet does not require a server for storing and managing trees.
           </p>
           <p>
-            As a consequence of now storing trees locally, there currently is no way to share trees with other people.
-            This will be somewhat improved by better download options in a future version.
+            As a consequence of now storing trees locally, there currently is no easy way to share trees with other
+            people. Feel free to chime in on the ongoing discussions about adding better ways
+            to <Link to='https://github.com/TrueKuehli/PruneTree/issues/8'
+                     target='_blank' rel='noopener noreferrer'>download your trees</Link> and
+            to <Link to='https://github.com/TrueKuehli/PruneTree/issues/37'
+                     target='_blank' rel='noopener noreferrer'>share them with others</Link>.
           </p>
           <p>
             If you have any feedback or suggestions, feel free to use
@@ -55,7 +60,7 @@ export default function Home() {
             </picture>
             <p>
               Crafted with Sims in mind we allow to set traits, aspirations and
-              other Sims specific details to really help convey your sims colourful
+              other Sims specific details to really help convey your Sims' colourful
               lives.
             </p>
           </div>
@@ -66,7 +71,7 @@ export default function Home() {
             </picture>
             <p>
               Built to be simple yet flexible so you can easily build and share
-              your sims legacy.
+              your Sims legacy.
             </p>
           </div>
           <div className='col-12 col-md-4'>
@@ -74,7 +79,10 @@ export default function Home() {
               <source srcSet={liferingWebp} type='image/webp'/>
               <img src={lifering} className={styles.featureImage} width='100' alt='Lifering'/>
             </picture>
-            <p>Need help or have a question? Check out <Link to='/guides'>our guides</Link>.</p>
+            <p>
+              Need help or have a question? Check out <Link to='/guides'>our guides</Link> or the FAQ on
+              the <Link to='/support'>Support</Link> page.
+            </p>
           </div>
         </div>
 
