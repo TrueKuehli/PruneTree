@@ -2,9 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import styles from './styles.scss';
-import plumbob from './plumbob.png';
-import thumbsup from './thumbsup.png';
-import lifering from './lifering.png';
+import plumbob from './images/compressed/plumbob.png';
+import thumbsup from './images/compressed/thumbsup.png';
+import lifering from './images/compressed/lifering.png';
+import plumbobWebp from './images/webp/plumbob.webp';
+import thumbsupWebp from './images/webp/thumbsup.webp';
+import liferingWebp from './images/webp/lifering.webp';
 
 
 /**
@@ -46,7 +49,10 @@ export default function Home() {
 
         <div className='row'>
           <div className='col-12 col-md-4'>
-            <img src={plumbob} className={styles.featureImage} width='100' alt='Plumbob'/>
+            <picture>
+              <source srcSet={plumbobWebp} type='image/webp'/>
+              <img src={plumbob} className={styles.featureImage} width='100' alt='Plumbob'/>
+            </picture>
             <p>
               Crafted with Sims in mind we allow to set traits, aspirations and
               other Sims specific details to really help convey your sims colourful
@@ -54,14 +60,20 @@ export default function Home() {
             </p>
           </div>
           <div className='col-12 col-md-4'>
-            <img src={thumbsup} className={styles.featureImage} width='100' alt='Thumbs Up'/>
+            <picture>
+              <source srcSet={thumbsupWebp} type='image/webp'/>
+              <img src={thumbsup} className={styles.featureImage} width='100' alt='Thumbs Up'/>
+            </picture>
             <p>
               Built to be simple yet flexible so you can easily build and share
               your sims legacy.
             </p>
           </div>
           <div className='col-12 col-md-4'>
-            <img src={lifering} className={styles.featureImage} width='100' alt='Lifering'/>
+            <picture>
+              <source srcSet={liferingWebp} type='image/webp'/>
+              <img src={lifering} className={styles.featureImage} width='100' alt='Lifering'/>
+            </picture>
             <p>Need help or have a question? Check out <Link to='/guides'>our guides</Link>.</p>
           </div>
         </div>

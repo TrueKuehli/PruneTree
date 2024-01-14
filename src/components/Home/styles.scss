@@ -9,10 +9,21 @@
   margin-top: -20px;
 }
 
+
 .home-banner-image {
-  background: url("./tree.png") center center no-repeat;
-  background-size: cover;
   height: 250px;
+
+  background: url("./images/compressed/tree.jpg") center center no-repeat;
+
+  // noinspection CssInvalidFunction type() is incorrectly marked as invalid
+  @supports (background-image: image-set("foo.png" type("image/png"))) {
+    background-image: image-set(
+        "./images/webp/tree.webp" type("image/webp"),
+        "./images/compressed/tree.jpg" type("image/jpeg")
+    );
+  }
+
+  background-size: cover;
 }
 
 .home-banner-mask {
@@ -41,12 +52,19 @@
 
 .guides-image {
   display: block;
+  height: 200px;
   box-shadow: 0 0 10px rgb(0 0 0 / 50%);
   border: 7px solid #fff;
+  background: url("./images/compressed/read.jpg") 50%;
   background-size: cover;
-  background-position: 50%;
-  height: 200px;
-  background-image: url("./read.jpg");
+
+  // noinspection CssInvalidFunction type() is incorrectly marked as invalid
+  @supports (background-image: image-set("foo.png" type("image/png"))) {
+    background-image: image-set(
+        "./images/webp/read.webp" type("image/webp"),
+        "./images/compressed/read.jpg" type("image/jpeg")
+    );
+  }
 }
 
 .guide-video {
