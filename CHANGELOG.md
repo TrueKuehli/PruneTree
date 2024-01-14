@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/TrueKuehli/PruneTree/compare/v1.5.2...v1.6.0) (2024-01-14)
+
+
+### Features
+
+* **import:** The import feature now supports the original Plum Tree download format. Please report any issues to https://github.com/TrueKuehli/PruneTree/issues/new/choose ([5f39536](https://github.com/TrueKuehli/PruneTree/commit/5f395361f794ce8bf232201ba55ca19029254f3e))
+
+
+### Bug Fixes
+
+* **import:** Missing attributes are now replace with defaults if missing in a backup ([c27dbf7](https://github.com/TrueKuehli/PruneTree/commit/c27dbf7de4f16d9b5fefed4faa6cde21514aed23))
+
 ## [1.5.2](https://github.com/TrueKuehli/PruneTree/compare/v1.5.1...v1.5.2) (2024-01-13)
 
 
