@@ -569,7 +569,7 @@ export default {
         _id: !node.person?._id ? null : peopleIdMap[node.person._id as number],
       };
 
-      nodesToUpdate.push(...node.children);
+      if (node.children) nodesToUpdate.push(...node.children);
     }
 
     // Update tree in database

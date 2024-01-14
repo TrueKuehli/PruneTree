@@ -90,18 +90,49 @@ function isQuotaExceededError(e: object): boolean {
 
 /**
  * Infer the MIME type of a file based on its extension.
- * Supported types: image/jpeg, image/png
+ * Supported types:
+ *   * image/apng
+ *   * image/avif
+ *   * image/bmp
+ *   * image/gif
+ *   * image/x-icon
+ *   * image/jpeg
+ *   * image/png
+ *   * image/tiff
+ *   * image/svg+xml
+ *   * image/webp
  * @param filename The filename to infer the type of.
- * @returns The MIME type of the file or null if unknown.
+ * @returns The MIME type of the file or null if not a supported image type.
  */
 function inferImageMimeType(filename: string): string {
   const ext = filename.split('.').pop().toLowerCase();
   switch (ext) {
+    case 'apng':
+      return 'image/apng';
+    case 'avif':
+      return 'image/avif';
+    case 'bmp':
+      return 'image/bmp';
+    case 'gif':
+      return 'image/gif';
+    case 'ico':
+    case 'cur':
+      return 'image/x-icon';
     case 'jpg':
     case 'jpeg':
+    case 'jfif':
+    case 'pjpeg':
+    case 'pjp':
       return 'image/jpeg';
     case 'png':
       return 'image/png';
+    case 'tif':
+    case 'tiff':
+      return 'image/tiff';
+    case 'svg':
+      return 'image/svg+xml';
+    case 'webp':
+      return 'image/webp';
     default:
       return null;
   }

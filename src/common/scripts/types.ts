@@ -31,7 +31,7 @@ type PersonReference = {
 
 type Person = {
   _id?: IDBValidKey,
-  treeId: number,
+  treeId: IDBValidKey,
 
   firstName: string,
   lastName: string,

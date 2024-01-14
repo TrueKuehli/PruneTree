@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import * as zip from '@zip.js/zip.js';
 
-import database from '../../../common/scripts/database';
+import {exportBackup} from '../../../common/scripts/exchange';
 
 
 /**
@@ -17,51 +16,16 @@ export default function TreeDownload() {
   /**
    * Compress and download the tree as a zip file.
    */
-  function downloadTree() {
+  async function downloadTree() {
     setDownloading(true);
 
-    // Get full tree data
-    database.getTreeBundled(treeId)
-      .then(async (bundle) => {
-        const zipFileWriter = new zip.BlobWriter();
-        const zipWriter = new zip.ZipWriter(zipFileWriter);
+    try {
+      await exportBackup(treeId);
+    } catch (e) {
+      toast.error(`An error occurred while preparing your download: ${e.message}`, {autoClose: false});
+    }
 
-        // Add tree data, this ignores any file blobs!
-        await zipWriter.add('bundle.json', new zip.TextReader(JSON.stringify(bundle)));
-
-        // Add all blobs
-        const promises = [];
-        bundle.images.forEach((image) => {
-          const name = image.cropped.type == 'image/png' ? `${image._id}.png` :
-            (image.cropped.type == 'image/jpeg' ? `${image._id}.jpg` : `${image._id}`);
-
-          promises.push(zipWriter.add(`original/${name}`, new zip.BlobReader(image.original)));
-          promises.push(zipWriter.add(`cropped/${name}`, new zip.BlobReader(image.cropped)));
-        });
-
-        // Wait for all blobs to be added
-        await Promise.all(promises);
-
-        // Close the zip
-        const zipFileBlob = await zipWriter.close();
-
-        const filename = (bundle.tree.title || 'Untitled Tree')
-          .slice(0, 32)
-          .replace(/[^a-z0-9\-_]+/gi, '_')
-          .toLowerCase() + '.zip';
-
-        // Create "a" HTML element with href to file & click
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(zipFileBlob);
-        link.setAttribute('download', filename);
-        document.body.appendChild(link);
-        link.click();
-
-        // Clean up "a" element & remove ObjectURL
-        document.body.removeChild(link);
-        toast.success('Download started');
-        setDownloading(false);
-      });
+    setDownloading(false);
   }
 
   return (

@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Link, useBeforeUnload, useNavigate, useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import * as zip from '@zip.js/zip.js';
 
-import {BundledTree, Tree} from '../../../common/scripts/types';
+import {Tree} from '../../../common/scripts/types';
 import database from '../../../common/scripts/database';
-import {inferImageMimeType, parseID} from '../../../common/scripts/utils';
+import {parseID} from '../../../common/scripts/utils';
+import {importBackup} from '../../../common/scripts/exchange';
 import {getImageUri, ImageURL} from '../../../common/scripts/dataUrl';
 import {useAppDispatch} from '../../../redux/hooks';
 import {addTree, updateTree} from '../../../redux/treeReducer';
@@ -14,7 +14,6 @@ import RichEditor from '../../RichEditor';
 import ImageManager from '../ImageManager';
 
 import styles from './styles.scss';
-import tragicClown from '../../../common/images/tragic-clown.jpg';
 
 
 /**
@@ -182,69 +181,25 @@ export default function TreeDetails() {
 
     // Read ZIP file
     const file = backupFileRef.current.files[0];
-
-    const {type} = file;
-    const acceptedFileTypes = ['application/zip'];
-
-    if (!acceptedFileTypes.includes(type)) {
-      toast.warn('File must be a Backup ZIP archive.');
-      return;
-    }
-
-    const reader = new zip.BlobReader(file);
-    const jsonWriter = new zip.TextWriter();
-
-    const zipReader = new zip.ZipReader(reader);
-    const entries = await zipReader.getEntries();
-
-    const jsonEntry = entries.find((entry) => entry.filename === 'bundle.json');
-    if (!jsonEntry) {
-      toast.error('Backup ZIP archive is missing bundle.json file', {autoClose: false});
+    let readTree: Tree;
+    try {
+      readTree = await importBackup(file);
+    } catch (e) {
+      toast.error(e?.message || 'An error occurred while importing your backup', {autoClose: false});
       setLoading(false);
       return;
     }
 
-    const jsonData = await jsonEntry.getData(jsonWriter);
-    const tree: BundledTree = JSON.parse(jsonData);
-
-    // Load all images from zip file and place them into the bundled tree structure
-    const imagePlaceholder = await (await fetch(tragicClown)).blob();
-    for (const image of tree.images) {
-      const originalEntry = entries.find((entry) => entry.filename.startsWith(`original/${image._id}`));
-      const croppedEntry = entries.find((entry) => entry.filename.startsWith(`cropped/${image._id}`));
-
-      let originalBlob: Blob;
-      const originalMimeType = inferImageMimeType(originalEntry.filename);
-      if (!originalEntry || !originalMimeType) {
-        toast.warn('Backup ZIP archive is missing some (valid) image files',
-          {autoClose: false, toastId: 'backup-missing-images'});
-        originalBlob = imagePlaceholder;
-      } else {
-        originalBlob = await originalEntry.getData(new zip.BlobWriter(originalMimeType));
-      }
-
-      let croppedBlob: Blob;
-      const croppedMimeType = inferImageMimeType(croppedEntry.filename);
-      if (!croppedEntry || !croppedMimeType) {
-        toast.warn('Backup ZIP archive is missing some (valid) image files',
-          {autoClose: false, toastId: 'backup-missing-images'});
-        croppedBlob = imagePlaceholder;
-      } else {
-        croppedBlob = await croppedEntry.getData(new zip.BlobWriter(croppedMimeType));
-      }
-
-      image.original = originalBlob;
-      image.cropped = croppedBlob;
+    if (!readTree) {
+      setLoading(false);
+      return;
     }
 
-    // Import the tree into the database
-    const updatedTree = await database.importBundledTree(tree);
-
     toast.success('Tree imported');
-    navigate(`/trees/${updatedTree._id}`);
+    navigate(`/trees/${readTree._id}`);
 
     // Update the side nav
-    dispatch(addTree(updatedTree));
+    dispatch(addTree(readTree));
 
     setLoading(false);
   }
