@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.1](https://github.com/TrueKuehli/PruneTree/compare/v1.6.0...v1.6.1) (2024-01-15)
+
+
+### Bug Fixes
+
+* **docs:** Updated Support page ([98a233b](https://github.com/TrueKuehli/PruneTree/commit/98a233ba026b30e3cbc32788922c40530a69cbbc))
+
+
+### Performance Improvements
+
+* **images:** Compressed images used on the Home page and added webp versions which are loaded if supported ([167fb23](https://github.com/TrueKuehli/PruneTree/commit/167fb2346845953d8e2c689935eae4d36f0759c5))
+
 ## [1.6.0](https://github.com/TrueKuehli/PruneTree/compare/v1.5.2...v1.6.0) (2024-01-14)
 
 
