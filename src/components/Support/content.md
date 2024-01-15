@@ -3,17 +3,16 @@
 ## FAQ
 
 How can I share the trees I create with the Prune Tree app?
-:   Currently, the best way to share trees is to take a screenshot of them. There are features planned to make this
-    much easier, so have a lookout on the [Version page](/version) for updates. If you want to add to the discussion on
-    that feature, you can also leave a comment on this [GitHub issue](https://github.com/TrueKuehli/PruneTree/issues/8).
+:   Currently, the best way to share trees is to take a screenshot of them. You can also use the Download feature and
+    send them the backup file! There are features planned to make this much easier, so have a lookout on the 
+    [Version page](/version) for updates. If you want to add to the discussion on that feature, you can also leave a 
+    comment on this [GitHub issue](https://github.com/TrueKuehli/PruneTree/issues/37).
 
-
-Can I import trees from the Plum tree app?
-:   No, there currently is no way to import trees from the Plum tree app. However, there are currently plans to add an
-    import feature for trees downloaded from the Plum tree app while it was still available. If you want to add to the
-    discussion, feel free to leave a comment on this [GitHub issue](https://github.com/TrueKuehli/PruneTree/issues/8).
-    If you have downloaded trees from the Plum tree app before, you can also provide them there to help with testing
-    the feature.
+Can I import trees from the Plum Tree app?
+:   Yes! Just press the **Import a Backup** button on the **Create Tree** page and select the `zip` file you downloaded
+    from the Plum Tree app. If this fails or your tree seems incomplete or broken, please open up a 
+    [GitHub issue](https://github.com/TrueKuehli/PruneTree/issues/new/choose) to report the problem. Please include the
+    `zip` file you tried to import in the issue, so I can quickly work on a fix!
 
 I made some trees with the Prune Tree app, but they're suddenly gone!
 :   The Prune Tree app currently stores all trees locally on your device. Some things to check are if you switched to
