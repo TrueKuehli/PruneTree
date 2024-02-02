@@ -8,11 +8,10 @@ module.exports = function (api) {
         useBuiltIns: 'entry',
         targets: {
           browsers: [
-            'edge >= 16',
-            'safari >= 9',
+            'edge >= 79',
+            'safari >= 10',
             'firefox >= 57',
-            'ie >= 11',
-            'ios >= 9',
+            'ios >= 10',
             'chrome >= 49'
           ]
         }
