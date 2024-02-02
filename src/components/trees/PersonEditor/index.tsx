@@ -267,13 +267,13 @@ export default function PersonEditor() {
 
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
-          <label>First Name</label>
+          <label htmlFor='first-name'>First Name</label>
           <input id='first-name' className='form-control' type='text' name='firstName' value={firstName}
                  onChange={(ev) => setFirstName(ev.target.value)} />
         </div>
 
         <div className='form-group'>
-          <label>Last Name</label>
+          <label htmlFor='last-name'>Last Name</label>
           <input id='last-name' className='form-control' type='text' name='lastName' value={lastName}
                  onChange={(ev) => setLastName(ev.target.value)} />
         </div>
@@ -281,8 +281,10 @@ export default function PersonEditor() {
         <RichEditor initialHtml={bio} onUpdate={setBio} />
 
         <div className='form-group'>
-          <label>Traits</label>
+          <label id='traits-label' htmlFor='traits-multiselect'>Traits</label>
           <PruneTreeMultiSelect
+            id='traits-multiselect'
+            ariaLabelledBy={'traits-label'}
             options={TRAITS}
             onValuesChange={(values: {label: string, value: string}[]) =>
               setTraits(values.map((v) => v.value as Trait))}
@@ -291,8 +293,10 @@ export default function PersonEditor() {
         </div>
 
         <div className='form-group'>
-          <label>Aspirations</label>
+          <label id='aspirations-label' htmlFor='aspirations-multiselect'>Aspirations</label>
           <PruneTreeMultiSelect
+            id='aspirations-multiselect'
+            ariaLabelledBy='aspirations-label'
             options={ASPIRATIONS}
             onValuesChange={(values: {label: string, value: string}[]) =>
               setAspirations(values.map((v) => v.value as Aspiration))}
@@ -301,8 +305,10 @@ export default function PersonEditor() {
         </div>
 
         <div className='form-group'>
-          <label>Life States</label>
+          <label id='life-states-label' htmlFor='life-states-multiselect'>Life States</label>
           <PruneTreeMultiSelect
+            id='life-states-multiselect'
+            ariaLabelledBy='life-states-label'
             options={LIFE_STATES}
             onValuesChange={(values: {label: string, value: string}[]) =>
               setLifeStates(values.map((v) => v.value as LifeState))}
@@ -311,8 +317,8 @@ export default function PersonEditor() {
         </div>
 
         <div className='form-group'>
-          <label>More (Custom)</label>
-          <button className='btn btn-primary' onClick={handleAddCustomRow}><i className='icon-plus' />
+          <label htmlFor='add-custom'>More (Custom)</label>
+          <button id='add-custom' className='btn btn-primary' onClick={handleAddCustomRow}><i className='icon-plus' />
             Add More Custom Info
           </button>
 
@@ -326,6 +332,7 @@ export default function PersonEditor() {
                   type='text'
                   placeholder='Title'
                   value={c.title}
+                  aria-label='Custom Info Title'
                   onChange={handleCustomFieldChange}
                 />
                 <input
@@ -335,11 +342,13 @@ export default function PersonEditor() {
                   type='text'
                   placeholder='Value'
                   value={c.value}
+                  aria-label='Custom Info Value'
                   onChange={handleCustomFieldChange}
                 />
                 <button
                   data-index={i}
                   className='btn btn-danger'
+                  aria-label='Remove Custom Info Row'
                   onClick={handleRemoveCustomRow}
                 ><i className='icon-trash' />
                 </button>
@@ -359,6 +368,8 @@ export default function PersonEditor() {
 
 
 type MultiSelectProps = {
+  id?: string,
+  ariaLabelledBy?: string,
   options: Readonly<string[]>,
   onValuesChange: (values: {label: string, value: string}[]) => void,
   defaultValues: Readonly<string[]>,
@@ -369,8 +380,10 @@ type MultiSelectProps = {
  * @param options The options to render.
  * @param onValuesChange The function to call when the values change.
  * @param defaultValues The default values to set.
+ * @param id The id of the dropdown.
+ * @param ariaLabelledBy The id of the label for the dropdown.
  */
-function PruneTreeMultiSelect({options, onValuesChange, defaultValues}: MultiSelectProps) {
+function PruneTreeMultiSelect({options, onValuesChange, defaultValues, id, ariaLabelledBy}: MultiSelectProps) {
   const optionObjects = options.map((value) => {
     return {label: value, value};
   });
@@ -383,6 +396,8 @@ function PruneTreeMultiSelect({options, onValuesChange, defaultValues}: MultiSel
       value={defaultValueObjects}
       onChange={onValuesChange}
       options={optionObjects}
+      id={id}
+      aria-labelledby={ariaLabelledBy}
       isMulti
       isSearchable
       styles={REACT_SELECT_CUSTOM_STYLES}

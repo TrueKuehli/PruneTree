@@ -264,8 +264,9 @@ export default function TreeDetails() {
 
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
-          <label>Title</label>
+          <label id='tree-title-label' htmlFor='tree-title-input'>Title</label>
           <input id='tree-title-input' className='form-control' type='text' name='title' value={title}
+                 aria-labelledby={'tree-title-label'}
                  onChange={(ev) => setTitle(ev.target.value)} />
         </div>
         <RichEditor initialHtml={description} onUpdate={setDescription} />

@@ -138,8 +138,10 @@ export default function Toolbar({tree, setPreviewMode: onPreviewModeChange, save
             label='Edit'
             items={EDIT_MENU_ITEMS}
           />
-          <input type='checkbox' checked={previewMode} onChange={handleTogglePreview} />
-          <label className={[styles.toolbarItem, 'checkbox'].join(' ')} onClick={handleTogglePreview}>
+          <input type='checkbox' checked={previewMode} onChange={handleTogglePreview}
+                 aria-labelledby='preview-mode-label'/>
+          <label className={[styles.toolbarItem, 'checkbox'].join(' ')} onClick={handleTogglePreview}
+                 id='preview-mode-label'>
             <span /> Preview
           </label>
         </div>

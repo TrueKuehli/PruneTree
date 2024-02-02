@@ -155,7 +155,7 @@ export default function RichEditor({initialHtml, onUpdate}: Props) {
 
   return (
     <div className='form-group'>
-      <label>Description</label>
+      <label id={'description-label'}>Description</label>
 
       <StylesToolbar
         editorState={editorState}
@@ -170,6 +170,7 @@ export default function RichEditor({initialHtml, onUpdate}: Props) {
           onChange={handleChange}
           onTab={handleTab}
           ref={editorRef}
+          ariaLabelledBy={'description-label'}
           spellCheck
         />
       </div>
@@ -202,8 +203,12 @@ function StyleButton({onToggle, style, active, icon}: StyleButtonProps) {
     onToggle(style);
   }
 
+  const ariaLabel = active ? `Disable ${style} text style` : `Enable ${style} text style`;
+
   return (
-    <span className={active ? 'btn btn-primary' : 'btn btn-default'} onMouseDown={handleToggle}>
+    <span className={active ? 'btn btn-primary' : 'btn btn-default'} onMouseDown={handleToggle}
+          role={'button'} tabIndex={0} aria-label={ariaLabel}
+    >
       <i className={`icon-${icon}`} />
     </span>
   );
