@@ -7,6 +7,14 @@
   background-image: url('../../../common/images/green-poly.jpg');
   background-size: cover;
   overflow: hidden;
+
+  // noinspection CssInvalidFunction type() is incorrectly marked as invalid
+  @supports (background-image: image-set("foo.png" type("image/png"))) {
+    background-image: image-set(
+        '../../../common/images/green-poly.webp' type("image/webp"),
+        '../../../common/images/green-poly.jpg' type("image/jpeg")
+    );
+  }
 }
 
 .link {
