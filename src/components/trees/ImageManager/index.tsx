@@ -1,8 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import ReactCrop, {PercentCrop, PixelCrop} from 'react-image-crop';
 import {toast} from 'react-toastify';
-import Image from 'image-js';
-import Compressor from 'compressorjs';
 
 import database from '../../../common/scripts/database';
 import {getImageUri, ImageURL, invalidateCropped} from '../../../common/scripts/dataUrl';
@@ -24,7 +22,9 @@ type Props = {
  * Compress an image file to reduce browser storage usage.
  * @param file The file to compress
  */
-function compressImage(file: File | Blob) {
+async function compressImage(file: File | Blob) {
+  const {default: Compressor} = await import('compressorjs');
+
   return new Promise<Blob>((resolve, reject) => {
     new Compressor(file, {
       quality: 0.80,
@@ -154,10 +154,11 @@ export default function ImageManager({imagePreview, onImageChange, image, aspect
    * Calculate the crop pixels and crop the image
    * @param e Click event from the crop image button
    */
-  function cropImage(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  async function cropImage(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-
     setCropping(true);
+
+    const {default: Image} = await import('image-js');
 
     Image.load(cropImageUri.url)
       .then((image) => {

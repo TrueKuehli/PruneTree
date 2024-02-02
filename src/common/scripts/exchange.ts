@@ -1,5 +1,5 @@
 import {toast} from 'react-toastify';
-import * as zip from '@zip.js/zip.js';
+import type * as zip from '@zip.js/zip.js';
 
 import {BundledTree, DEFAULTS, Image, Person, Tree} from './types';
 import {LEGACY_PARENT_TYPES} from './conceptionTypes';
@@ -16,6 +16,8 @@ import tragicClown from '../images/tragic-clown.jpg';
  * @param zipContent The entries of the backup ZIP archive
  */
 async function importPrune(bundle: zip.Entry, zipContent: zip.Entry[]) {
+  const zip = await import('@zip.js/zip.js');
+
   const jsonWriter = new zip.TextWriter();
   const jsonData = await bundle.getData(jsonWriter);
   const tree: BundledTree = JSON.parse(jsonData);
@@ -62,6 +64,8 @@ async function importPrune(bundle: zip.Entry, zipContent: zip.Entry[]) {
  * @param zipContent The entries of the backup ZIP archive
  */
 async function importPlum(treeEntry: zip.Entry, peopleEntry: zip.Entry, zipContent: zip.Entry[]) {
+  const zip = await import('@zip.js/zip.js');
+
   const treeJsonWriter = new zip.TextWriter();
   const treeJsonData = (await treeEntry.getData(treeJsonWriter))
     .replace('var tree=', '');
@@ -134,6 +138,10 @@ async function importBackup(bundle: File) {
     return null;
   }
 
+  const zip = await import('@zip.js/zip.js');
+  console.log(zip);
+
+
   const reader = new zip.BlobReader(bundle);
   const zipReader = new zip.ZipReader(reader);
   const zipEntries = await zipReader.getEntries();
@@ -165,6 +173,8 @@ async function importBackup(bundle: File) {
  */
 async function exportBackup(treeId: number | string) {
   const bundle = await database.getTreeBundled(treeId);
+
+  const zip = await import('@zip.js/zip.js');
 
   const zipFileWriter = new zip.BlobWriter();
   const zipWriter = new zip.ZipWriter(zipFileWriter);

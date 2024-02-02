@@ -76,6 +76,35 @@ function persistStorage() {
 
 
 /**
+ * Registers a service worker for the website.
+ */
+function registerServiceWorker() {
+  // Try to register service worker
+  if ('serviceWorker' in navigator) {
+    import('workbox-window').then(async ({Workbox}) => {
+      const wb = new Workbox('/service-worker.js');
+
+      // On update, notify the user that a new version is available
+      wb.addEventListener('installed', (event) => {
+        if (event.isUpdate) {
+          const currentPath = window.location.hash.substring(1);
+          toast.info(
+            <>
+              A new version of the app is available. <Link reloadDocument={true} to={currentPath}>
+                Refresh the page</Link> to update, or <Link reloadDocument={true} to={'/version'}>learn more</Link>.
+            </>,
+            {autoClose: false},
+          );
+        }
+      });
+
+      await wb.register();
+    });
+  }
+}
+
+
+/**
  * Checks if an error is a QuotaExceededError.
  * @param e The error to check.
  */
@@ -154,6 +183,7 @@ function omitId<T extends {_id?: IDBValidKey}>(obj: T): Omit<T, '_id'> {
 export {
   parseID,
   persistStorage,
+  registerServiceWorker,
   isQuotaExceededError,
   inferImageMimeType,
   omitId,

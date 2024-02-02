@@ -38,6 +38,10 @@
 
   &.alert-info, &.Toastify__toast--info { /* stylelint-disable-line selector-class-pattern */
     background-color: #3ea2ff;
+
+    a {
+      color: #142a39;
+    }
   }
 
   &.alert-success, &.Toastify__toast--success { /* stylelint-disable-line selector-class-pattern */

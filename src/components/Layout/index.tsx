@@ -16,7 +16,7 @@ import NotFound from '../NotFound';
 
 import styles from './styles.scss';
 import logo from '../../common/images/logo.png';
-import {persistStorage} from '../../common/scripts/utils';
+import {persistStorage, registerServiceWorker} from '../../common/scripts/utils';
 
 
 /**
@@ -27,6 +27,9 @@ export default function AppRoutes() {
 
   // Try to persist browser storage
   useEffect(persistStorage, []);
+
+  // Try to register service worker
+  useEffect(registerServiceWorker, []);
 
   return (
     <div className={styles.root}>

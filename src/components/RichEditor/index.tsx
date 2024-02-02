@@ -1,7 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {DraftHandleValue, Editor, EditorCommand, EditorState, RichUtils} from 'draft-js';
-import {stateToHTML} from 'draft-js-export-html';
-import {stateFromHTML} from 'draft-js-import-html';
+import type {DraftHandleValue, Editor, EditorCommand, EditorState} from 'draft-js';
 
 import Loading from '../Loading';
 
@@ -35,10 +33,32 @@ type Props = {
 export default function RichEditor({initialHtml, onUpdate}: Props) {
   const [loading, setLoading] = useState(true);
   const [editorState, setEditorState] = useState<EditorState>(null);
-
   const editorRef = useRef<Editor>(null);
 
+  // Dynamically import DraftJS
+  const [draftJS, setDraftJS] = useState<typeof import('draft-js')>(null);
+  const [draftJSExport, setDraftJSExport] = useState<typeof import('draft-js-export-html')>(null);
+  const [draftJSImport, setDraftJSImport] = useState<typeof import('draft-js-import-html')>(null);
+
   useEffect(() => {
+    Promise.all([
+      import('draft-js'),
+      import('draft-js-export-html'),
+      import('draft-js-import-html'),
+    ]).then(([draftJS, draftJSExport, draftJSImport]) => {
+      setDraftJS(draftJS);
+      setDraftJSExport(draftJSExport);
+      setDraftJSImport(draftJSImport);
+    });
+  }, []);
+
+  const {Editor, EditorState, RichUtils} = draftJS || {};
+  const {stateToHTML} = draftJSExport || {};
+  const {stateFromHTML} = draftJSImport || {};
+
+  useEffect(() => {
+    if (!EditorState || !stateFromHTML) return;
+
     let editorState: EditorState;
     if (initialHtml) {
       const contentState = stateFromHTML(initialHtml);
@@ -46,18 +66,24 @@ export default function RichEditor({initialHtml, onUpdate}: Props) {
     } else {
       editorState = EditorState.createEmpty();
     }
+
     setEditorState(editorState);
     setLoading(false);
-  }, []);
+  }, [EditorState, stateFromHTML]);
 
   useEffect(() => {
-    if (editorState) {
-      const content = editorState.getCurrentContent();
-      const html = stateToHTML(content);
+    if (!editorState) return;
 
-      onUpdate && onUpdate(html);
-    }
+    const content = editorState.getCurrentContent();
+    const html = stateToHTML(content);
+
+    onUpdate && onUpdate(html);
   }, [editorState]);
+
+  // Wait until all imports are loaded
+  if (!draftJS || !draftJSImport || !draftJSExport) {
+    return <Loading />;
+  }
 
   /**
    * Callback that updates the editor's state, which invokes the onUpdate callback in a dependent useEffect.
