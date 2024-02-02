@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0](https://github.com/TrueKuehli/PruneTree/compare/v1.6.1...v1.7.0) (2024-02-02)
+
+
+### Features
+
+* **offline:** Added offline support ([38d8228](https://github.com/TrueKuehli/PruneTree/commit/38d82289dc531b69c5918cb48812335d3d845f37))
+
+
+### Performance Improvements
+
+* **minification:** Scripts and styles are now minified to reduce their size ([38d8228](https://github.com/TrueKuehli/PruneTree/commit/38d82289dc531b69c5918cb48812335d3d845f37))
+
 ## [1.6.1](https://github.com/TrueKuehli/PruneTree/compare/v1.6.0...v1.6.1) (2024-01-15)
 
 
