@@ -79,6 +79,8 @@ function persistStorage() {
  * Registers a service worker for the website.
  */
 function registerServiceWorker() {
+  if (!IS_PRODUCTION) return;
+
   // Try to register service worker
   if ('serviceWorker' in navigator) {
     import('workbox-window').then(async ({Workbox}) => {

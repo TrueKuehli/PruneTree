@@ -159,6 +159,7 @@ module.exports = {
       GIT_REPO_URL: JSON.stringify(PACKAGE.repository.url),
       BUILD_DATE: JSON.stringify(new Date().toISOString()),
       CHANGELOG: JSON.stringify(CHANGELOG),
+      IS_PRODUCTION: isProduction,
     }),
     new FaviconsWebpackPlugin({
       logo: './src/common/images/favicon.png',
