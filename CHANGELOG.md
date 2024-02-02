@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.1](https://github.com/TrueKuehli/PruneTree/compare/v1.7.0...v1.7.1) (2024-02-02)
+
+
+### Bug Fixes
+
+* **guides:** Converted guide videos to yuv420 to fix videos being broken on some devices ([32d1042](https://github.com/TrueKuehli/PruneTree/commit/32d1042e7ec27516bf4054a00da70cea2ab1adbe))
+
 ## [1.7.0](https://github.com/TrueKuehli/PruneTree/compare/v1.6.1...v1.7.0) (2024-02-02)
 
 
