@@ -8,7 +8,7 @@ import lifering from './images/compressed/lifering.png';
 import plumbobWebp from './images/webp/plumbob.webp';
 import thumbsupWebp from './images/webp/thumbsup.webp';
 import liferingWebp from './images/webp/lifering.webp';
-
+import VideoPlayer from '../VideoPlayer';
 
 /**
  * The Home page component shown at the root of the app.
@@ -99,10 +99,7 @@ export default function Home() {
             <p>
               Since the guide was created for the Plum Tree app, some features shown in the video may be missing.
             </p>
-            <div className={styles.guideVideo}>
-              <iframe width='560' height='315' src='https://www.youtube.com/embed/QatRM3knISY'
-                      style={{border: 'none'}} allowFullScreen />
-            </div>
+            <VideoPlayer src='https://www.youtube.com/embed/QatRM3knISY' />
           </div>
         </div>
 
