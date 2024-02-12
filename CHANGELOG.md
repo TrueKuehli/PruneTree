@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.8.0](https://github.com/TrueKuehli/PruneTree/compare/v1.7.1...v1.8.0) (2024-02-12)
+
+
+### Features
+
+* **video-player:** Added a local storage entry that remembers users video player preference ([dc4d6fd](https://github.com/TrueKuehli/PruneTree/commit/dc4d6fd94ed85b0d4d1d9a0bfc9757a9d32cd4f4))
+* **video-player:** Added a placeholder for the player and the button that if clickd shows the player ([7d34a48](https://github.com/TrueKuehli/PruneTree/commit/7d34a481f8f4a703b7d928dc06819e603d29254a))
+* **video-player:** Moved the video player on the home page to a separate component ([0d6e628](https://github.com/TrueKuehli/PruneTree/commit/0d6e628bc05f720f405489b167ebd9f1814e918a))
+
+
+### Bug Fixes
+
+* **video-player:** Changed useLayoutEffect into useEffect and added a more descriptive text for the button ([d005f10](https://github.com/TrueKuehli/PruneTree/commit/d005f105795571a8a7ffd6f263cdb2c893cfc7cf))
+
+
+### Performance Improvements
+
+* **images:** Added webp version of green polygon background ([a4076ba](https://github.com/TrueKuehli/PruneTree/commit/a4076ba6560c1d4133c1d86dd917dbc2173fd703))
+
 ## [1.7.1](https://github.com/TrueKuehli/PruneTree/compare/v1.7.0...v1.7.1) (2024-02-02)
 
 
