@@ -1,3 +1,17 @@
-.guide-video {
-  text-align: center;
+.video-player-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.video-player {
+  border: none;
+  width: 560px;
+  height: 315px;
+}
+
+.video-player-placeholder {
+  background-color: #1C2128;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
