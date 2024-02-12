@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 
 import styles from "./styles.scss";
 
@@ -10,7 +9,15 @@ type Props = {
 export default function VideoPlayer({ src }: Props) {
   const [showVideo, setShowVideo] = useState(false);
 
-  const clickShowVideoBtn = () => {
+  useLayoutEffect(() => {
+    const videoPlayerAllowed = localStorage.getItem("allow-video-player")
+    if (videoPlayerAllowed === "true") {
+      allowVideoPlayer()
+    }
+  }, [])
+
+  const allowVideoPlayer = () => {
+    localStorage.setItem("allow-video-player", "true")
     setShowVideo(true)
   }
 
@@ -20,7 +27,7 @@ export default function VideoPlayer({ src }: Props) {
         <iframe src={src} className={styles.videoPlayer} allowFullScreen />
       ) : (
         <div className={`${styles.videoPlayer} ${styles.videoPlayerPlaceholder}`}> 
-          <button className='btn btn-primary' onClick={clickShowVideoBtn}>Show the video</button>
+          <button className='btn btn-primary' onClick={allowVideoPlayer}>Show the video</button>
         </div>
       )}
     </div>
