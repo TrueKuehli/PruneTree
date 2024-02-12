@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import styles from './styles.scss';
 
@@ -13,7 +13,7 @@ type Props = {
 export default function VideoPlayer({src}: Props) {
   const [showVideo, setShowVideo] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const videoPlayerAllowed = localStorage.getItem('allow-video-player');
     if (videoPlayerAllowed === 'true') {
       allowVideoPlayer();
@@ -31,7 +31,7 @@ export default function VideoPlayer({src}: Props) {
         <iframe src={src} className={styles.videoPlayer} allowFullScreen />
       ) : (
         <div className={`${styles.videoPlayer} ${styles.videoPlayerPlaceholder}`}>
-          <button className='btn btn-primary' onClick={allowVideoPlayer}>Show the video</button>
+          <button className='btn btn-primary' onClick={allowVideoPlayer}>Allow YouTube Player</button>
         </div>
       )}
     </div>
