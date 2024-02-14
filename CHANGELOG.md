@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.8.1](https://github.com/TrueKuehli/PruneTree/compare/v1.8.0...v1.8.1) (2024-02-14)
+
+
+### Bug Fixes
+
+* **aspirations:** Updated aspirations ([9d39ab4](https://github.com/TrueKuehli/PruneTree/commit/9d39ab46f7e7a30e2c2b89752e00d3dac1991b1a))
+* **lifeStates:** Updated life states ([9d39ab4](https://github.com/TrueKuehli/PruneTree/commit/9d39ab46f7e7a30e2c2b89752e00d3dac1991b1a))
+* **traits:** Updated traits ([9d39ab4](https://github.com/TrueKuehli/PruneTree/commit/9d39ab46f7e7a30e2c2b89752e00d3dac1991b1a))
+
 ## [1.8.0](https://github.com/TrueKuehli/PruneTree/compare/v1.7.1...v1.8.0) (2024-02-12)
 
 
