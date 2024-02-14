@@ -16,7 +16,9 @@
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production webpack",
     "predownload": "npm run clean",
-    "download": "NODE_ENV=production webpack --config webpack-download.config.js"
+    "download": "NODE_ENV=production webpack --config webpack-download.config.js",
+    "crawl:aspirations": "npx ts-node scripts/crawlAspirations.ts",
+    "crawl:traits": "npx ts-node scripts/crawlTraits.ts"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript"
@@ -32,6 +34,7 @@
     "@babel/runtime-corejs3": "^7.23.8",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@reduxjs/toolkit": "^2.0.1",
+    "@tsconfig/node21": "^21.0.1",
     "@types/chai": "^4.3.11",
     "@types/d3": "^7.4.3",
     "@types/draft-js": "^0.11.17",
@@ -44,8 +47,10 @@
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
     "@zip.js/zip.js": "^2.7.32",
+    "axios": "^1.6.7",
     "babel-loader": "^9.1.3",
     "chai": "^4.3.10",
+    "cheerio": "^1.0.0-rc.12",
     "compressorjs": "^1.2.1",
     "css-loader": "^6.9.0",
     "css-minimizer-webpack-plugin": "^5.0.1",
