@@ -84,6 +84,8 @@ automatically builds and deploys a new release of the app to GitHub pages. All r
 Many thanks to Tobias Gray for creating and maintaining the original [Plum Tree][plumtree] app, 
 and for making the source code available for anyone to use.
 
+## Contributors ✨
+List of all contributors can be found [here](CONTRIBUTORS.md)
 
 [prunetree]: https://prunetree.app
 [license-file]: LICENCE

@@ -1,0 +1,35 @@
+{
+  "projectName": "PruneTree",
+  "projectOwner": "TrueKuehli",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "CONTRIBUTORS.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "TrueKuehli",
+      "name": "Timon Scholz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13822861?v=4",
+      "profile": "https://github.com/TrueKuehli",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "jCabala",
+      "name": "jCabala",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79060739?v=4",
+      "profile": "https://github.com/jCabala",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": true
+}
