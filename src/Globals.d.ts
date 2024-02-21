@@ -36,4 +36,5 @@ declare const COMMIT_HASH: string;
 declare const BUILD_DATE: string;
 declare const GIT_REPO_URL: string;
 declare const CHANGELOG: string;
+declare const CONTRIBUTORS: string;
 declare const IS_PRODUCTION: boolean;

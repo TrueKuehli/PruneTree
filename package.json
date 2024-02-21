@@ -100,5 +100,8 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1",
     "workbox-webpack-plugin": "^7.0.0"
+  },
+  "dependencies": {
+    "rehype-raw": "^7.0.0"
   }
 }
