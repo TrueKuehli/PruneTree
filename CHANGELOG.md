@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.2](https://github.com/TrueKuehli/PruneTree/compare/v1.8.1...v1.8.2) (2024-02-23)
+
+
+### Bug Fixes
+
+* **mobile:** Fixed toolbar menu scrolling behavior on very short screens ([891509c](https://github.com/TrueKuehli/PruneTree/commit/891509c7c4cbf09ea8f1bc49ccdfd81ced51d0cd))
+
 ## [1.8.1](https://github.com/TrueKuehli/PruneTree/compare/v1.8.0...v1.8.1) (2024-02-14)
 
 
