@@ -1,6 +1,25 @@
 @use "../../../common/styles/vars";
 @use "../../../common/styles/palette";
 
+.root {
+  display: flex;
+  height: 100%;
+}
+
+.toolbar-root {
+  display: flex;
+
+  .toolbar-root-desktop {
+    width: 100vw;
+  }
+
+  .toolbar-root-mobile {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
+}
+
 .toolbar, .toolbar-mobile {
   display: flex;
   position: relative;
@@ -15,6 +34,7 @@
 
   &.toolbar-mobile {
     cursor: pointer;
+    margin-bottom: 0;
 
     &:hover {
       background: #f4f7f6;
@@ -145,6 +165,7 @@
   top: 0;
   width: initial;
   margin: 15px;
+  overflow-y: scroll;
 }
 
 .mobile-menu-heading {

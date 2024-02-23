@@ -123,9 +123,9 @@ export default function Toolbar({tree, setPreviewMode: onPreviewModeChange, save
   }];
 
   return (
-    <div>
+    <div className={styles.toolbarRoot}>
       {/* Desktop Menu */}
-      <div className='hidden-xs-down'>
+      <div className={['hidden-xs-down', styles.toolbarRootDesktop].join(' ')}>
         <div className={styles.toolbar}>
           <span className={styles.toolbarTitle}>Tree Editor</span>
           <ToolbarDropdown
@@ -147,7 +147,7 @@ export default function Toolbar({tree, setPreviewMode: onPreviewModeChange, save
         </div>
       </div>
       {/* Mobile Menu */}
-      <div className='hidden-sm-up'>
+      <div className={['hidden-sm-up', styles.toolbarRootMobile].join(' ')}>
         <div className={styles.toolbarMobile} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
           <span className={styles.toolbarTitle}>Tree Editor</span>
 
