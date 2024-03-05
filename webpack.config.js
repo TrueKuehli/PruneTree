@@ -1,10 +1,12 @@
 const webpack = require('webpack')
 const path = require('path')
+const fs = require('fs')
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 const PACKAGE = require('./package.json');
-const CHANGELOG = require('fs').readFileSync('./CHANGELOG.md').toString();
+const CHANGELOG = fs.readFileSync('./CHANGELOG.md').toString();
+const CONTRIBUTORS = fs.readFileSync('./CONTRIBUTORS.md').toString();
 
 // Minifying for production
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -159,6 +161,7 @@ module.exports = {
       GIT_REPO_URL: JSON.stringify(PACKAGE.repository.url),
       BUILD_DATE: JSON.stringify(new Date().toISOString()),
       CHANGELOG: JSON.stringify(CHANGELOG),
+      CONTRIBUTORS: JSON.stringify(CONTRIBUTORS),
       IS_PRODUCTION: isProduction,
     }),
     new FaviconsWebpackPlugin({
