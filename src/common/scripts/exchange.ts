@@ -131,7 +131,7 @@ async function importPlum(treeEntry: zip.Entry, peopleEntry: zip.Entry, zipConte
  */
 async function importBackup(bundle: File) {
   const {type} = bundle;
-  const acceptedFileTypes = ['application/zip'];
+  const acceptedFileTypes = ['application/zip', 'application/x-zip-compressed'];
 
   if (!acceptedFileTypes.includes(type)) {
     toast.warn('File must be a Backup ZIP archive.');
