@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.3](https://github.com/TrueKuehli/PruneTree/compare/v1.8.2...v1.8.3) (2024-03-28)
+
+
+### Bug Fixes
+
+* **import:** Modified accepted zip file type ([#53](https://github.com/TrueKuehli/PruneTree/issues/53)) ([55890c9](https://github.com/TrueKuehli/PruneTree/commit/55890c989b846adf3e862b88b1b3d0a18960cbe3))
+
 ## [1.8.2](https://github.com/TrueKuehli/PruneTree/compare/v1.8.1...v1.8.2) (2024-02-23)
 
 
