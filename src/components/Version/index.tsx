@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Markdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 import styles from './styles.scss';
 
@@ -42,6 +43,10 @@ export default function Version() {
 
     <div className={styles.changelogPanel}>
       <Markdown>{CHANGELOG}</Markdown>
+    </div>
+
+    <div className={styles.changelogPanel}>
+      <Markdown rehypePlugins={[rehypeRaw]}>{CONTRIBUTORS}</Markdown>
     </div>
     </>
 )
