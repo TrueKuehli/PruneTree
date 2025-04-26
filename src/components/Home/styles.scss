@@ -14,6 +14,7 @@
   height: 250px;
 
   background: url("./images/compressed/tree.jpg") center center no-repeat;
+  background-size: cover;
 
   // noinspection CssInvalidFunction type() is incorrectly marked as invalid
   @supports (background-image: image-set("foo.png" type("image/png"))) {
@@ -22,8 +23,6 @@
         "./images/compressed/tree.jpg" type("image/jpeg")
     );
   }
-
-  background-size: cover;
 }
 
 .home-banner-mask {

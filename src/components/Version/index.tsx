@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Markdown from 'react-markdown';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 /**

@@ -7,7 +7,7 @@ import {LifeState} from '../../../common/scripts/lifeStates';
 import {CONCEPTION_TYPES, ConceptionType} from '../../../common/scripts/conceptionTypes';
 import RawHTML from '../../RawHTML';
 
-import styles from '../Tree/styles.scss';
+import * as styles from '../Tree/styles.scss';
 import defaultAvatar from '../../../common/images/default-avatar.png';
 
 

@@ -6,7 +6,7 @@ import Person from './Person';
 import Partners from './Partners';
 import Parents from './Parents';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 type EditorView = 'person' | 'partners' | 'parents';

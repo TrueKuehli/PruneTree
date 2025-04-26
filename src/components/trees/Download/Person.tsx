@@ -11,7 +11,7 @@ import {
   DEFAULT_SMALL_AVATAR_PATTERN,
 } from '../Tree/constants';
 
-import styles from '../Tree/styles.scss';
+import * as styles from '../Tree/styles.scss';
 import {CONCEPTION_TYPES, ConceptionType} from '../../../common/scripts/conceptionTypes';
 
 

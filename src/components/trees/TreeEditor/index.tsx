@@ -9,7 +9,7 @@ import Tree from '../Tree';
 import NodeEdit from '../NodeEditor';
 import Toolbar from './Toolbar';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 /**

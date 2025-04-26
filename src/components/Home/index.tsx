@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import plumbob from './images/compressed/plumbob.png';
 import thumbsup from './images/compressed/thumbsup.png';
 import lifering from './images/compressed/lifering.png';

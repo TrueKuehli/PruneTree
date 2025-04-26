@@ -6,7 +6,7 @@ import database from '../../common/scripts/database';
 import {selectTrees, useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {loadUsersTree} from '../../redux/treeReducer';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import treeImg from '../../common/images/favicon.png';
 
 
@@ -60,7 +60,7 @@ export default function SideNav({onItemClick}: Props) {
           {trees.map((tree) => {
             const url = `/trees/${tree._id}`;
             return <li key={tree._id as number}><Link to={url} onClick={onItemClick}>
-              <img src={treeImg} className={styles.headerLogo} alt={'Tree Logo'}/>
+              <img src={treeImg} className={styles.treeLogo} alt={'Tree Logo'}/>
               {tree.title || 'Untitled Tree'}
             </Link></li>;
           })}

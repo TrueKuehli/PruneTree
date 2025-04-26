@@ -12,7 +12,7 @@ import {
 
 import {PartnerType} from '../../../common/scripts/partnerTypes';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 type Props = {

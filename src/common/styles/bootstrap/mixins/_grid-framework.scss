@@ -1,3 +1,10 @@
+@use "sass:map";
+
+@use "../variables" as *;
+@use "../mixins/breakpoints" as *;
+@use "../mixins/grid" as *;
+
+
 // Framework grid generation
 //
 // Used only by Bootstrap to generate the correct number of grid classes given
@@ -13,7 +20,7 @@
     @include make-gutters($gutters);
   }
 
-  @each $breakpoint in map-keys($breakpoints) {
+  @each $breakpoint in map.keys($breakpoints) {
     $infix: breakpoint-infix($breakpoint, $breakpoints);
 
     // Allow columns to stretch full width below their breakpoints

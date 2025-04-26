@@ -2,7 +2,7 @@ import React, {CSSProperties} from 'react';
 
 import RawHTML from '../../RawHTML';
 
-import styles from '../Tree/styles.scss';
+import * as styles from '../Tree/styles.scss';
 
 
 type Props = {

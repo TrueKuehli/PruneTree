@@ -48,9 +48,9 @@
     // Fallback to HSL if color-mix is not supported
     @supports not (background-color: color-mix(in oklab, $from-color, $to-color var(--percentage))) {
       background-color: hsl(
-          calc(sass-color.hue($from-color) * (1 - var(--percentage)) + sass-color.hue($to-color) * var(--percentage))
-          calc(sass-color.saturation($from-color) * (1 - var(--percentage)) + sass-color.saturation($to-color) * var(--percentage))
-          calc(sass-color.lightness($from-color) * (1 - var(--percentage)) + sass-color.lightness($to-color) * var(--percentage))
+          calc(sass-color.channel($from-color, "hue", $space: hsl) * (1 - var(--percentage)) + sass-color.channel($to-color, "hue", $space: hsl) * var(--percentage))
+          calc(sass-color.channel($from-color, "saturation", $space: hsl) * (1 - var(--percentage)) + sass-color.channel($to-color, "saturation", $space: hsl) * var(--percentage))
+          calc(sass-color.channel($from-color, "lightness", $space: hsl) * (1 - var(--percentage)) + sass-color.channel($to-color, "lightness", $space: hsl) * var(--percentage))
       )
     }
   }

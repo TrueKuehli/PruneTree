@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {getImageUri} from '../../../common/scripts/dataUrl';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import defaultAvatar from '../../../common/images/default-avatar.png';
 
 

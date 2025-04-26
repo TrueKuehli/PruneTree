@@ -13,7 +13,7 @@ import Loading from '../../Loading';
 import RichEditor from '../../RichEditor';
 import ImageManager from '../ImageManager';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 /**

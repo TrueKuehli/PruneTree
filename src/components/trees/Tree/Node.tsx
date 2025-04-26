@@ -14,7 +14,7 @@ import {
 import Partner from './Partner';
 import Person from './Person';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 type Props = {

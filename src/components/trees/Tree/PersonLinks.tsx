@@ -10,7 +10,7 @@ import {
   LINK_BUTTON_PATTERN,
 } from './constants';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 type Props = {

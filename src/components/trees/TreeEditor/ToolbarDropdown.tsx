@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 
 import {Link} from 'react-router-dom';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 type MenuItem = {

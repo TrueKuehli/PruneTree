@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
 import {HashRouter, Routes, Route} from 'react-router-dom';
-import {ToastContainer, toast} from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 import 'regenerator-runtime/runtime';
 
 import {store} from './redux/store';
@@ -20,7 +20,7 @@ root.render(
         <div>
           <ToastContainer
             autoClose={8000}
-            position={toast.POSITION.TOP_CENTER}
+            position={'top-center'}
             toastClassName='alert'
             theme='colored'
           />

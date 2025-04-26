@@ -6,7 +6,7 @@ import {getImageUri, ImageURL} from '../../../common/scripts/dataUrl';
 import RawHTML from '../../RawHTML';
 import ParentDetails from './ParentDetails';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import defaultAvatar from '../../../common/images/default-avatar.png';
 import {Trait} from '../../../common/scripts/traits';
 import {Aspiration} from '../../../common/scripts/aspirations';

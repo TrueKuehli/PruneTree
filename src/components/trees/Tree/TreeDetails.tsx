@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 import {getImageUri, ImageURL} from '../../../common/scripts/dataUrl';
 import RawHTML from '../../RawHTML';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 type Props = {

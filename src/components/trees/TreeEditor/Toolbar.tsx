@@ -6,7 +6,7 @@ import {Tree} from '../../../common/scripts/types';
 import database from '../../../common/scripts/database';
 import ToolbarDropdown from './ToolbarDropdown';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 type Props = {
@@ -151,7 +151,7 @@ export default function Toolbar({tree, setPreviewMode: onPreviewModeChange, save
         <div className={styles.toolbarMobile} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
           <span className={styles.toolbarTitle}>Tree Editor</span>
 
-          <div className={styles.menuButton}>
+          <div>
             <i className={burgerClassNames.join(' ')}>
               <div />
               <div />

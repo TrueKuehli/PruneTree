@@ -4,6 +4,19 @@
 // system, as well as the generated predefined classes (e.g., `.col-sm-4`).
 
 //
+// Variables
+//
+
+@use "variables";
+
+//
+// Grid mixins
+//
+
+@use "custom";
+@use "grid";
+
+//
 // Box sizing, responsive, and more
 //
 
@@ -21,23 +34,3 @@ html {
 *::after {
   box-sizing: inherit;
 }
-
-
-//
-// Variables
-//
-
-@import "variables";
-
-//
-// Grid mixins
-//
-
-@import "mixins/clearfix";
-@import "mixins/breakpoints";
-@import "mixins/grid-framework";
-@import "mixins/grid";
-
-@import "custom";
-
-@import "grid";

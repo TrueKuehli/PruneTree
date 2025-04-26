@@ -15,7 +15,7 @@ import {
 } from './constants';
 import PersonLinks from './PersonLinks';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 type Props = {

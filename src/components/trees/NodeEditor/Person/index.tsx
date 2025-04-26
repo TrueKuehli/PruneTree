@@ -5,7 +5,7 @@ import {Person as PersonType, TreePersonNode} from '../../../../common/scripts/t
 import {getImageUri, ImageURL} from '../../../../common/scripts/dataUrl';
 import PersonSelect from '../PersonSelect';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import defaultAvatar from '../../../../common/images/default-avatar.png';
 
 

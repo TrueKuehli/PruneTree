@@ -9,7 +9,7 @@ import {
   PARTNER_PADDING,
 } from './constants';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 type Props = {

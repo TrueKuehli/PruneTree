@@ -14,7 +14,7 @@ import Support from '../Support';
 import Version from '../Version';
 import NotFound from '../NotFound';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import logo from '../../common/images/logo.png';
 import {persistStorage, registerServiceWorker} from '../../common/scripts/utils';
 

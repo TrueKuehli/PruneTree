@@ -8,7 +8,7 @@ import database from '../../../common/scripts/database';
 import Loading from '../../Loading';
 import TreePerson from './TreePerson';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 
 /**

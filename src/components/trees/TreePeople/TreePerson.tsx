@@ -5,7 +5,7 @@ import {toast} from 'react-toastify';
 import {Person} from '../../../common/scripts/types';
 import {getImageUri, ImageURL} from '../../../common/scripts/dataUrl';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import defaultAvatar from '../../../common/images/default-avatar.png';
 
 

@@ -2,6 +2,11 @@
 //
 // Set the container width, and override it for fixed navbars in media queries.
 
+@use "./variables" as *;
+@use "./mixins/grid" as *;
+@use "./mixins/grid-framework" as *;
+
+
 @if $enable-grid-classes {
   .container {
     @include make-container();

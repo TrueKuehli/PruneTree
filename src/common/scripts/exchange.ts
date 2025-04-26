@@ -14,6 +14,7 @@ import tragicClown from '../images/tragic-clown.jpg';
  * Import a Prune Tree backup ZIP archive into the database
  * @param bundle The backup ZIP archive
  * @param zipContent The entries of the backup ZIP archive
+ * @returns A Promise that resolves to the imported tree, or rejects on import error
  */
 async function importPrune(bundle: zip.Entry, zipContent: zip.Entry[]) {
   const zip = await import('@zip.js/zip.js');
@@ -62,6 +63,7 @@ async function importPrune(bundle: zip.Entry, zipContent: zip.Entry[]) {
  * @param treeEntry The tree entry of the backup ZIP archive
  * @param peopleEntry The people entry of the backup ZIP archive
  * @param zipContent The entries of the backup ZIP archive
+ * @returns A Promise that resolves to the imported tree, or rejects on import error
  */
 async function importPlum(treeEntry: zip.Entry, peopleEntry: zip.Entry, zipContent: zip.Entry[]) {
   const zip = await import('@zip.js/zip.js');
@@ -128,6 +130,7 @@ async function importPlum(treeEntry: zip.Entry, peopleEntry: zip.Entry, zipConte
 /**
  * Import a backup ZIP archive into the database
  * @param bundle The backup ZIP archive; can be either in prune format or in original Plum Tree format
+ * @returns null on failure, or a Promise that resolves to the imported tree
  */
 async function importBackup(bundle: File) {
   const {type} = bundle;
@@ -139,8 +142,6 @@ async function importBackup(bundle: File) {
   }
 
   const zip = await import('@zip.js/zip.js');
-  console.log(zip);
-
 
   const reader = new zip.BlobReader(bundle);
   const zipReader = new zip.ZipReader(reader);

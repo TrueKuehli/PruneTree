@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 
 type Props = {
   src: string;

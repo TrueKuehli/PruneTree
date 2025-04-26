@@ -12,6 +12,7 @@ import {Image, Person, Tree, DEFAULTS, BundledTree} from './types';
 const DB_NAME = 'prunetree';
 const DB_VERSION = 2;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DB_STORE_NAMES = ['trees', 'people', 'images'] as const;
 type DB_STORE_TYPES = {
   'trees': Tree,
@@ -22,10 +23,10 @@ type DBStoreName = typeof DB_STORE_NAMES[number];
 
 
 /**
- * Creates the database, used as update handler for onupgradeneeded event
+ * Creates the database, only to be used as update handler for onupgradeneeded event
  * IMPORTANT: When breaking changes are introduced, they have to be handled here!
- * @private Only to be used for database onupgradeneeded event
  * @param event The event object passed by the event handler
+ * @private
  */
 function upgradeDatabase(event: IDBVersionChangeEvent): void {
   const db = (event.target as IDBOpenDBRequest).result;
@@ -174,7 +175,8 @@ function getAllFromDatabase<Store extends DBStoreName>(storeName: Store) {
 
 /**
  * Helper function to get all IDs from a specified database store without loading the actual data
- * @param storeName
+ * @param storeName The name of the store to get the IDs from
+ * @returns Promise that resolves with all IDs on success, rejects on database error
  */
 function getAllIdsFromDatabase<Store extends DBStoreName>(storeName: Store) {
   return performDatabaseRequest(
@@ -423,7 +425,7 @@ export default {
     if (person.avatar) {
       try {
         await deleteFromDatabase('images', person.avatar);
-      } catch (err) {
+      } catch {
         /* Ignore promise rejection, avatar most likely does not exist */
       }
     }
@@ -509,9 +511,10 @@ export default {
 
   /**
    * Imports a bundled tree into the database
-   * @param tree Tree data to import, typically passed as part of a BundledTree object
-   * @param people People data to import, typically passed as part of a BundledTree object
-   * @param images Image data to import, typically passed as part of a BundledTree object
+   * @param bundle The bundle of tree, people, and image data to import
+   * @param bundle.tree Tree data to import
+   * @param bundle.people People data to import
+   * @param bundle.images Image data to import
    * @returns Promise that resolves with the updated tree on success, rejects on database error
    */
   importBundledTree: async ({tree, people, images}: BundledTree) => {

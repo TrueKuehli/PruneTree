@@ -13,7 +13,7 @@ import CommonPatterns from './CommonPatterns';
 import PersonDetails from './PersonDetails';
 import TreeDetails from './TreeDetails';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import {HierarchyPointNode} from 'd3';
 
 

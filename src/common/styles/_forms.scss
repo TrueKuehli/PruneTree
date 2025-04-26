@@ -71,9 +71,8 @@ label {
   width: 100%;
   margin-bottom: 15px;
 
-  /* stylelint-disable-next-line no-descending-specificity */
   .form-group,
-  .form-control {
+  .form-control { /* stylelint-disable-line no-descending-specificity */
     flex-basis: 100%;
   }
 

@@ -14,7 +14,7 @@ import Loading from '../../Loading';
 import ImageManager from '../ImageManager';
 import RichEditor from '../../RichEditor';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import defaultAvatar from '../../../common/images/default-avatar.png';
 
 

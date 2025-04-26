@@ -9,6 +9,8 @@ type Assets = {
 };
 
 
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 export default {
   storagePersistence: {
     webp: require('./webp/storage-persistence.webp'),
@@ -59,6 +61,9 @@ export default {
     mp4: require('./mp4/add-link.mp4'),
   },
 } as Assets;
+
+/* eslint-enable @typescript-eslint/no-require-imports */
+
 
 export {
   Asset,

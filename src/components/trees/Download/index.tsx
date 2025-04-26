@@ -12,7 +12,7 @@ import CommonPatterns from '../Tree/CommonPatterns';
 import Edge from '../Tree/Edge';
 import PersonDetails from './PersonDetails';
 
-import styles from '../Tree/styles.scss';
+import * as styles from '../Tree/styles.scss';
 import {ConceptionType} from '../../../common/scripts/conceptionTypes';
 
 

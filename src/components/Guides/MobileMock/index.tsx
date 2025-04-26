@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Asset} from '../assets';
 
-import styles from './styles.scss';
+import * as styles from './styles.scss';
 import phone from './phone-mock.svg';
 
 

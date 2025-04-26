@@ -3,6 +3,11 @@
 // Copy settings from this file into the provided `_custom.scss` to override
 // the Bootstrap defaults without modifying key, versioned files.
 
+@use "sass:color";
+@use "sass:list";
+@use "sass:math";
+@use "sass:map";
+@use "sass:string";
 
 // Table of Contents
 //
@@ -41,15 +46,13 @@
 // Close
 // Code
 
-@use 'sass:math';
-
 @mixin _assert-ascending($map, $map-name) {
   $prev-key: null;
   $prev-num: null;
   @each $key, $num in $map {
     @if $prev-num == null {
       // Do nothing
-    } @else if not comparable($prev-num, $num) {
+    } @else if not math.compatible($prev-num, $num) {
       @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !";
     } @else if $prev-num >= $num {
       @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !";
@@ -65,19 +68,19 @@
 // @param {String} $search - Substring to replace
 // @param {String} $replace ('') - New value
 // @return {String} - Updated string
-@function str-replace($string, $search, $replace: "") {
-  $index: str-index($string, $search);
+@function str-replace($str, $search, $replace: "") {
+  $index: string.index($str, $search);
 
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    @return string.slice($str, 1, $index - 1) + $replace + str-replace(string.slice($str, $index + string.length($search)), $search, $replace);
   }
 
-  @return $string;
+  @return $str;
 }
 
 @mixin _assert-starts-at-zero($map) {
-  $values: map-values($map);
-  $first-value: nth($values, 1);
+  $values: map.values($map);
+  $first-value: list.nth($values, 1);
   @if $first-value != 0 {
     @warn "First breakpoint in `$grid-breakpoints` must start at 0, but starts at #{$first-value}.";
   }
@@ -195,7 +198,7 @@ $inverse-color: $gray-lighter !default;
 
 $link-color:            $brand-primary !default;
 $link-decoration:       none !default;
-$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      color.adjust($link-color, $lightness: -15%, $space: hsl) !default;
 $link-hover-decoration: underline !default;
 
 
@@ -431,7 +434,7 @@ $input-border-radius-lg:         $border-radius-lg !default;
 $input-border-radius-sm:         $border-radius-sm !default;
 
 $input-bg-focus:                 $input-bg !default;
-$input-border-focus:             lighten($brand-primary, 25%) !default;
+$input-border-focus:             color.adjust($brand-primary, $lightness: 25%, $space: hsl) !default;
 $input-box-shadow-focus:         $input-box-shadow, rgba($input-border-focus, .6) !default;
 $input-color-focus:              $input-color !default;
 
@@ -487,7 +490,7 @@ $custom-control-checked-indicator-box-shadow: none !default;
 $custom-control-focus-indicator-box-shadow: 0 0 0 1px $body-bg, 0 0 0 3px $brand-primary !default;
 
 $custom-control-active-indicator-color:      $white !default;
-$custom-control-active-indicator-bg:         lighten($brand-primary, 35%) !default;
+$custom-control-active-indicator-bg:         color.adjust($brand-primary, $lightness: 35%, $space: hsl) !default;
 $custom-control-active-indicator-box-shadow: none !default;
 
 $custom-checkbox-radius: $border-radius !default;
@@ -516,7 +519,7 @@ $custom-select-border-width:  $input-btn-border-width !default;
 $custom-select-border-color:  $input-border-color !default;
 $custom-select-border-radius: $border-radius !default;
 
-$custom-select-focus-border-color: lighten($brand-primary, 25%) !default;
+$custom-select-focus-border-color: color.adjust($brand-primary, $lightness: 25%, $space: hsl) !default;
 $custom-select-focus-box-shadow:   inset 0 1px 2px rgba($black, .075), 0 0 5px rgba($custom-select-focus-border-color, .5) !default;
 
 $custom-select-sm-padding-y:  .2rem !default;
@@ -572,7 +575,7 @@ $dropdown-divider-bg:            $gray-lighter !default;
 $dropdown-box-shadow:            0 .5rem 1rem rgba($black,.175) !default;
 
 $dropdown-link-color:            $gray-dark !default;
-$dropdown-link-hover-color:      darken($gray-dark, 5%) !default;
+$dropdown-link-hover-color:      color.adjust($gray-dark, $lightness: -5%, $space: hsl) !default;
 $dropdown-link-hover-bg:         $gray-lightest !default;
 
 $dropdown-link-active-color:     $component-active-color !default;
@@ -691,20 +694,20 @@ $jumbotron-bg:                   $gray-lighter !default;
 
 $state-success-text:             #3c763d !default;
 $state-success-bg:               #dff0d8 !default;
-$state-success-border:           darken($state-success-bg, 5%) !default;
+$state-success-border:           color.adjust($state-success-bg, $lightness: -5%, $space: hsl) !default;
 
 $state-info-text:                #31708f !default;
 $state-info-bg:                  #d9edf7 !default;
-$state-info-border:              darken($state-info-bg, 7%) !default;
+$state-info-border:              color.adjust($state-info-bg, $lightness: -7%, $space: hsl) !default;
 
 $state-warning-text:             #8a6d3b !default;
 $state-warning-bg:               #fcf8e3 !default;
 $mark-bg:                        $state-warning-bg !default;
-$state-warning-border:           darken($state-warning-bg, 5%) !default;
+$state-warning-border:           color.adjust($state-warning-bg, $lightness: -5%, $space: hsl) !default;
 
 $state-danger-text:              #a94442 !default;
 $state-danger-bg:                #f2dede !default;
-$state-danger-border:            darken($state-danger-bg, 5%) !default;
+$state-danger-border:            color.adjust($state-danger-bg, $lightness: -5%, $space: hsl) !default;
 
 
 // Cards
@@ -752,7 +755,7 @@ $popover-border-width:                $border-width !default;
 $popover-border-color:                rgba($black,.2) !default;
 $popover-box-shadow:                  0 5px 10px rgba($black,.2) !default;
 
-$popover-title-bg:                    darken($popover-bg, 3%) !default;
+$popover-title-bg:                    color.adjust($popover-bg, $lightness: -3%, $space: hsl) !default;
 $popover-title-padding-x:             14px !default;
 $popover-title-padding-y:             8px !default;
 
@@ -763,7 +766,7 @@ $popover-arrow-width:                 10px !default;
 $popover-arrow-color:                 $popover-bg !default;
 
 $popover-arrow-outer-width:           ($popover-arrow-width + 1px) !default;
-$popover-arrow-outer-color:           fade-in($popover-border-color, .05) !default;
+$popover-arrow-outer-color:           color.adjust($popover-border-color, $alpha: 0.05) !default;
 
 
 // Badges
@@ -873,7 +876,7 @@ $list-group-hover-bg:            $gray-lightest !default;
 $list-group-active-color:        $component-active-color !default;
 $list-group-active-bg:           $component-active-bg !default;
 $list-group-active-border:       $list-group-active-bg !default;
-$list-group-active-text-color:   lighten($list-group-active-bg, 50%) !default;
+$list-group-active-text-color:   color.adjust($list-group-active-bg, $lightness: 50%, $space: hsl) !default;
 
 $list-group-disabled-color:      $gray-light !default;
 $list-group-disabled-bg:         $list-group-bg !default;
