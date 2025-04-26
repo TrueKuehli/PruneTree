@@ -43,7 +43,7 @@ async function main()  {
   const sectionElements = section
       .find('td:nth-child(2)')  // Make sure we're not looking at the single column header
       .siblings('td:first-child')  // Select the aspiration column
-      .find('b');  // Select the bolded text (the aspiration names)
+      .find('> b');  // Select the bolded text (the aspiration names)
 
   // Collect aspiration names
   for (let element of sectionElements) {

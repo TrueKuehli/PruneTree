@@ -34,7 +34,7 @@ async function getSimsTraits() {
   // Select the relevant section of the page
   const section = $('h2:contains("Personality traits")')
     .nextUntil('h2:contains("Others")')
-    .filter('table');
+    .find('table');
 
   const sectionElements = section
     .find('td:nth-child(3)')  // Make sure we're looking at a complete table
@@ -79,7 +79,7 @@ async function getPetsTraits() {
   const sectionElements = section
     .find('td:nth-child(3)')  // Make sure we're looking at a complete table
     .siblings('td:nth-child(2)')  // Select the trait column
-    .contents().filter((_, el) => el.type === "text");
+    .contents();
 
   // Collect trait names
   for (let element of sectionElements) {
