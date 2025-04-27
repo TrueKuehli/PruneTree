@@ -15,8 +15,6 @@
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production webpack",
-    "predownload": "npm run clean",
-    "download": "NODE_ENV=production webpack --config webpack-download.config.js",
     "crawl:aspirations": "npx ts-node scripts/crawlAspirations.ts",
     "crawl:traits": "npx ts-node scripts/crawlTraits.ts"
   },
