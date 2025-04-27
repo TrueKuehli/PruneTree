@@ -4,18 +4,20 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 jobs:
   release-please:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
+      issues: write
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
       - name: Updating release pull request
-        uses: google-github-actions/release-please-action@v4
+        uses: googleapis/release-please-action@v4
         id: release
         with:
           release-type: node
@@ -43,7 +45,7 @@ jobs:
         run: gh release upload ${{ steps.release.outputs.tag_name }} ./dist.zip
       - name: Uploading to GitHub Pages
         if: ${{ steps.release.outputs.release_created }}
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
@@ -60,4 +62,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
