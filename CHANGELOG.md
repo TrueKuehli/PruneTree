@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/TrueKuehli/PruneTree/compare/v1.8.3...v1.9.0) (2025-04-27)
+
+
+### Features
+
+* **game-content:** Added new aspirations and traits ([33edebf](https://github.com/TrueKuehli/PruneTree/commit/33edebf65c11e75854db5cc8cc9709b18c9fa748))
+
 ## [1.8.3](https://github.com/TrueKuehli/PruneTree/compare/v1.8.2...v1.8.3) (2024-03-28)
 
 
